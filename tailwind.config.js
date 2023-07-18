@@ -1,4 +1,5 @@
 const { fontFamily } = require("tailwindcss/defaultTheme")
+// const { light } = require("./constants/theme")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -20,8 +21,8 @@ module.exports = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "hsl(216, 93%, 50%)",
+          foreground: "hsl(0, 0%, 100%)",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",

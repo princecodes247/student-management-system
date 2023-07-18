@@ -3,9 +3,8 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["/*"]
+      "@/*": ["./*"]
     }
   }
 }

@@ -14,8 +14,8 @@ export const light = {
   card: "0 0% 100%",
   cardForeground: "222.2 47.4% 11.2%",
 
-  primary: "222.2 47.4% 11.2%",
-  primaryForeground: "210 40% 98%",
+  primary: "#0867f4",
+  primaryForeground: "#FFFFFF",
 
   secondary: "210 40% 96.1%",
   secondaryForeground: "222.2 47.4% 11.2%",
@@ -73,3 +73,14 @@ export const dark = {
 // fontFeature-settings: "rlig" 1, "calt" 1,
 // }
 // }
+
+export type Theme = "light" | "dark";
+
+export const getThemeColor = (
+  color: keyof typeof light,
+  theme: Theme = "light"
+) => {
+  const themeColors = theme === "light" ? light : dark;
+  console.log(`hsl(${themeColors[color].replaceAll(" ", ", ")})`);
+  return `${themeColors[color]}`;
+};

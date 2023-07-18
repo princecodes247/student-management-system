@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "react-native";
 
 import { Paragraph, Spacer, TamaguiProvider, Theme, YStack } from "tamagui";
-import config from "../tamagui.config";
+import config from "../../tamagui.config";
 export default function App() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
