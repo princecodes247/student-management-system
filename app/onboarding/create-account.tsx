@@ -7,7 +7,7 @@ import { Link } from "expo-router";
 
 export default function CreateAccount() {
   return (
-    <View className="flex justify-start flex-1 gap-4 p-8 text-red-600 border ">
+    <View className="flex justify-start flex-1 gap-4 p-8 ">
       <View className="flex-1 pt-24">
         <Text className="text-2xl text-primary">Create an account</Text>
       </View>
