@@ -69,6 +69,9 @@ dependencies:
   react-native-gesture-handler:
     specifier: ~2.9.0
     version: 2.9.0(react-native@0.71.8)(react@18.2.0)
+  react-native-picker-select:
+    specifier: ^8.0.4
+    version: 8.0.4(react-native@0.71.8)(react@18.2.0)
   react-native-reanimated:
     specifier: ~2.14.4
     version: 2.14.4(@babel/core@7.20.2)(react-native@0.71.8)(react@18.2.0)
@@ -3295,6 +3298,16 @@ packages:
       - encoding
       - supports-color
       - utf-8-validate
+    dev: false
+
+  /@react-native-picker/picker@1.16.8(react-native@0.71.8)(react@18.2.0):
+    resolution: {integrity: sha512-pacdQDX6V6EmjF+HoiIh6u++qx4mTK0WnhgUHRc01B+Qt5eoeUwseBqmqfTSXTx/aHDEd6PiIw7UGvKgFoqgFQ==}
+    peerDependencies:
+      react: 16 || 17
+      react-native: '>=0.57'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.71.8(@babel/core@7.20.2)(@babel/preset-env@7.22.9)(react@18.2.0)
     dev: false
 
   /@react-native/assets@1.0.0:
@@ -9361,6 +9374,16 @@ packages:
 
   /react-native-gradle-plugin@0.71.19:
     resolution: {integrity: sha512-1dVk9NwhoyKHCSxcrM6vY6cxmojeATsBobDicX0ZKr7DgUF2cBQRTKsimQFvzH8XhOVXyH8p4HyDSZNIFI8OlQ==}
+    dev: false
+
+  /react-native-picker-select@8.0.4(react-native@0.71.8)(react@18.2.0):
+    resolution: {integrity: sha512-orBjPIwBkV5oipyVw263YNMI56f6Kj3p/ejabZoCYYNSG3AiLVVhC2RqsxMgDA7IayyURAW+AlV+mDJyVqLBkg==}
+    dependencies:
+      '@react-native-picker/picker': 1.16.8(react-native@0.71.8)(react@18.2.0)
+      lodash.isequal: 4.5.0
+    transitivePeerDependencies:
+      - react
+      - react-native
     dev: false
 
   /react-native-reanimated@2.14.4(@babel/core@7.20.2)(react-native@0.71.8)(react@18.2.0):

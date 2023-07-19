@@ -5,6 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../lib/utils";
 import { getThemeColor } from "../constants/theme";
 import { Link } from "expo-router";
+import { ConditionalArgument } from "../interfaces";
 
 // import { getThemeColor, light } from "../constants/theme";
 // const bug =""
@@ -17,7 +18,7 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
@@ -25,8 +26,8 @@ const buttonVariants = cva(
       },
       size: {
         default: "rounded px-4 py-4",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
+        sm: "h-9 rounded px-3",
+        lg: "h-11 rounded px-8",
         icon: "h-10 w-10",
       },
     },
@@ -37,23 +38,25 @@ const buttonVariants = cva(
   }
 );
 
-export interface ButtonProps
+export interface ButtonProps<U>
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  classNames: string;
-  href?: string;
+  classNames?: string;
+  href?: U extends string ? U : undefined;
+  replace?: U extends string ? boolean : never;
   //   asChild?: boolean
 }
 
-export default function Button({
+export default function Button<T>({
   children,
-  variant,
+  variant = "default",
   size,
-  classNames,
+  classNames = "",
   href,
-}: ButtonProps) {
+  replace,
+}: ButtonProps<T>) {
   return (
-    <ButtonLink href={href}>
+    <ButtonLink replace={replace} href={href}>
       <TouchableOpacity
         style={styles.container}
         className={cn(buttonVariants({ variant, size, className: classNames }))}
@@ -67,12 +70,14 @@ export default function Button({
 const ButtonLink = ({
   children,
   href,
+  replace,
 }: {
   children: ReactNode;
   href: string;
+  replace?: boolean;
 }) => {
   return href ? (
-    <Link href={href} asChild>
+    <Link replace={replace} href={href} asChild>
       {children}
     </Link>
   ) : (
