@@ -23,7 +23,7 @@ export default function App() {
       </View>
       <KeyboardAvoidingView>
         <View className="flex-1">
-          <Input placeholder="Mat. No" className="" />
+          <Input placeholder="Mat. No" classNames="mb-2" />
 
           <Button
             replace

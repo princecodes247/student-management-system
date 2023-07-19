@@ -1,10 +1,14 @@
-const { fontFamily } = require("tailwindcss/defaultTheme")
+const { fontFamily } = require("tailwindcss/defaultTheme");
 // const { light } = require("./constants/theme")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  content: ["./App.{js,jsx,ts,tsx}", "app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
+  content: [
+    "./App.{js,jsx,ts,tsx}",
+    "app/**/*.{ts,tsx}",
+    "components/**/*.{ts,tsx}",
+  ],
   theme: {
     container: {
       center: true,
@@ -16,7 +20,7 @@ module.exports = {
     extend: {
       colors: {
         border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
+        input: "hsla(0, 0%, 96%, 1)",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -74,4 +78,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

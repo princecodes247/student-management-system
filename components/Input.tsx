@@ -1,26 +1,27 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "../lib/utils"
-import { TextInput } from "react-native"
+import { cn } from "../lib/utils";
+import { TextInput } from "react-native";
 
 export interface InputProps {
-    className: string
-    placeholder: string
-   }
+  classNames: string;
+  placeholder: string;
+}
 
-const Input = ({ className, ...props }: InputProps) => {
-    return (
-      <TextInput
-        // type={type}
-        className={cn(
-          "flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-          className
-        )}
-        {...props}
-      />
-    )
-  }
+const Input = ({ classNames, placeholder }: InputProps) => {
+  return (
+    <TextInput
+      // type={type}
+      className={cn(
+        "w-full px-3 py-3 border border-input rounded-lg text-md bg-input ring-offset-background placeholder:text-muted-foreground focus:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+        classNames
+      )}
+      placeholder={placeholder}
+      // style={{ height: 40, backgroundColor: "#000", padding: 10 }}
+    />
+  );
+};
 
-Input.displayName = "Input"
+Input.displayName = "Input";
 
-export { Input }
+export { Input };
