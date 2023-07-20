@@ -15,6 +15,7 @@ export default function OnboardingCongratulations() {
       </View>
       <View className="flex-1">
         <Button
+          replace
           href="/onboarding/create-account"
           classNames="w-full"
           variant="default"

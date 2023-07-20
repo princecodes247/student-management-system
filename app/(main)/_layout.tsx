@@ -15,6 +15,7 @@ export default function AppLayout() {
         options={{
           headerShown: false,
           tabBarLabel: "Home",
+
           // This tab will no longer show up in the tab bar.
           // href: null,
         }}

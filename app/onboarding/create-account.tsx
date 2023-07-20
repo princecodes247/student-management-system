@@ -13,6 +13,7 @@ export default function CreateAccount() {
       </View>
       <View className="flex-1">
         <Button
+          replace
           href="/onboarding/clearance"
           classNames="w-full"
           variant="default"

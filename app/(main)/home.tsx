@@ -9,7 +9,7 @@ import { Alert, AlertTitle } from "../../components/Alert";
 
 export default function Home() {
   return (
-    <View className="p-6">
+    <View className="h-full p-6 bg-white">
       <View className="flex-row justify-between">
         <View className="flex-row flex-1 gap-2">
           <View className="p-6 bg-black"></View>

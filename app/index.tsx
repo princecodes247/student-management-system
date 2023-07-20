@@ -36,7 +36,7 @@ export default function App() {
         </View>
       </KeyboardAvoidingView>
       <View className="">
-        <Link asChild href="/login">
+        <Link replace asChild href="/login">
           <Text className="text-center">
             Already have an account?{" "}
             <Text className="text-primary">Login </Text>
