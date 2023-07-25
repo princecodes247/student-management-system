@@ -44,6 +44,7 @@ export interface ButtonProps<U>
   classNames?: string;
   href?: U extends string ? U : undefined;
   replace?: U extends string ? boolean : never;
+  onClick?: U extends string ? never : () => void;
   //   asChild?: boolean
 }
 
@@ -54,10 +55,12 @@ export default function Button<T>({
   classNames = "",
   href,
   replace,
+  onClick,
 }: ButtonProps<T>) {
   return (
     <ButtonLink replace={replace} href={href}>
       <TouchableOpacity
+        onPress={onClick}
         style={styles.container}
         className={cn(buttonVariants({ variant, size, className: classNames }))}
       >

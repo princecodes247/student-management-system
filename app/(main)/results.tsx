@@ -11,7 +11,7 @@ import { CheckResult } from "../../components/results/CheckResult";
 
 export default function Results() {
   return (
-    <View className="h-full p-6 bg-white">
+    <View className="h-full bg-white">
       <CheckResult />
     </View>
   );
