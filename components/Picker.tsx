@@ -18,11 +18,12 @@ const Picker = ({ className, items = [], ...props }: PickerProps) => {
     <RNPickerSelect
       style={{
         inputIOS: {
-          color: "white",
+          color: "black",
           fontSize: 16,
           paddingVertical: 12,
           paddingHorizontal: 10,
           borderWidth: 1,
+          borderColor: "#aaa",
         },
       }}
       onValueChange={(value) => console.log(value)}

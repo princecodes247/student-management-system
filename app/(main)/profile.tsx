@@ -6,20 +6,29 @@ import { Input } from "../../components/Input";
 import { Link } from "expo-router";
 import KeyboardAvoidingView from "../../components/KeyboardAvoidingView";
 import { Alert, AlertTitle } from "../../components/Alert";
+import { Picker } from "../../components/Picker";
 
-export default function Home() {
+export default function Timetable() {
   return (
-    <View className="h-full p-6 bg-white pt-14">
-      <View className="flex-row justify-between">
-        <View className="flex-row flex-1 gap-2">
-          <View className="p-6 bg-black"></View>
-          <View className="flex-1">
-            <Text className="text-base text-primary">Hello David</Text>
-            <Text className="text-base text-gray-400">UG/17/1233</Text>
-          </View>
+    <View className="h-full p-6 bg-white">
+      <View className="flex-row justify-between gap-2">
+        <View className="flex-1">
+          <Picker
+            items={[
+              { label: "Football", value: "football" },
+              { label: "Baseball", value: "baseball" },
+              { label: "Hockey", value: "hockey" },
+            ]}
+          />
         </View>
-        <View>
-          <Text>BE</Text>
+        <View className="flex-1">
+          <Picker
+            items={[
+              { label: "Football", value: "football" },
+              { label: "Baseball", value: "baseball" },
+              { label: "Hockey", value: "hockey" },
+            ]}
+          />
         </View>
       </View>
       <View className="w-full p-6 mt-8 rounded-xl bg-primary">

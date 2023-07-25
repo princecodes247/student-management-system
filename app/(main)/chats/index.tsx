@@ -9,5 +9,5 @@ import { Alert, AlertTitle } from "../../../components/Alert";
 import { Picker } from "../../../components/Picker";
 
 export default function Timetable() {
-  return <View className="p-6"></View>;
+  return <View className="h-full p-6 bg-white"></View>;
 }
