@@ -48,6 +48,7 @@ export default function AppLayout() {
           headerTitle: "Results",
           // headerShown: false,
           tabBarLabel: "Results",
+
           // header: getHeader,
 
           // This tab will no longer show up in the tab bar.
@@ -69,7 +70,7 @@ export default function AppLayout() {
       />
       <Tabs.Screen
         // Name of the route to hide.
-        name="courseEnrollment"
+        name="course-enrollment"
         options={{
           headerTitle: "Course Enrollment",
           // headerShown: false,
@@ -77,7 +78,7 @@ export default function AppLayout() {
           // header: getHeader,
 
           // This tab will no longer show up in the tab bar.
-          // href: null,
+          href: null,
         }}
       />
     </Tabs>

@@ -25,26 +25,27 @@ const CheckResult = ({ classNames, navigation }: CheckResultProps) => {
   };
 
   return (
-    <View className="flex-1 p-6">
+    <View className="flex-1 p-6 bg-white">
       <View className="my-3">
         <Input value="UG/17/0000" variant="disabled" disabled />
       </View>
       <View className="flex-row justify-between gap-2 my-4">
         <View className="flex-1">
           <Picker
+            placeholder="Choose Level"
             items={[
-              { label: "Football", value: "football" },
-              { label: "Baseball", value: "baseball" },
-              { label: "Hockey", value: "hockey" },
+              { label: "100 level", value: "100l" },
+              { label: "200 level", value: "200l" },
+              { label: "300 level", value: "300l" },
             ]}
           />
         </View>
         <View className="flex-1">
           <Picker
+            placeholder="Select Semester"
             items={[
-              { label: "Football", value: "football" },
-              { label: "Baseball", value: "baseball" },
-              { label: "Hockey", value: "hockey" },
+              { label: "1st semester", value: "1" },
+              { label: "2nd semester", value: "2" },
             ]}
           />
         </View>

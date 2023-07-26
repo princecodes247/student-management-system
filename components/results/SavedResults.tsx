@@ -16,7 +16,7 @@ export interface SavedResultsProps {
 
 const SavedResults = ({ classNames }: SavedResultsProps) => {
   return (
-    <View className="flex-1 p-6">
+    <View className="flex-1 p-6 bg-white">
       <View className="flex-row justify-between gap-2 my-4">
         <View className="flex-1"></View>
         <View className="flex-1"></View>
