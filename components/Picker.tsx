@@ -13,9 +13,18 @@ export interface PickerProps {
   }[];
 }
 
-const Picker = ({ className, items = [], ...props }: PickerProps) => {
+const Picker = ({
+  className,
+  placeholder = "Choose an option",
+  items = [],
+  ...props
+}: PickerProps) => {
   return (
     <RNPickerSelect
+      placeholder={{
+        label: placeholder,
+        value: null,
+      }}
       style={{
         inputIOS: {
           color: "black",

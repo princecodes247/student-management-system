@@ -6,7 +6,7 @@ import { Input } from "../components/Input";
 import { Link } from "expo-router";
 import KeyboardAvoidingView from "../components/KeyboardAvoidingView";
 
-export default function App() {
+export default function Login() {
   return (
     <View
       style={{
@@ -16,32 +16,35 @@ export default function App() {
       className="flex justify-between flex-1 h-full gap-4 p-8 "
     >
       <View className="flex-1 pt-24">
-        <Text className="mb-4 text-3xl text-primary">
-          Let’s get you started
-        </Text>
-        <Text className="text-gray-600">
-          First, we have to verify if you have been admitted to this University.{" "}
+        <Text className="text-4xl">Login</Text>
+        <Text className="mt-4 text-gray-600">
+          Welcome back to your student management Application
         </Text>
       </View>
       <KeyboardAvoidingView>
-        <View className="flex-1 ">
+        <View className="flex-1">
           <Input placeholder="Mat. No" classNames="mb-2" />
-
+          <Input placeholder="Password" classNames="" />
+          <Link replace asChild href="/forgot-password">
+            <Text className="mt-2 mb-4 text-right text-gray-600">
+              Forgot Password?
+            </Text>
+          </Link>
           <Button
             replace
             href="/onboarding/congratulations"
             classNames="w-full"
             variant="default"
           >
-            <Text className="text-primary-foreground">Verify Admission</Text>
+            <Text className="font-semibold text-primary-foreground">Login</Text>
           </Button>
         </View>
       </KeyboardAvoidingView>
       <View className="">
-        <Link replace asChild href="/login">
+        <Link replace asChild href="/">
           <Text className="text-center">
-            Already have an account?{" "}
-            <Text className="text-primary">Login </Text>
+            Don’t have an account yet?{" "}
+            <Text className="text-primary">Create one </Text>
           </Text>
         </Link>
       </View>

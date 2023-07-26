@@ -14,6 +14,7 @@ export default function Timetable() {
       <View className="flex-row justify-between gap-2">
         <View className="flex-1">
           <Picker
+            placeholder="Choose Department"
             items={[
               { label: "Football", value: "football" },
               { label: "Baseball", value: "baseball" },
@@ -23,6 +24,7 @@ export default function Timetable() {
         </View>
         <View className="flex-1">
           <Picker
+            placeholder="Select Level"
             items={[
               { label: "Football", value: "football" },
               { label: "Baseball", value: "baseball" },
@@ -62,7 +64,7 @@ export default function Timetable() {
           </View>
         </View>
 
-        <Text className="mt-6">
+        <Text className="mt-6 text-gray-600">
           Note that this timetable is subject to change and it is best that you
           keep contact with your course rep
         </Text>

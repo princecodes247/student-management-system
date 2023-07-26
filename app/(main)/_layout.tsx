@@ -67,6 +67,19 @@ export default function AppLayout() {
           // href: null,
         }}
       />
+      <Tabs.Screen
+        // Name of the route to hide.
+        name="courseEnrollment"
+        options={{
+          headerTitle: "Course Enrollment",
+          // headerShown: false,
+          tabBarLabel: "Course Enrollment",
+          // header: getHeader,
+
+          // This tab will no longer show up in the tab bar.
+          // href: null,
+        }}
+      />
     </Tabs>
   );
 }
