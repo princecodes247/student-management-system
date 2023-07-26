@@ -13,12 +13,14 @@ export interface PaymentModalProps {
   classNames?: string;
   firstRef: React.RefObject<BottomSheet>;
   amount?: number;
+  onSuccess?: () => void;
 }
 
 const PaymentModal = ({
   classNames,
   firstRef,
   amount = 0,
+  onSuccess,
 }: PaymentModalProps) => {
   const bottomSheetRef = React.useRef<BottomSheet>(null);
   const bottomSheetRef2 = React.useRef<BottomSheet>(null);
@@ -34,6 +36,7 @@ const PaymentModal = ({
   };
   const handleFinalClose = () => {
     if (bottomSheetRef3.current) bottomSheetRef3.current.close();
+    if (onSuccess) onSuccess();
   };
   return (
     <>
@@ -80,7 +83,7 @@ const PaymentModal = ({
               onClick={handleOpenBottomSheet3}
               variant="default"
             >
-              <Text className="text-primary-foreground">Print Result</Text>
+              <Text className="text-primary-foreground">Pay #{amount}</Text>
             </Button>
           </KeyboardAvoidingView>
         </View>

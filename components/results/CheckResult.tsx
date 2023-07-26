@@ -12,12 +12,16 @@ import { PaymentModal } from "../modals/payment";
 
 export interface CheckResultProps {
   classNames?: string;
+  navigation: any;
 }
 
-const CheckResult = ({ classNames }: CheckResultProps) => {
+const CheckResult = ({ classNames, navigation }: CheckResultProps) => {
   const paymentModalRef = React.useRef<BottomSheet>(null);
   const handleOpenPaymentModal = () => {
     if (paymentModalRef.current) paymentModalRef.current.collapse();
+  };
+  const handleOnSuccessfulPayment = () => {
+    navigation.jumpTo("Saved Results");
   };
 
   return (
@@ -59,7 +63,11 @@ const CheckResult = ({ classNames }: CheckResultProps) => {
         <Text className="text-primary-foreground">Pay #350</Text>
       </Button>
 
-      <PaymentModal firstRef={paymentModalRef} amount={100} />
+      <PaymentModal
+        firstRef={paymentModalRef}
+        onSuccess={handleOnSuccessfulPayment}
+        amount={350}
+      />
     </View>
   );
 };

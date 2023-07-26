@@ -1,27 +1,34 @@
 import * as React from "react";
 
 import { cn } from "../../lib/utils";
-import { TextInput } from "react-native";
+import { View, Text } from "react-native";
+import Button from "../Button";
+import { Picker } from "../Picker";
+import { Input } from "../Input";
+import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
+import { BottomSheetModal } from "../BottomSheet";
+import KeyboardAvoidingView from "../KeyboardAvoidingView";
+import { PaymentModal } from "../modals/payment";
 
-export interface InputProps {
-  classNames: string;
-  placeholder: string;
+export interface SavedResultsProps {
+  classNames?: string;
 }
 
-const Input = ({ classNames, placeholder }: InputProps) => {
+const SavedResults = ({ classNames }: SavedResultsProps) => {
   return (
-    <TextInput
-      // type={type}
-      className={cn(
-        "w-full px-3 py-3 border border-input rounded-lg text-md bg-input ring-offset-background placeholder:text-muted-foreground focus:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-        classNames
-      )}
-      placeholder={placeholder}
-      // style={{ height: 40, backgroundColor: "#000", padding: 10 }}
-    />
+    <View className="flex-1 p-6">
+      <View className="flex-row justify-between gap-2 my-4">
+        <View className="flex-1"></View>
+        <View className="flex-1"></View>
+      </View>
+
+      <Text className="my-4">
+        If you have disputes about your results kindly visit your HOD’s office
+      </Text>
+    </View>
   );
 };
 
-Input.displayName = "Input";
+SavedResults.displayName = "SavedResults";
 
-export { Input };
+export { SavedResults };
