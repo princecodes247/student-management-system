@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "./index.js",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "start": "expo start",
     "android": "expo start --android",
+    "tunnel": "expo start --tunnel",
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
