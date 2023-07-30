@@ -13,16 +13,26 @@ export interface PickerProps {
   }[];
 }
 
-const Picker = ({ className, items = [], ...props }: PickerProps) => {
+const Picker = ({
+  className,
+  placeholder = "Choose an option",
+  items = [],
+  ...props
+}: PickerProps) => {
   return (
     <RNPickerSelect
+      placeholder={{
+        label: placeholder,
+        value: null,
+      }}
       style={{
         inputIOS: {
-          color: "white",
+          color: "black",
           fontSize: 16,
           paddingVertical: 12,
           paddingHorizontal: 10,
           borderWidth: 1,
+          borderColor: "#aaa",
         },
       }}
       onValueChange={(value) => console.log(value)}

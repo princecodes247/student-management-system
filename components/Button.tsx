@@ -18,7 +18,7 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
+          "border-2 border-primary bg-transparent hover:bg-accent hover:text-accent-foreground",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
@@ -44,6 +44,7 @@ export interface ButtonProps<U>
   classNames?: string;
   href?: U extends string ? U : undefined;
   replace?: U extends string ? boolean : never;
+  onClick?: U extends string ? never : () => void;
   //   asChild?: boolean
 }
 
@@ -54,10 +55,12 @@ export default function Button<T>({
   classNames = "",
   href,
   replace,
+  onClick,
 }: ButtonProps<T>) {
   return (
     <ButtonLink replace={replace} href={href}>
       <TouchableOpacity
+        onPress={onClick}
         style={styles.container}
         className={cn(buttonVariants({ variant, size, className: classNames }))}
       >

@@ -24,7 +24,7 @@ export default function AppLayout() {
         // Name of the route to hide.
         name="timetable"
         options={{
-          tabBarLabel: "Timetable",
+          tabBarLabel: "Lectures",
           header: getHeader,
         }}
       />
@@ -39,6 +39,46 @@ export default function AppLayout() {
 
           // This tab will no longer show up in the tab bar.
           // href: null,
+        }}
+      />
+      <Tabs.Screen
+        // Name of the route to hide.
+        name="results"
+        options={{
+          headerTitle: "Results",
+          // headerShown: false,
+          tabBarLabel: "Results",
+
+          // header: getHeader,
+
+          // This tab will no longer show up in the tab bar.
+          // href: null,
+        }}
+      />
+      <Tabs.Screen
+        // Name of the route to hide.
+        name="profile"
+        options={{
+          headerTitle: "Profile",
+          // headerShown: false,
+          tabBarLabel: "Profile",
+          // header: getHeader,
+
+          // This tab will no longer show up in the tab bar.
+          // href: null,
+        }}
+      />
+      <Tabs.Screen
+        // Name of the route to hide.
+        name="course-enrollment"
+        options={{
+          headerTitle: "Course Enrollment",
+          // headerShown: false,
+          tabBarLabel: "Course Enrollment",
+          // header: getHeader,
+
+          // This tab will no longer show up in the tab bar.
+          href: null,
         }}
       />
     </Tabs>

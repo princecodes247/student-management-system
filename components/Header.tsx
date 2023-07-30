@@ -11,7 +11,7 @@ export interface HeaderProps {
 
 const Header = ({ title, style = {}, ...props }: HeaderProps) => {
   return (
-    <View className="flex-row items-center gap-3 p-5 px-8 bg-gray-200">
+    <View className="flex-row items-center gap-3 p-5 px-8 pt-14 bg-gray-50">
       <Text className="mr-4 text-2xl">B</Text>
       <Text className="text-xl capitalize ">{title}</Text>
     </View>

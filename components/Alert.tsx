@@ -4,11 +4,12 @@ import { Text, View } from "react-native";
 import { cn } from "../lib/utils";
 
 const alertVariants = cva(
-  "relative flex-row justify-between w-full rounded-lg border p-4 [&:has(svg)]:pl-11 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
+  "relative flex-row justify-between w-full rounded border p-4 [&:has(svg)]:pl-11 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
   {
     variants: {
       variant: {
-        default: "bg-background text-foreground",
+        default: "bg-background text-foreground border-primary/50",
+        warning: "bg-yellow-200/50 text-foreground border-yellow-500/50",
         destructive:
           "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
       },
