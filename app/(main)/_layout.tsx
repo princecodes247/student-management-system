@@ -43,6 +43,19 @@ export default function AppLayout() {
       />
       <Tabs.Screen
         // Name of the route to hide.
+        name="chats/single"
+        options={{
+          headerTitle: "Chat Room",
+          // headerShown: false,
+          tabBarLabel: "Chats",
+          header: getHeader,
+
+          // This tab will no longer show up in the tab bar.
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        // Name of the route to hide.
         name="results"
         options={{
           headerTitle: "Results",
@@ -75,6 +88,19 @@ export default function AppLayout() {
           headerTitle: "Course Enrollment",
           // headerShown: false,
           tabBarLabel: "Course Enrollment",
+          // header: getHeader,
+
+          // This tab will no longer show up in the tab bar.
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        // Name of the route to hide.
+        name="school-fees"
+        options={{
+          headerTitle: "School Fees",
+          // headerShown: false,
+          tabBarLabel: "School Fees",
           // header: getHeader,
 
           // This tab will no longer show up in the tab bar.

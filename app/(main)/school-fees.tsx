@@ -8,11 +8,11 @@ import KeyboardAvoidingView from "../../components/KeyboardAvoidingView";
 import { Alert, AlertTitle } from "../../components/Alert";
 import { Picker } from "../../components/Picker";
 
-export default function Profile() {
+export default function SchoolFees() {
   return (
-    <View className="items-center justify-center h-full p-6 bg-white">
+    <View className="h-full p-6 bg-white">
       <View>
-        <Text className="text-lg text-gray-400">Coming Soon...</Text>
+        <Text>What Session Do you want to pay for</Text>
       </View>
     </View>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { Text, View, ScrollView, SafeAreaView } from "react-native";
+import { Text, View, Pressable } from "react-native";
 import Button from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Link } from "expo-router";
@@ -12,13 +12,15 @@ export default function Home() {
   return (
     <View className="h-full p-6 bg-white pt-14">
       <View className="flex-row justify-between">
-        <View className="flex-row flex-1 gap-2">
-          <View className="p-6 bg-gray-300 rounded-full"></View>
-          <View className="flex-1">
-            <Text className="text-base text-gray-800">Hello David</Text>
-            <Text className="text-base text-gray-400">UG/17/1233</Text>
-          </View>
-        </View>
+        <Link href={"/profile"} asChild>
+          <Pressable className="flex-row flex-1 gap-2">
+            <View className="p-6 bg-gray-300 rounded-full"></View>
+            <View className="flex-1">
+              <Text className="text-base text-gray-800">Hello David</Text>
+              <Text className="text-base text-gray-400">UG/17/1233</Text>
+            </View>
+          </Pressable>
+        </Link>
         <View>
           <Text>BE</Text>
         </View>
@@ -77,7 +79,7 @@ export default function Home() {
               },
               {
                 title: "Pay Fees",
-                link: "/course-enrollment",
+                link: "/school-fees",
               },
             ].map((action) => (
               <ActionLink title={action.title} link={action.link} />

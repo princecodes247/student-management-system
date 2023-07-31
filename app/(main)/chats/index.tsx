@@ -1,13 +1,15 @@
 import React from "react";
-import { StatusBar } from "expo-status-bar";
-import { Text, View, ScrollView, SafeAreaView } from "react-native";
-import Button from "../../../components/Button";
-import { Input } from "../../../components/Input";
-import { Link } from "expo-router";
-import KeyboardAvoidingView from "../../../components/KeyboardAvoidingView";
-import { Alert, AlertTitle } from "../../../components/Alert";
-import { Picker } from "../../../components/Picker";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { GroupChats } from "../../../components/chats/GroupChats";
+import { PersonalChats } from "../../../components/chats/PersonalChats";
 
-export default function Timetable() {
-  return <View className="h-full p-6 bg-white"></View>;
+const Tab = createMaterialTopTabNavigator();
+
+export default function Chats() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Personal Chats" component={PersonalChats} />
+      <Tab.Screen name="Group Chats" component={GroupChats} />
+    </Tab.Navigator>
+  );
 }
