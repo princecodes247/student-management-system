@@ -1,13 +1,11 @@
-import React from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import { AppStateStatus, Platform, View } from "react-native";
+import { useRouter } from "expo-router";
+import { useEffect } from "react";
 
-export default function App() {
-  return <View style={rootStyles.rootContainer}></View>;
+export default function Root({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/onboarding/get-started");
+  }, []);
+  return <View>{children}</View>;
 }
-
-const rootStyles = StyleSheet.create({
-  rootContainer: {
-    va,
-  },
-});

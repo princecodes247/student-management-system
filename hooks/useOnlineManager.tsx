@@ -13,6 +13,7 @@ export function useOnlineManager() {
             state.isConnected &&
             Boolean(state.isInternetReachable)
         );
+        console.log("Is connected?", state.isConnected);
       });
     }
   }, []);

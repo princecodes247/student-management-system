@@ -5,8 +5,18 @@ import Button from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Link } from "expo-router";
 import KeyboardAvoidingView from "../../components/KeyboardAvoidingView";
+import { useQuery } from "@tanstack/react-query";
 
 export default function GetStarted() {
+  const testQuery = useQuery({
+    queryKey: ["test"],
+    queryFn: async () => {
+      const res = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+      return res.json();
+    },
+  });
+  console.log(testQuery);
+
   return (
     <View
       style={{

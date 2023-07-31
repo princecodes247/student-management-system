@@ -1,28 +1,11 @@
-import { SafeAreaView, View } from "react-native";
+import { View } from "react-native";
 import { useEffect } from "react";
 import { SplashScreen, Slot } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useFonts, Inter_500Medium } from "@expo-google-fonts/inter";
-import { AppStateStatus, Platform } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import {
-  QueryClient,
-  QueryClientProvider,
-  focusManager,
-} from "@tanstack/react-query";
-import { useOnlineManager } from "../hooks/useOnlineManager";
-import { useAppState } from "../hooks/useAppState";
-
-function onAppStateChange(status: AppStateStatus) {
-  // React Query already supports in web browser refetch on window focus by default
-  if (Platform.OS !== "web") {
-    focusManager.setFocused(status === "active");
-  }
-}
-
-const queryClient = new QueryClient({
-  defaultOptions: { queries: { retry: 2 } },
-});
+import QueryProvider from "../layouts/QueryProvider";
+import AuthProvider from "../layouts/AuthProvider";
+import Root from "../layouts/Root";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -44,14 +27,18 @@ export default function AppLayout() {
     return null;
   }
 
-  useOnlineManager();
-
-  useAppState(onAppStateChange);
-
   return (
-    <View className="h-full ">
-      <Slot />
-      <StatusBar style="auto" />
-    </View>
+    <QueryProvider>
+      <AuthProvider>
+        <Root>
+          {/* <NavigationContainer>
+    </NavigationContainer> */}
+          <View className="h-full ">
+            <Slot />
+            <StatusBar style="auto" />
+          </View>
+        </Root>
+      </AuthProvider>
+    </QueryProvider>
   );
 }
