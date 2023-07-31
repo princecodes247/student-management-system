@@ -8,6 +8,6 @@ export default function App() {
 
 const rootStyles = StyleSheet.create({
   rootContainer: {
-    va,
+    // va,
   },
 });
