@@ -43,7 +43,7 @@ export default function AppLayout() {
       />
       <Tabs.Screen
         // Name of the route to hide.
-        name="chats/index"
+        name="chats/single"
         options={{
           headerTitle: "Chat Room",
           // headerShown: false,
@@ -51,7 +51,7 @@ export default function AppLayout() {
           header: getHeader,
 
           // This tab will no longer show up in the tab bar.
-          // href: null,
+          href: null,
         }}
       />
       <Tabs.Screen
