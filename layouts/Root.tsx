@@ -1,4 +1,4 @@
-import { AppStateStatus, Platform, View } from "react-native";
+import { AppStateStatus, Platform, View, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 
