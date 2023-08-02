@@ -1,6 +1,6 @@
-import { useMutation } from "@tanstack/react-query";
 import { useRef } from "react";
 import { AxiosResponse } from "axios";
+import { useMutation } from "./useMutation";
 
 type ApiFunction<ResultType, ArgType> = (
   arg: ArgType

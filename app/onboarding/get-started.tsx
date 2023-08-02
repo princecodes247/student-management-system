@@ -3,24 +3,27 @@ import { StatusBar } from "expo-status-bar";
 import { Text, View, ScrollView, SafeAreaView } from "react-native";
 import Button from "../../components/Button";
 import { Input } from "../../components/Input";
-import {
-  Link,
-  // useRouter
-} from "expo-router";
+import { Link, useRouter } from "expo-router";
 import KeyboardAvoidingView from "../../components/KeyboardAvoidingView";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useMutate } from "../../hooks/useMutate";
 import { signIn } from "../../services/AuthService";
 
 export default function GetStarted() {
-  // const router = useRouter();
+  const router = useRouter();
   const [matriculationNumber, setMatriculationNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
-  // const loginMutation = useMutate(signIn, {
-  //   onSuccess: () => {
-  //     router.push("/onboarding/congratulations");
-  //   },
-  // });
+  const loginMutation = signIn();
+  // const updateDataApi = () => {
+  //   return fetch("https://example.com/api/update", {
+  //     method: "POST",
+  //     body: JSON.stringify("args"),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   }).then((response) => response.json());
+  // };
+  // updateDataApi();
 
   return (
     // <KeyboardAvoidingView flex={3}>
@@ -63,16 +66,16 @@ export default function GetStarted() {
             </View>
 
             <Button
-              href="/onboarding/congratulations"
+              // href="/onboarding/congratulations"
               onClick={() => {
-                // loginMutation.mutate({
-                //   matriculationNumber,
-                //   password,
-                // })
+                loginMutation.mutate({
+                  matriculationNumber,
+                  password,
+                });
               }}
               classNames="w-full"
               variant="default"
-              // loading={true}
+              loading={loginMutation.isLoading}
             >
               <Text className="text-primary-foreground">Verify Admission</Text>
             </Button>

@@ -1,6 +1,7 @@
 # Project work
 
 The project was scaffolded with
+
 - PNPM
 - Typescript
 - Expo (React native)
@@ -9,5 +10,5 @@ The project was scaffolded with
 
 ## To install
 
-Just run 
-```pnpm install```
+Just run
+`pnpm install`
