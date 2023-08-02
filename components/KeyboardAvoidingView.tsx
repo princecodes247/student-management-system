@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 
-const KeyboardAvoidingView = ({ children, flex, offset = 0 }) => {
+const KeyboardAvoidingView = ({ children, flex = 1, offset = 0 }) => {
   const [keyboardOffset, setKeyboardOffset] = useState(0);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const KeyboardAvoidingView = ({ children, flex, offset = 0 }) => {
         //   styles.container,
         // ])
       }
-      className="border-2 border-blue-400"
+      className=""
       behavior={Platform.OS === "ios" ? "padding" : undefined}
       keyboardVerticalOffset={keyboardOffset}
     >

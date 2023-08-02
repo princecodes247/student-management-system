@@ -1,7 +1,11 @@
 import * as React from "react";
 
 import { cn } from "../lib/utils";
-import { TextInput } from "react-native";
+import {
+  NativeSyntheticEvent,
+  TextInput,
+  TextInputChangeEventData,
+} from "react-native";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const inputVariants = cva(
@@ -24,6 +28,7 @@ export interface InputProps extends VariantProps<typeof inputVariants> {
   placeholder?: string;
   value?: string;
   disabled?: boolean;
+  onChange?: (text: string) => void;
 }
 
 const Input = ({
@@ -31,6 +36,7 @@ const Input = ({
   placeholder = "",
   disabled = false,
   value,
+  onChange,
   variant = "default",
 }: InputProps) => {
   return (
@@ -38,6 +44,7 @@ const Input = ({
       // type={type}
       className={cn(inputVariants({ variant, className: classNames }))}
       placeholder={placeholder}
+      onChangeText={onChange}
       value={value}
       editable={!disabled}
       selectTextOnFocus={!disabled}

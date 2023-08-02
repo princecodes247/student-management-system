@@ -13,7 +13,7 @@ export default function AppLayout() {
     <Tabs>
       <Tabs.Screen
         // Name of the route to hide.
-        name="index"
+        name="home"
         options={{
           headerShown: false,
           tabBarLabel: "Home",

@@ -8,12 +8,12 @@ import {
 import { useOnlineManager } from "../hooks/useOnlineManager";
 import { useAppState } from "../hooks/useAppState";
 
-function onAppStateChange(status: AppStateStatus) {
-  // React Query already supports in web browser refetch on window focus by default
-  if (Platform.OS !== "web") {
-    focusManager.setFocused(status === "active");
-  }
-}
+// function onAppStateChange(status: AppStateStatus) {
+//   // React Query already supports in web browser refetch on window focus by default
+//   if (Platform.OS !== "web") {
+//     focusManager.setFocused(status === "active");
+//   }
+// }
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 2 } },

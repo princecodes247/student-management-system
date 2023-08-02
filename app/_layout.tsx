@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { SplashScreen, Slot } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useFonts, Inter_500Medium } from "@expo-google-fonts/inter";
-import QueryProvider from "../layouts/QueryProvider";
+// import QueryProvider from "../layouts/QueryProvider";
 import AuthProvider from "../layouts/AuthProvider";
 import Root from "../layouts/Root";
 
@@ -28,17 +28,17 @@ export default function AppLayout() {
   }
 
   return (
-    <QueryProvider>
-      <AuthProvider>
-        <Root>
-          {/* <NavigationContainer>
+    // <QueryProvider>
+    <AuthProvider>
+      <Root>
+        {/* <NavigationContainer>
     </NavigationContainer> */}
-          <View className="h-full ">
-            <Slot />
-            <StatusBar style="auto" />
-          </View>
-        </Root>
-      </AuthProvider>
-    </QueryProvider>
+        <View className="h-full ">
+          <Slot />
+          <StatusBar style="auto" />
+        </View>
+      </Root>
+    </AuthProvider>
+    // </QueryProvider>
   );
 }

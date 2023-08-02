@@ -16,7 +16,7 @@ export default function Clearance() {
         </Text>
       </View>
       <View className="flex-1">
-        <Button replace href="/(main)" classNames="w-full" variant="default">
+        <Button replace href="/home" classNames="w-full" variant="default">
           <Text className="text-primary-foreground">Continue</Text>
         </Button>
       </View>

@@ -45,6 +45,7 @@ export interface ButtonProps<U>
   href?: U extends string ? U : undefined;
   replace?: U extends string ? boolean : never;
   onClick?: U extends string ? never : () => void;
+  loading?: boolean;
   //   asChild?: boolean
 }
 
@@ -56,6 +57,7 @@ export default function Button<T>({
   href,
   replace,
   onClick,
+  loading,
 }: ButtonProps<T>) {
   return (
     <ButtonLink replace={replace} href={href}>
@@ -64,7 +66,13 @@ export default function Button<T>({
         style={styles.container}
         className={cn(buttonVariants({ variant, size, className: classNames }))}
       >
-        {children}
+        {loading ? (
+          <View className="flex items-center justify-center">
+            <Text className="text-primary-foreground">Loading...</Text>
+          </View>
+        ) : (
+          <>{children}</>
+        )}
       </TouchableOpacity>
     </ButtonLink>
   );
