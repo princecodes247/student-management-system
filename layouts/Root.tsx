@@ -9,3 +9,9 @@ export default function Root({ children }: { children: React.ReactNode }) {
   }, []);
   return <View>{children}</View>;
 }
+
+const rootStyles = StyleSheet.create({
+  rootContainer: {
+    // va,
+  },
+});
