@@ -14,6 +14,9 @@ const signIn = ({
   const instance = api.post({
     path: servicePrefix + "/login",
     config: {
+      headers: {
+        "Content-Type": "application/json",
+      },
       // headers: authHeaders()
     },
     onSuccess,

@@ -5,12 +5,12 @@ type ApiCallInfo<U> = {
   error: Error | null;
 };
 
-type ApiBaseConfig = {
+type ApiBaseConfig<U> = {
   path: string;
   config?: RequestInit;
-  onSuccess?: (data: any) => void;
+  onSuccess?: (data: U) => void;
   onError?: (error: Error) => void;
-  onMutate?: (data: any) => void;
+  onMutate?: (data: U) => void;
 };
 
 type UpdateApiCallInfoFunction<U> = (info: Partial<ApiCallInfo<U>>) => void;
@@ -22,16 +22,16 @@ export default class HttpClient {
     this.path = path;
   }
 
-  private async http<T>({
+  private async http<ResponseBody>({
     path,
     config,
     updateApiCallInfo,
     onSuccess,
     onError,
     onMutate,
-  }: ApiBaseConfig & {
-    updateApiCallInfo: UpdateApiCallInfoFunction<T>;
-  }): Promise<T> {
+  }: ApiBaseConfig<ResponseBody> & {
+    updateApiCallInfo: UpdateApiCallInfoFunction<ResponseBody>;
+  }): Promise<ResponseBody> {
     updateApiCallInfo({
       isLoading: true,
       isError: false,
@@ -51,9 +51,9 @@ export default class HttpClient {
       onError(error);
       throw error;
     }
-
     // May error if there is no body, return empty object
     const responseData = await response.json().catch(() => ({}));
+    onSuccess(responseData);
     updateApiCallInfo({
       isLoading: false,
       isError: false,
@@ -63,15 +63,15 @@ export default class HttpClient {
     return responseData;
   }
 
-  public get<T>({
+  public get<ResponseBody>({
     path,
     config,
     onSuccess,
     onError,
     onMutate,
-  }: ApiBaseConfig): ApiCallInstance<T, null> {
-    return this.createApiCall<T, null>((updateApiCallInfo) =>
-      this.http<T>({
+  }: ApiBaseConfig<ResponseBody>): ApiCallInstance<ResponseBody, null> {
+    return this.createApiCall<ResponseBody, null>((updateApiCallInfo) =>
+      this.http<ResponseBody>({
         path,
         config: { method: "get", ...config },
         updateApiCallInfo,
@@ -88,7 +88,7 @@ export default class HttpClient {
     onSuccess,
     onError,
     onMutate,
-  }: ApiBaseConfig): ApiCallInstance<ResponseBody, RequestBody> {
+  }: ApiBaseConfig<ResponseBody>): ApiCallInstance<ResponseBody, RequestBody> {
     return this.createApiCall<ResponseBody, RequestBody>(
       (
         payload: RequestBody,
@@ -111,7 +111,7 @@ export default class HttpClient {
     onSuccess,
     onError,
     onMutate,
-  }: ApiBaseConfig): ApiCallInstance<ResponseBody, RequestBody> {
+  }: ApiBaseConfig<ResponseBody>): ApiCallInstance<ResponseBody, RequestBody> {
     return this.createApiCall<ResponseBody, RequestBody>(
       (
         payload: RequestBody,
