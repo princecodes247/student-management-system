@@ -7,6 +7,8 @@ import RNPickerSelect from "react-native-picker-select";
 export interface PickerProps {
   className?: string;
   placeholder?: string;
+  value?: string;
+  onChange?: (value: string) => void;
   items?: {
     label: string;
     value: string;
@@ -17,10 +19,14 @@ const Picker = ({
   className,
   placeholder = "Choose an option",
   items = [],
+  value,
+  onChange,
   ...props
 }: PickerProps) => {
   return (
     <RNPickerSelect
+      value={value}
+      onValueChange={onChange}
       placeholder={{
         label: placeholder,
         value: null,
@@ -35,7 +41,6 @@ const Picker = ({
           borderColor: "#aaa",
         },
       }}
-      onValueChange={(value) => console.log(value)}
       items={items}
     />
   );

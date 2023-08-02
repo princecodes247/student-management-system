@@ -26,6 +26,30 @@ const signIn = ({
   return instance;
 };
 
+export const updateProfile = ({
+  onSuccess,
+  onError,
+  onMutate,
+}: {
+  onSuccess?: (data: any) => void;
+  onError?: (error: any) => void;
+  onMutate?: (data: any) => void;
+}) => {
+  const instance = api.post({
+    path: servicePrefix + "/update-profile",
+    config: {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // headers: authHeaders()
+    },
+    onSuccess,
+    onError,
+    onMutate,
+  });
+  return instance;
+};
+
 const signOut = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("accessToken");

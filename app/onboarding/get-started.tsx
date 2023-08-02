@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, ScrollView, SafeAreaView } from "react-native";
 import Button from "../../components/Button";
@@ -13,25 +13,21 @@ export default function GetStarted() {
   const router = useRouter();
   const [matriculationNumber, setMatriculationNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
   const loginMutation = signIn({
     onError: (error) => {
       console.log("I did it", error);
+      setIsLoading(false);
+    },
+    onMutate: (data) => {
+      setIsLoading(true);
     },
     onSuccess: (data) => {
+      setIsLoading(false);
       console.log("I did it", data);
       router.push("/onboarding/congratulations");
     },
   });
-  // const updateDataApi = () => {
-  //   return fetch("https://example.com/api/update", {
-  //     method: "POST",
-  //     body: JSON.stringify("args"),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   }).then((response) => response.json());
-  // };
-  // updateDataApi();
 
   return (
     // <KeyboardAvoidingView flex={3}>
@@ -88,12 +84,13 @@ export default function GetStarted() {
                   password,
                 });
               }}
+              loading={isLoading}
               classNames="w-full"
               variant="default"
-              loading={loginMutation.isLoading}
             >
               <Text className="text-primary-foreground">Verify Admission</Text>
             </Button>
+            <Text>{loginMutation.isLoading ? "TTTT" : "FFFF"}</Text>
           </View>
           {/*
            */}

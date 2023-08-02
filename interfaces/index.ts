@@ -25,3 +25,12 @@ export enum DeviceType {
 }
 
 export interface ILinkData {}
+
+export interface IUpdateProfileData {
+  phone?: string;
+  mothersName: string;
+  nationality: string;
+  stateOfOrigin: string;
+  lga: string;
+  address: string;
+}
