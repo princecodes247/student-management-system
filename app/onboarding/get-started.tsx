@@ -13,7 +13,15 @@ export default function GetStarted() {
   const router = useRouter();
   const [matriculationNumber, setMatriculationNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const loginMutation = signIn();
+  const loginMutation = signIn({
+    onError: (error) => {
+      console.log("I did it", error);
+    },
+    onSuccess: (data) => {
+      console.log("I did it", data);
+      router.push("/onboarding/congratulations");
+    },
+  });
   // const updateDataApi = () => {
   //   return fetch("https://example.com/api/update", {
   //     method: "POST",
@@ -62,7 +70,14 @@ export default function GetStarted() {
             </View>
             <View className="mb-6">
               <Text className="text-base text-gray-600">Password</Text>
-              <Input placeholder="Password" classNames="mt-2" />
+              <Input
+                onChange={(value) => {
+                  setPassword(value);
+                }}
+                value={password}
+                placeholder="Password"
+                classNames="mt-2"
+              />
             </View>
 
             <Button

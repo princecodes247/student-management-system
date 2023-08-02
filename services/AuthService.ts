@@ -1,9 +1,25 @@
-import api from "./config";
+import api, { authHeaders } from "./config";
 
 const servicePrefix = "/auth";
 
-const signIn = () => {
-  const instance = api.post(servicePrefix + "/login");
+const signIn = ({
+  onSuccess,
+  onError,
+  onMutate,
+}: {
+  onSuccess?: (data: any) => void;
+  onError?: (error: any) => void;
+  onMutate?: (data: any) => void;
+}) => {
+  const instance = api.post({
+    path: servicePrefix + "/login",
+    config: {
+      // headers: authHeaders()
+    },
+    onSuccess,
+    onError,
+    onMutate,
+  });
   return instance;
 };
 

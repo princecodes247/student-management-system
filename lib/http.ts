@@ -75,6 +75,9 @@ export default class HttpClient {
         path,
         config: { method: "get", ...config },
         updateApiCallInfo,
+        onSuccess,
+        onError,
+        onMutate,
       })
     );
   }
@@ -93,8 +96,11 @@ export default class HttpClient {
       ) =>
         this.http<ResponseBody>({
           path,
-          config: { method: "post", ...config },
+          config: { method: "post", body: JSON.stringify(payload), ...config },
           updateApiCallInfo,
+          onSuccess,
+          onError,
+          onMutate,
         })
     );
   }
@@ -102,6 +108,9 @@ export default class HttpClient {
   public put<RequestBody, ResponseBody>({
     path,
     config,
+    onSuccess,
+    onError,
+    onMutate,
   }: ApiBaseConfig): ApiCallInstance<ResponseBody, RequestBody> {
     return this.createApiCall<ResponseBody, RequestBody>(
       (
@@ -112,6 +121,9 @@ export default class HttpClient {
           path,
           config: { method: "put", ...config },
           updateApiCallInfo,
+          onSuccess,
+          onError,
+          onMutate,
         })
     );
   }
@@ -167,6 +179,9 @@ class ApiCallInstance<U, T> {
         isLoading: true,
         isError: false,
         error: null,
+      });
+      console.log({
+        data,
       });
       const response = await this.api(data, this.updateApiCallInfo);
       // this.updateApiCallInfo({
