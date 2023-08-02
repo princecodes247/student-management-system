@@ -10,7 +10,7 @@ type ApiBaseConfig<U> = {
   config?: RequestInit;
   onSuccess?: (data: U) => void;
   onError?: (error: Error) => void;
-  onMutate?: (data: U) => void;
+  onMutate?: (data: RequestInit) => void;
 };
 
 type UpdateApiCallInfoFunction<U> = (info: Partial<ApiCallInfo<U>>) => void;
@@ -37,10 +37,12 @@ export default class HttpClient {
       isError: false,
       error: null,
     });
-
+    onMutate(config);
     const request = new Request(this.path + path, config);
     const response = await fetch(request);
-
+    updateApiCallInfo({
+      isLoading: false,
+    });
     if (!response.ok) {
       const error = new Error(response.statusText);
       updateApiCallInfo({
@@ -53,6 +55,7 @@ export default class HttpClient {
     }
     // May error if there is no body, return empty object
     const responseData = await response.json().catch(() => ({}));
+
     onSuccess(responseData);
     updateApiCallInfo({
       isLoading: false,
@@ -201,7 +204,10 @@ class ApiCallInstance<U, T> {
   }
 
   public get isLoading(): boolean {
-    return this.getApiCallInfo("isLoading");
+    console.log({
+      apiCallInfo1: this.apiCallInfo,
+    });
+    return this.apiCallInfo.isLoading;
   }
 
   public get isError(): boolean {
