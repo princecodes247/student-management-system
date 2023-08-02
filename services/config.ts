@@ -2,7 +2,7 @@
 import axios from "axios";
 import HttpClient from "../lib/http";
 
-const apiUrl = "http://localhost:3000";
+const apiUrl = "http://172.20.10.3:3000";
 // const api = axios.create({
 //   baseURL: apiUrl.toString(),
 //   maxBodyLength: Infinity,

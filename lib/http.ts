@@ -5,6 +5,14 @@ type ApiCallInfo<U> = {
   error: Error | null;
 };
 
+type ApiBaseConfig = {
+  path: string;
+  config?: RequestInit;
+  onSuccess?: (data: any) => void;
+  onError?: (error: Error) => void;
+  onMutate?: (data: any) => void;
+};
+
 type UpdateApiCallInfoFunction<U> = (info: Partial<ApiCallInfo<U>>) => void;
 
 export default class HttpClient {
@@ -14,105 +22,104 @@ export default class HttpClient {
     this.path = path;
   }
 
-  private async http<T>(
-    path: string,
-    config: RequestInit,
-    callKey: string,
-    updateApiCallInfo
-  ): Promise<T> {
-    updateApiCallInfo(callKey, {
+  private async http<T>({
+    path,
+    config,
+    updateApiCallInfo,
+    onSuccess,
+    onError,
+    onMutate,
+  }: ApiBaseConfig & {
+    updateApiCallInfo: UpdateApiCallInfoFunction<T>;
+  }): Promise<T> {
+    updateApiCallInfo({
       isLoading: true,
       isError: false,
       error: null,
     });
-    console.log({ path: this.path + path });
 
     const request = new Request(this.path + path, config);
     const response = await fetch(request);
 
     if (!response.ok) {
       const error = new Error(response.statusText);
-      updateApiCallInfo(callKey, {
+      updateApiCallInfo({
         isLoading: false,
         isError: true,
         error,
       });
+      onError(error);
       throw error;
     }
 
     // May error if there is no body, return empty object
     const responseData = await response.json().catch(() => ({}));
-    updateApiCallInfo(callKey, {
+    updateApiCallInfo({
       isLoading: false,
       isError: false,
       error: null,
+      data: responseData,
     });
     return responseData;
   }
 
-  public get<T>(
-    path: string,
-    config?: RequestInit,
-    callKey: string = "get"
-  ): ApiCallInstance<T, null> {
-    return this.createApiCall<T, null>(
-      (updateApiCallInfo) =>
-        this.http<T>(
-          path,
-          { method: "get", ...config },
-          callKey,
-          updateApiCallInfo
-        ),
-      callKey
+  public get<T>({
+    path,
+    config,
+    onSuccess,
+    onError,
+    onMutate,
+  }: ApiBaseConfig): ApiCallInstance<T, null> {
+    return this.createApiCall<T, null>((updateApiCallInfo) =>
+      this.http<T>({
+        path,
+        config: { method: "get", ...config },
+        updateApiCallInfo,
+      })
     );
   }
 
-  public post<RequestBody, ResponseBody>(
-    path: string,
-    config?: RequestInit,
-    callKey: string = "post"
-  ): ApiCallInstance<ResponseBody, RequestBody> {
+  public post<RequestBody, ResponseBody>({
+    path,
+    config,
+    onSuccess,
+    onError,
+    onMutate,
+  }: ApiBaseConfig): ApiCallInstance<ResponseBody, RequestBody> {
     return this.createApiCall<ResponseBody, RequestBody>(
       (
         payload: RequestBody,
         updateApiCallInfo: UpdateApiCallInfoFunction<ResponseBody>
       ) =>
-        this.http<ResponseBody>(
+        this.http<ResponseBody>({
           path,
-          { method: "post", body: JSON.stringify(payload), ...config },
-          callKey,
-          updateApiCallInfo
-        ),
-      callKey
+          config: { method: "post", ...config },
+          updateApiCallInfo,
+        })
     );
   }
 
-  public put<RequestBody, ResponseBody>(
-    path: string,
-
-    config?: RequestInit,
-    callKey: string = "put"
-  ): ApiCallInstance<ResponseBody, RequestBody> {
+  public put<RequestBody, ResponseBody>({
+    path,
+    config,
+  }: ApiBaseConfig): ApiCallInstance<ResponseBody, RequestBody> {
     return this.createApiCall<ResponseBody, RequestBody>(
       (
         payload: RequestBody,
         updateApiCallInfo: UpdateApiCallInfoFunction<ResponseBody>
       ) =>
-        this.http<ResponseBody>(
+        this.http<ResponseBody>({
           path,
-          { method: "put", body: JSON.stringify(payload), ...config },
-          callKey,
-          updateApiCallInfo
-        ),
-      callKey
+          config: { method: "put", ...config },
+          updateApiCallInfo,
+        })
     );
   }
   public createApiCall<U, T>(
     requestFunction: (
       data,
       updateApiCallInfo: UpdateApiCallInfoFunction<U>
-    ) => Promise<U>,
-    callKey: string
+    ) => Promise<U>
   ): ApiCallInstance<U, T> {
     return new ApiCallInstance<U, T>(requestFunction);
   }
@@ -139,10 +146,16 @@ class ApiCallInstance<U, T> {
   }
 
   private updateApiCallInfo(info: Partial<ApiCallInfo<U>>) {
+    console.log({
+      info: this.apiCallInfo,
+    });
     this.apiCallInfo = {
       ...this.apiCallInfo,
       ...info,
     };
+    console.log({
+      info: this.apiCallInfo,
+    });
   }
   private getApiCallInfo(key: keyof ApiCallInfo<U>): any {
     return this.apiCallInfo[key];
@@ -150,18 +163,17 @@ class ApiCallInstance<U, T> {
 
   public async mutate<U>(data: U): Promise<U> {
     try {
-      console.log("mutate", data, this.api);
       this.updateApiCallInfo({
         isLoading: true,
         isError: false,
         error: null,
       });
       const response = await this.api(data, this.updateApiCallInfo);
-      this.updateApiCallInfo({
-        isLoading: false,
-        isError: false,
-        error: null,
-      });
+      // this.updateApiCallInfo({
+      //   isLoading: false,
+      //   isError: false,
+      //   error: null,
+      // });
       return response as U;
     } catch (error) {
       this.updateApiCallInfo({
