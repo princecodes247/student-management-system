@@ -5,7 +5,7 @@ import { TextInput } from "react-native";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const inputVariants = cva(
-  "w-full px-3 py-3 border border-borderColor rounded-lg text-md bg-input ring-offset-background placeholder:text-muted-foreground focus:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+  "w-full px-3 py-3 border border-borderColor rounded-lg text-base bg-input ring-offset-background placeholder:text-muted-foreground focus:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
   {
     variants: {
       variant: {

@@ -7,6 +7,7 @@ import { Link } from "expo-router";
 import KeyboardAvoidingView from "../../components/KeyboardAvoidingView";
 import { Alert, AlertTitle } from "../../components/Alert";
 import { ActionLink } from "../../components/ActionLink";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function Home() {
   return (
@@ -21,8 +22,10 @@ export default function Home() {
             </View>
           </Pressable>
         </Link>
-        <View>
-          <Text>BE</Text>
+        <View className="items-center justify-center">
+          <Link href="/profile">
+            <MaterialIcons name="notifications" size={30} color="gray" />
+          </Link>
         </View>
       </View>
       <View className="w-full p-6 py-4 mt-8 rounded-xl bg-primary">
@@ -40,23 +43,28 @@ export default function Home() {
             size="sm"
             classNames="border-white"
             variant="outline"
-            href="to"
+            href="/timetable"
           >
             <Text className="text-white">Set Reminder</Text>
           </Button>
+
           <Button
             size="sm"
             classNames="ml-2 border-white"
             variant="outline"
-            href="to"
+            href="/timetable"
           >
-            <Text className="text-white">Set Reminder</Text>
+            <Text className="text-white">View Details</Text>
           </Button>
         </View>
       </View>
 
       <View className="mt-6">
-        <Alert variant="warning">
+        <Alert
+          classNames=""
+          icon={<MaterialIcons name="info-outline" size={24} />}
+          variant="warning"
+        >
           <AlertTitle content="Complete your profile setup" />
         </Alert>
       </View>

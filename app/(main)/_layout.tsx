@@ -1,6 +1,8 @@
 import { Tabs } from "expo-router/tabs";
 import { getHeaderTitle } from "@react-navigation/elements";
 import { Header } from "../../components/Header";
+import { MaterialIcons, Ionicons, Feather } from "@expo/vector-icons";
+
 export default function AppLayout() {
   const getHeader = ({ navigation, route, options }) => {
     const title = getHeaderTitle(options, route.name);
@@ -11,11 +13,18 @@ export default function AppLayout() {
     <Tabs>
       <Tabs.Screen
         // Name of the route to hide.
-        name="home"
+        name="index"
         options={{
           headerShown: false,
           tabBarLabel: "Home",
-
+          tabBarIcon: ({
+            size,
+            color,
+          }: {
+            focused: boolean;
+            color: string;
+            size: number;
+          }) => <MaterialIcons name="home" size={size} color={color} />,
           // This tab will no longer show up in the tab bar.
           // href: null,
         }}
@@ -25,6 +34,16 @@ export default function AppLayout() {
         name="timetable"
         options={{
           tabBarLabel: "Lectures",
+          tabBarIcon: ({
+            size,
+            color,
+          }: {
+            focused: boolean;
+            color: string;
+            size: number;
+          }) => (
+            <MaterialIcons name="calendar-today" size={size} color={color} />
+          ),
           header: getHeader,
         }}
       />
@@ -35,10 +54,15 @@ export default function AppLayout() {
           headerTitle: "Chat Room",
           // headerShown: false,
           tabBarLabel: "Chats",
+          tabBarIcon: ({
+            size,
+            color,
+          }: {
+            focused: boolean;
+            color: string;
+            size: number;
+          }) => <MaterialIcons name="chat" size={size} color={color} />,
           header: getHeader,
-
-          // This tab will no longer show up in the tab bar.
-          // href: null,
         }}
       />
       <Tabs.Screen
@@ -48,6 +72,7 @@ export default function AppLayout() {
           headerTitle: "Chat Room",
           // headerShown: false,
           tabBarLabel: "Chats",
+
           header: getHeader,
 
           // This tab will no longer show up in the tab bar.
@@ -61,11 +86,14 @@ export default function AppLayout() {
           headerTitle: "Results",
           // headerShown: false,
           tabBarLabel: "Results",
-
-          // header: getHeader,
-
-          // This tab will no longer show up in the tab bar.
-          // href: null,
+          tabBarIcon: ({
+            size,
+            color,
+          }: {
+            focused: boolean;
+            color: string;
+            size: number;
+          }) => <MaterialIcons name="list" size={size} color={color} />,
         }}
       />
       <Tabs.Screen
@@ -75,10 +103,14 @@ export default function AppLayout() {
           headerTitle: "Profile",
           // headerShown: false,
           tabBarLabel: "Profile",
-          // header: getHeader,
-
-          // This tab will no longer show up in the tab bar.
-          // href: null,
+          tabBarIcon: ({
+            size,
+            color,
+          }: {
+            focused: boolean;
+            color: string;
+            size: number;
+          }) => <MaterialIcons name="person" size={size} color={color} />,
         }}
       />
       <Tabs.Screen

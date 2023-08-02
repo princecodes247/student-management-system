@@ -9,10 +9,14 @@ export default function Clearance() {
   return (
     <View className="flex justify-start flex-1 gap-4 p-8">
       <View className="flex-1 pt-24">
-        <Text className="text-2xl text-primary">Clearance</Text>
+        <Text className="text-2xl text-primary">You're almost done!</Text>
+        <Text className="mt-4 text-base text-gray-400">
+          Not to worry, we are saving you alot of stress, perhaps Hours of
+          walking under the Hot sun
+        </Text>
       </View>
       <View className="flex-1">
-        <Button replace href="/home" classNames="w-full" variant="default">
+        <Button replace href="/(main)" classNames="w-full" variant="default">
           <Text className="text-primary-foreground">Continue</Text>
         </Button>
       </View>

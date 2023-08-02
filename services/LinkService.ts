@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
-import { GetLinksData, ResponseBody } from "../interfaces/services";
+import { ResponseBody } from "../interfaces/services";
 import api, { authHeaders } from "./config";
-import { ILinkData } from "@/interfaces";
+import { ILinkData } from "../interfaces";
 
 const servicePrefix = "/links/";
 
@@ -39,7 +39,7 @@ export const getLinks = ({
     `${servicePrefix}?name=${name}&page=${page}&pageSize=${pageSize}`,
     {
       headers: authHeaders(),
-    },
+    }
   );
 };
 

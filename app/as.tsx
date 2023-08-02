@@ -3,11 +3,15 @@ import { StatusBar } from "expo-status-bar";
 import { Text, View, ScrollView, SafeAreaView } from "react-native";
 import Button from "../components/Button";
 import { Input } from "../components/Input";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import KeyboardAvoidingView from "../components/KeyboardAvoidingView";
 import { useQuery } from "@tanstack/react-query";
 
 export default function App() {
+  // const router = useRouter();
+  // React.useEffect(() => {
+  //   router.replace("/home");
+  // }, []);
   return (
     <View
       style={{
