@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View } from "react-native";
 import Button from "../../components/Button";
@@ -8,13 +8,20 @@ import { FilePicker } from "../../components/FilePicker";
 import { uploadFile } from "../../lib/FileStorage";
 import * as DocumentPicker from "expo-document-picker";
 import { ScrollView } from "react-native-gesture-handler";
-import { IFileData, UserRole } from "../../interfaces";
+import { IFileData, IUser, UserRole } from "../../interfaces";
 import { uploadDocs } from "../../services/ProfileService";
 import { AuthContext } from "../../layouts/AuthProvider";
 import AuthorizedRoute from "../../layouts/AuthorizedRoute";
 
 export default function Clearance() {
-  const { user } = useContext(AuthContext);
+  const { getUser } = useContext(AuthContext);
+  const [user, setUser] = React.useState<IUser>(null);
+  useEffect(() => {
+    getUser().then((data) => {
+      setUser(data);
+    });
+  }, []);
+
   const [olevel_result, setOlevelResult] = React.useState<IFileData>(null);
   const [statutory_declaration, setStatutoryDeclaration] =
     React.useState<IFileData>(null);
@@ -67,7 +74,7 @@ export default function Clearance() {
                   });
                   setOlevelResult({
                     ...value,
-                    url: res?.url ?? null,
+                    url: res?.data?.url ?? null,
                   });
                   console.log({ res });
                 }}
@@ -87,7 +94,7 @@ export default function Clearance() {
                   console.log({ res });
                   setStatutoryDeclaration({
                     ...value,
-                    url: res?.url ?? null,
+                    url: res?.data?.url ?? null,
                   });
                 }}
               />
@@ -104,7 +111,10 @@ export default function Clearance() {
                     setBirthCertificate(null);
                   });
                   console.log({ res });
-                  setBirthCertificate(res?.url ?? null);
+                  setBirthCertificate({
+                    ...value,
+                    url: res?.data?.url ?? null,
+                  });
                 }}
               />
             </View>
@@ -118,7 +128,7 @@ export default function Clearance() {
                     setJambResult(null);
                   });
                   console.log({ res });
-                  setJambResult(res?.url ?? null);
+                  setJambResult({ ...value, url: res?.data?.url ?? null });
                 }}
               />
             </View>
@@ -134,7 +144,10 @@ export default function Clearance() {
                     setAttestationLetter(null);
                   });
                   console.log({ res });
-                  setAttestationLetter(res?.url ?? null);
+                  setAttestationLetter({
+                    ...value,
+                    url: res?.data?.url ?? null,
+                  });
                 }}
               />
             </View>
@@ -143,15 +156,16 @@ export default function Clearance() {
               onClick={() => {
                 profileMutation.mutate({
                   user_id: user.id,
-                  olevel_result,
-                  statutory_declaration,
-                  birth_certificate,
-                  jamb_result,
-                  attestation_letter,
+                  olevel_result: olevel_result?.url,
+                  statutory_declaration: statutory_declaration?.url,
+                  birth_certificate: birth_certificate?.url,
+                  jamb_result: jamb_result?.url,
+                  attestation_letter: attestation_letter?.url,
                 });
               }}
               classNames="w-full"
               variant="default"
+              loading={loading}
             >
               <Text className="text-primary-foreground">Continue</Text>
             </Button>

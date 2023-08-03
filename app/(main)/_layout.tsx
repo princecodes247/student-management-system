@@ -128,6 +128,19 @@ export default function AppLayout() {
       />
       <Tabs.Screen
         // Name of the route to hide.
+        name="courses"
+        options={{
+          headerTitle: "Courses",
+          // headerShown: false,
+
+          header: getHeader,
+
+          // This tab will no longer show up in the tab bar.
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        // Name of the route to hide.
         name="school-fees"
         options={{
           headerTitle: "School Fees",

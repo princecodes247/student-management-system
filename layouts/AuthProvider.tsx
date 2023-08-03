@@ -5,9 +5,10 @@ import { IUser } from "../interfaces";
 
 interface AuthContextProps {
   user: IUser | null;
-  setUser: (user: IUser | null) => void;
-  // login: (userData: IUser) => void;
-  // logout: () => void;
+  // setUser: (user: IUser | null) => void;
+  getUser: () => Promise<IUser>;
+  login: (user: IUser) => Promise<void>;
+  logout: () => Promise<void>;
 }
 // Create the authentication context
 export const AuthContext = createContext<AuthContextProps>(null);
@@ -17,19 +18,28 @@ export default function AuthProvider({
   children: React.ReactNode;
 }) {
   // const user = PersistentKeyStore.getValueFor("user");
-  const [user, setUser] = useState<IUser | null>(null);
+  const getUser = async () => await PersistentKeyStore.getValueFor("user");
+  const logout = async () => {
+    await PersistentKeyStore.deleteValueFor("user");
+    setUser(null);
+  };
+  const login = async (userData: IUser) => {
+    setUser(userData);
+    await PersistentKeyStore.save("user", userData);
+    await PersistentKeyStore.save("token", userData?.token ?? null);
+  };
+  const [user, setUser] = React.useState<IUser>(null);
+  const authContextValue: AuthContextProps = {
+    getUser,
+    user,
+    login,
+    logout,
+  };
   useEffect(() => {
-    PersistentKeyStore.getValueFor("user").then((data) => {
-      console.log({ user });
+    getUser().then((data) => {
       setUser(data);
     });
   }, []);
-  const authContextValue: AuthContextProps = {
-    user,
-    setUser,
-    // login,
-    // logout,
-  };
   return (
     <AuthContext.Provider value={authContextValue}>
       <View>{children}</View>

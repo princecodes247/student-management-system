@@ -20,7 +20,7 @@ const Picker = ({
   placeholder = "Choose an option",
   items = [],
   value,
-  onChange,
+  onChange = () => {},
   ...props
 }: PickerProps) => {
   return (

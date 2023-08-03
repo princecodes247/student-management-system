@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, ScrollView, SafeAreaView } from "react-native";
 import Button from "../../components/Button";
@@ -9,9 +9,11 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useMutate } from "../../hooks/useMutate";
 import { signIn } from "../../services/AuthService";
 import PersistentKeyStore from "../../lib/PersistentKeyStore";
+import { AuthContext } from "../../layouts/AuthProvider";
 
 export default function GetStarted() {
   const router = useRouter();
+  const { login } = useContext(AuthContext);
   const [matriculationNumber, setMatriculationNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
@@ -24,11 +26,13 @@ export default function GetStarted() {
       setIsLoading(true);
     },
     onSuccess: async (data) => {
+      await login(data);
       setIsLoading(false);
       console.log("I did it", data);
       router.push("/onboarding/congratulations");
-      await PersistentKeyStore.save("token", data?.token);
-      await PersistentKeyStore.save("user", data);
+
+      // await PersistentKeyStore.save("token", data?.token);
+      // await PersistentKeyStore.save("user", data);
     },
   });
 

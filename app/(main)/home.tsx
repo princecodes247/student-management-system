@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, Pressable } from "react-native";
 import Button from "../../components/Button";
@@ -10,8 +10,10 @@ import { ActionLink } from "../../components/ActionLink";
 import { MaterialIcons } from "@expo/vector-icons";
 import AuthorizedRoute from "../../layouts/AuthorizedRoute";
 import { UserRole } from "../../interfaces";
+import { AuthContext } from "../../layouts/AuthProvider";
 
 export default function Home() {
+  const { user } = useContext(AuthContext);
   return (
     <AuthorizedRoute allowedRoles={[UserRole.Student]}>
       <View className="h-full p-6 bg-white pt-14">
@@ -20,8 +22,12 @@ export default function Home() {
             <Pressable className="flex-row flex-1 gap-2">
               <View className="p-6 bg-gray-300 rounded-full"></View>
               <View className="flex-1">
-                <Text className="text-base text-gray-800">Hello David</Text>
-                <Text className="text-base text-gray-400">UG/17/1233</Text>
+                <Text className="text-base text-gray-800">
+                  Hello {user?.first_name}
+                </Text>
+                <Text className="text-base text-gray-400">
+                  {user?.matriculation_number}
+                </Text>
               </View>
             </Pressable>
           </Link>
@@ -36,10 +42,10 @@ export default function Home() {
             <Text className="text-sm text-primary-foreground">
               Upcoming Lecture
             </Text>
-            <Text className="text-sm text-primary-foreground">2pm</Text>
+            <Text className="text-sm text-primary-foreground">--</Text>
           </View>
           <Text className="mt-1 mb-3 text-xl text-primary-foreground">
-            EEE351 - Logic & Digital systems
+            No lectures yet
           </Text>
           <View className="flex-row mt-8">
             <Button
@@ -63,13 +69,13 @@ export default function Home() {
         </View>
 
         <View className="mt-6">
-          <Alert
+          {/* <Alert
             classNames=""
             icon={<MaterialIcons name="info-outline" size={24} />}
             variant="warning"
           >
             <AlertTitle content="Complete your profile setup" />
-          </Alert>
+          </Alert> */}
         </View>
         <View className="mt-8">
           <Text>Quick Actions</Text>

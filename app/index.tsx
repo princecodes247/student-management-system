@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, ScrollView, SafeAreaView } from "react-native";
 import Button from "../components/Button";
@@ -7,9 +7,11 @@ import { Link, useRouter } from "expo-router";
 import KeyboardAvoidingView from "../components/KeyboardAvoidingView";
 import { signIn } from "../services/AuthService";
 import PersistentKeyStore from "../lib/PersistentKeyStore";
+import { AuthContext } from "../layouts/AuthProvider";
 
 export default function Login() {
   const router = useRouter();
+  const { login } = useContext(AuthContext);
   const [matriculationNumber, setMatriculationNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
@@ -21,12 +23,11 @@ export default function Login() {
     onMutate: (data) => {
       setIsLoading(true);
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
+      await login(data);
       setIsLoading(false);
       console.log("I did it", data);
       router.push("/home");
-      PersistentKeyStore.save("token", data?.token);
-      PersistentKeyStore.save("user", data);
     },
   });
   return (

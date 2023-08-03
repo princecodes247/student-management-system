@@ -4,6 +4,11 @@ export enum UserType {
   STUDENT = "student",
 }
 
+export enum Semester {
+  first = "first",
+  second = "second",
+}
+
 export type ChatOverviewType = {
   id: string;
   name: string;
@@ -23,6 +28,14 @@ export enum DeviceType {
   Android = "android",
   IPhone = "iphone",
 }
+export interface IFaculty {
+  name: string;
+}
+
+export interface IDepartment {
+  name: string;
+  faculty: IFaculty;
+}
 
 export interface IUser {
   id: string;
@@ -32,6 +45,23 @@ export interface IUser {
   phone?: string;
   role: UserRole;
   matriculation_number?: string;
+  token?: string;
+  department?: IDepartment;
+}
+
+export interface IEnrollment {
+  student: string;
+  session: string;
+  semester: Semester;
+  courses: string[];
+}
+
+export interface ICourse {
+  _id: string;
+  code: String;
+  title: String;
+  description: String;
+  unit: number;
 }
 
 export enum UserRole {
