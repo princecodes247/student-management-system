@@ -34,3 +34,24 @@ export interface IUpdateProfileData {
   lga: string;
   address: string;
 }
+
+export type IFileData =
+  | { url: any; type: "cancel" }
+  | {
+      uri: string;
+      mimeType?: string;
+      name: string;
+      size?: number;
+      type: "success";
+      url?: string;
+      lastModified?: number;
+      file?: File;
+      output?: FileList;
+    };
+type s = {
+  type: "success";
+  name: string;
+  size?: number;
+  uri: string;
+  mimeType?: string;
+};

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 export default function Root({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   useEffect(() => {
-    router.replace("/onboarding/get-started");
+    router.replace("/onboarding/clearance");
   }, []);
   return <View>{children}</View>;
   // return (
