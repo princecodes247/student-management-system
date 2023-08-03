@@ -107,10 +107,11 @@ export default function CourseEnrollment() {
             React.Children.toArray(
               courses.map((item) => (
                 <View
-                  className="p-8 py-6 mb-2 bg-gray-100 border border-gray-200"
+                  className="p-6 py-4 mb-2 bg-gray-100 border border-gray-200"
                   key={item._id}
                 >
-                  <Text>{item.code}</Text>
+                  <Text className="text-base">{item.code}</Text>
+                  <Text className="text-base">{item.title}</Text>
                 </View>
               ))
             )
