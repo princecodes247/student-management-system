@@ -13,7 +13,7 @@ export default function ForgotPassword() {
         flex: 1,
         height: "100%",
       }}
-      className="flex justify-between flex-1 h-full gap-4 p-8 "
+      className="flex justify-between flex-1 h-full gap-4 p-8 pl-12 "
     >
       <View className="flex-1 pt-24">
         <Text className="text-4xl">Forgot Password</Text>
@@ -23,11 +23,11 @@ export default function ForgotPassword() {
       </View>
       <KeyboardAvoidingView>
         <View className="flex-1">
-          <Input placeholder="Mat. No" classNames="mb-2" />
-          <Input placeholder="Password" classNames="" />
-          <Link replace asChild href="/forgot-password">
+          <Input placeholder="Email" classNames="mb-2" />
+
+          <Link replace asChild href="/">
             <Text className="mt-2 mb-4 text-right text-gray-600">
-              Forgot Password?
+              Back to login
             </Text>
           </Link>
           <Button

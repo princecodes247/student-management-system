@@ -24,6 +24,22 @@ export enum DeviceType {
   IPhone = "iphone",
 }
 
+export interface IUser {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone?: string;
+  role: UserRole;
+  matriculation_number?: string;
+}
+
+export enum UserRole {
+  "Student" = "student",
+  "Teacher" = "teacher",
+  "Admin" = "admin",
+}
+
 export interface ILinkData {}
 
 export interface IUpdateProfileData {

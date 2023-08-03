@@ -8,6 +8,7 @@ import KeyboardAvoidingView from "../../components/KeyboardAvoidingView";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useMutate } from "../../hooks/useMutate";
 import { signIn } from "../../services/AuthService";
+import PersistentKeyStore from "../../lib/PersistentKeyStore";
 
 export default function GetStarted() {
   const router = useRouter();
@@ -16,16 +17,18 @@ export default function GetStarted() {
   const [isLoading, setIsLoading] = React.useState(false);
   const loginMutation = signIn({
     onError: (error) => {
-      console.log("I did it", error);
+      console.log("I did error", error);
       setIsLoading(false);
     },
     onMutate: (data) => {
       setIsLoading(true);
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       setIsLoading(false);
       console.log("I did it", data);
       router.push("/onboarding/congratulations");
+      await PersistentKeyStore.save("token", data?.token);
+      await PersistentKeyStore.save("user", data);
     },
   });
 
