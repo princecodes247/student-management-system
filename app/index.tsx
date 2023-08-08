@@ -26,7 +26,7 @@ export default function Login() {
       setIsLoading(true);
     },
     onSuccessFunction: async (data) => {
-      await login(data.user);
+      await login(data.user, data.token);
       setIsLoading(false);
       console.log("I did it", data);
       router.push("/home");

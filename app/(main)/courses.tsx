@@ -22,23 +22,8 @@ export default function Courses() {
   const [courses, setCourses] = React.useState<ICourse[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [level, setLevel] = React.useState<string>("100");
-  const [semester, setSemester] = React.useState<Semester>(Semester.first);
 
   const { user } = useContext(AuthContext);
-  useEffect(() => {
-    if (semester && level) {
-      setIsLoading(true);
-      getEnrolledCourses({
-        level,
-        semester,
-        userId: user.id,
-      }).then((data) => {
-        console.log({ data: data.data });
-        setCourses(data.data);
-        setIsLoading(false);
-      });
-    }
-  }, [semester]);
 
   return (
     <ScrollView className="bg-white">
@@ -46,7 +31,7 @@ export default function Courses() {
         <View className="flex-1">
           <View className="my-3">
             <Text className="text-base text-gray-500">
-              Your courses for the {level} level - {semester} semester
+              Your courses for the {level} level semester
             </Text>
           </View>
         </View>
@@ -58,7 +43,7 @@ export default function Courses() {
               courses.map((item) => (
                 <View
                   className="p-8 py-6 mb-2 bg-gray-100 border border-gray-200"
-                  key={item._id}
+                  key={item.code}
                 >
                   <Text>{item.code}</Text>
                 </View>

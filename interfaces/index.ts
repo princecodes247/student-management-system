@@ -7,9 +7,15 @@ export enum UserType {
 }
 
 export enum Semester {
-  first = "first",
-  second = "second",
+  first = "First",
+  second = "Second",
 }
+
+type NumberAsString<T> = {
+  [P in keyof T]: T[P] extends number ? string : T[P];
+};
+
+export type CourseStatus = "Compulsory" | "Elective";
 
 export type Gender = "Male" | "Female";
 export type StudentType = "indigene" | "non-indigene";
@@ -73,12 +79,26 @@ export interface IEnrollment {
   courses: string[];
 }
 
-export interface ICourse {
+export interface OLD_ICourse {
   _id: string;
   code: String;
   title: String;
   description: String;
   unit: number;
+}
+
+export interface ICourse {
+  title: string;
+  code: string;
+  units: number;
+  status: CourseStatus;
+  semester: Semester;
+}
+
+export interface IFee {
+  id: number;
+  fee: string;
+  amount: NumberAsString<number>;
 }
 
 export enum UserRole {
@@ -124,6 +144,10 @@ type s = {
   mimeType?: string;
 };
 
+export type QueryApiFunction<ResultType, ArgType> =
+  | ((arg?: ArgType) => Promise<ResultType>)
+  | ((arg?: ArgType) => Promise<AxiosResponse<ResultType>>);
+
 export type ApiFunction<ResultType, ArgType> = (
   arg?: ArgType
 ) => Promise<AxiosResponse<ResultType>>;
@@ -137,4 +161,10 @@ export interface UseMutateOptions<ResultType, ArgType> {
   loadingMessage?: string;
   errorMessage?: string;
   showToast?: boolean;
+  defaultData?: ResultType | null;
+}
+
+export interface UseQueryOptions<ResultType, ArgType>
+  extends UseMutateOptions<ResultType, ArgType> {
+  isDisabled?: boolean;
 }

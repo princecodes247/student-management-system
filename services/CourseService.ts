@@ -1,15 +1,18 @@
 import { ICourse, Semester } from "../interfaces";
 import api, { authHeaders, uninterceptedApi } from "./config";
 
-const servicePrefix = "/course";
+const servicePrefix = "/";
 
-export const getCourses = async () => {
-  const instance = await uninterceptedApi.get<ICourse[]>(servicePrefix + "/", {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    // headers: authHeaders()
-  });
+export const getCourses = async (level: number = 100) => {
+  const instance = await api.get<ICourse[]>(
+    servicePrefix + `student/get-courses-in/{level}/`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // headers: authHeaders()
+    }
+  );
   return instance;
 };
 

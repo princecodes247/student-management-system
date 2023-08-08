@@ -26,19 +26,19 @@ export default function CourseEnrollment() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [level, setLevel] = React.useState<string>(null);
   const [semester, setSemester] = React.useState<string>(null);
-  const courseMutation = registerCourses({
-    onError: (error) => {
-      console.log("I did it", error);
-      setIsLoading(false);
-    },
-    onMutate: (data) => {
-      setIsLoading(true);
-    },
-    onSuccess: async (data) => {
-      setIsLoading(false);
-      console.log("I did it", data);
-    },
-  });
+  // const courseMutation = registerCourses({
+  //   onError: (error) => {
+  //     console.log("I did it", error);
+  //     setIsLoading(false);
+  //   },
+  //   onMutate: (data) => {
+  //     setIsLoading(true);
+  //   },
+  //   onSuccess: async (data) => {
+  //     setIsLoading(false);
+  //     console.log("I did it", data);
+  //   },
+  // });
   const { user } = useContext(AuthContext);
   useEffect(() => {
     if (semester && level) {
@@ -52,8 +52,8 @@ export default function CourseEnrollment() {
   }, [semester]);
 
   return (
-    <ScrollView className="bg-white border">
-      <View className="flex-1 h-full p-6 ">
+    <ScrollView className="h-full bg-white">
+      <View className="flex-col justify-between flex-1 h-[80vh] p-6">
         <View className="flex-1">
           <View className="my-3">
             <Text className="">
@@ -73,74 +73,38 @@ export default function CourseEnrollment() {
                 ]}
               />
             </View>
-            {level && (
-              <View className="">
-                <Picker
-                  onChange={(value) => setSemester(value)}
-                  value={semester}
-                  placeholder="Select Semester"
-                  items={[
-                    { label: "1st semester", value: "1" },
-                    // { label: "2nd semester", value: "2" },
-                  ]}
-                />
-              </View>
-            )}
           </View>
           <View className="my-3 mt-8 ">
             <Input
-              value={user.matriculation_number}
+              value={user.matno}
               classNames="mb-2"
               variant="disabled"
               disabled
             />
             <Input
-              value={user?.department?.name ?? ""}
+              value={"Electrical/Electronics" ?? ""}
               variant="disabled"
               disabled
             />
           </View>
         </View>
-        <View className="flex-1 pt-8 pb-8">
-          <Text className="mt-8 mb-4 text-base">Courses to Register</Text>
-          {courses.length > 0 ? (
-            React.Children.toArray(
-              courses.map((item) => (
-                <View
-                  className="p-6 py-4 mb-2 bg-gray-100 border border-gray-200"
-                  key={item._id}
-                >
-                  <Text className="text-base">{item.code}</Text>
-                  <Text className="text-base">{item.title}</Text>
-                </View>
-              ))
-            )
-          ) : (
-            <View className="py-6">
-              <Text className="text-center text-gray-500">
-                No courses available
-              </Text>
-            </View>
-          )}
-        </View>
 
-        {courses.length > 0 && (
+        <View className="flex-[3] h-full justify-end">
           <Button
             classNames="w-full"
-            onClick={handleOpenPaymentModal}
+            // onClick={handleOpenPaymentModal}
+            href={`/courses?level=${level}`}
             variant="outline"
             loading={isLoading}
             disabled={!semester || !level}
           >
-            <Text className="font-semibold text-primary">Pay #350</Text>
+            <Text className="text-base font-semibold text-primary">Next</Text>
           </Button>
-        )}
+        </View>
 
         <PaymentModal
           firstRef={paymentModalRef}
-          onSuccess={() => {
-            courseMutation.mutate({ courses: courses.map((item) => item._id) });
-          }}
+          onSuccess={() => {}}
           amount={100}
         />
       </View>

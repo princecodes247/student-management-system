@@ -1,6 +1,7 @@
 import { apiUrl } from "../constants";
 import axios from "axios";
 import HttpClient from "../lib/http";
+import PersistentKeyStore from "../lib/PersistentKeyStore";
 
 const api = axios.create({
   baseURL: apiUrl.toString(),
@@ -39,11 +40,15 @@ const uninterceptedApi = axios.create({
 //   }
 // );
 
-const authHeaders = (extraConfig?: { [key: string]: string | undefined }) => {
+const authHeaders = async (extraConfig?: {
+  [key: string]: string | undefined;
+}) => {
   return {
     ...{
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("psg_auth_token") ?? ""}`,
+      Authorization: `Bearer ${
+        (await PersistentKeyStore.getValueFor("token")) ?? ""
+      }`,
     },
     ...extraConfig,
   };

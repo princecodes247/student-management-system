@@ -5,9 +5,10 @@ import { IUser } from "../interfaces";
 
 interface AuthContextProps {
   user: IUser | null;
+  token: string | null;
   // setUser: (user: IUser | null) => void;
   getUser: () => Promise<IUser>;
-  login: (user: IUser) => Promise<void>;
+  login: (user: IUser, token: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 // Create the authentication context
@@ -17,23 +18,27 @@ export default function AuthProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const [user, setUser] = React.useState<IUser>(null);
+  const [token, setToken] = React.useState<string>(null);
   // const user = PersistentKeyStore.getValueFor("user");
   const getUser = async () => await PersistentKeyStore.getValueFor("user");
   const logout = async () => {
     await PersistentKeyStore.deleteValueFor("user");
     setUser(null);
   };
-  const login = async (userData: IUser) => {
+  const login = async (userData: IUser, token: string) => {
     setUser(userData);
+    setToken(token);
     await PersistentKeyStore.save("user", userData);
-    await PersistentKeyStore.save("token", userData?.token ?? null);
+    await PersistentKeyStore.save("token", token ?? null);
   };
-  const [user, setUser] = React.useState<IUser>(null);
+
   const authContextValue: AuthContextProps = {
     getUser,
     user,
     login,
     logout,
+    token,
   };
   useEffect(() => {
     getUser().then((data) => {
