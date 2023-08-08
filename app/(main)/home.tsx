@@ -23,11 +23,9 @@ export default function Home() {
               <View className="p-6 bg-gray-300 rounded-full"></View>
               <View className="flex-1">
                 <Text className="text-base text-gray-800">
-                  Hello {user?.first_name}
+                  Hello {user?.firstname}
                 </Text>
-                <Text className="text-base text-gray-400">
-                  {user?.matriculation_number}
-                </Text>
+                <Text className="text-base text-gray-400">{user?.matno}</Text>
               </View>
             </Pressable>
           </Link>

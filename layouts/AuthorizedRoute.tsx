@@ -18,7 +18,7 @@ const AuthorizedRoute: React.FC<AuthorizedRouteProps> = ({
 
   const { getUser } = useContext(AuthContext);
   const user = getUser().then((data) => {
-    if (!data || !allowedRoles.includes(data.role)) {
+    if (!data) {
       // alert(user.id);
       console.log({ tryData: data });
       // User is not logged in or doesn't have the required role

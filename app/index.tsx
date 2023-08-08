@@ -8,6 +8,7 @@ import KeyboardAvoidingView from "../components/KeyboardAvoidingView";
 import { signIn } from "../services/AuthService";
 import PersistentKeyStore from "../lib/PersistentKeyStore";
 import { AuthContext } from "../layouts/AuthProvider";
+import { useMutate } from "../hooks/useMutate";
 
 export default function Login() {
   const router = useRouter();
@@ -15,16 +16,17 @@ export default function Login() {
   const [matriculationNumber, setMatriculationNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
-  const loginMutation = signIn({
-    onError: (error) => {
-      console.log("I did it", error);
+  const loginMutation = useMutate(signIn, {
+    onErrorFunction: (error) => {
+      console.log("I did it", error.stack);
       setIsLoading(false);
     },
-    onMutate: (data) => {
+    onMutateFunction: (data) => {
+      console.log("I did it", data);
       setIsLoading(true);
     },
-    onSuccess: async (data) => {
-      await login(data);
+    onSuccessFunction: async (data) => {
+      await login(data.user);
       setIsLoading(false);
       console.log("I did it", data);
       router.push("/home");
@@ -84,13 +86,15 @@ export default function Login() {
             variant="default"
             onClick={() => {
               loginMutation.mutate({
-                matriculationNumber,
+                matno: matriculationNumber,
                 password,
               });
             }}
-            loading={isLoading}
+            loading={loginMutation.isLoading}
           >
-            <Text className="font-semibold text-primary-foreground">Login</Text>
+            <Text className="font-semibold text-primary-foreground">
+              Login{loginMutation.error?.message}
+            </Text>
           </Button>
         </View>
       </KeyboardAvoidingView>

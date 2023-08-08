@@ -1,51 +1,31 @@
+import { AxiosResponse } from "axios";
+import { LoginRequest, LoginResponse } from "../interfaces/services";
 import api, { authHeaders } from "./config";
 
-const servicePrefix = "/auth";
+const servicePrefix = "/";
 
-const signIn = ({
-  onSuccess,
-  onError,
-  onMutate,
-}: {
-  onSuccess?: (data: any) => void;
-  onError?: (error: any) => void;
-  onMutate?: (data: any) => void;
-}) => {
-  const instance = api.post({
-    path: servicePrefix + "/login",
-    config: {
+const signIn = (payload: LoginRequest) => {
+  const instance = api.post<LoginRequest, AxiosResponse<LoginResponse>>(
+    servicePrefix + "student/login",
+    payload,
+    {
       headers: {
         "Content-Type": "application/json",
       },
       // headers: authHeaders()
-    },
-    onSuccess,
-    onError,
-    onMutate,
-  });
+    }
+  );
   return instance;
 };
 
-export const updateProfile = ({
-  onSuccess,
-  onError,
-  onMutate,
-}: {
-  onSuccess?: (data: any) => void;
-  onError?: (error: any) => void;
-  onMutate?: (data: any) => void;
-}) => {
-  const instance = api.post({
-    path: servicePrefix + "/update-profile",
+export const updateProfile = () => {
+  const instance = api.post(servicePrefix + "/update-profile", {
     config: {
       headers: {
         "Content-Type": "application/json",
       },
       // headers: authHeaders()
     },
-    onSuccess,
-    onError,
-    onMutate,
   });
   return instance;
 };

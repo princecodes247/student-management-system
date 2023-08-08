@@ -22,7 +22,7 @@ export const getEnrolledCourses = async ({
   level?: string;
   semester?: Semester;
 }) => {
-  const instance = await uninterceptedApi.get<ICourse[]>(
+  const instance = await api.get<ICourse[]>(
     "/enrollment" +
       "?userId=" +
       userId +
@@ -49,17 +49,13 @@ export const registerCourses = ({
   onError?: (error: any) => void;
   onMutate?: (data: any) => void;
 }) => {
-  const instance = api.post({
-    path: "/enrollment" + "/",
+  const instance = api.post("/enrollment" + "/", {
     config: {
       headers: {
         "Content-Type": "application/json",
       },
       // headers: authHeaders()
     },
-    onSuccess,
-    onError,
-    onMutate,
   });
   return instance;
 };

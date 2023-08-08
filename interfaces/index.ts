@@ -1,3 +1,5 @@
+import { AxiosResponse } from "axios";
+
 export type ConditionalArgument<T, U> = U extends undefined ? undefined : T;
 
 export enum UserType {
@@ -8,6 +10,12 @@ export enum Semester {
   first = "first",
   second = "second",
 }
+
+export type Gender = "Male" | "Female";
+export type StudentType = "indigene" | "non-indigene";
+export type MaritalStatus = "single" | "married" | "divorced" | "widowed";
+export type Religion = "christianity" | "islam" | "traditional" | "others";
+export type Disabled = "Yes" | "No";
 
 export type ChatOverviewType = {
   id: string;
@@ -38,15 +46,24 @@ export interface IDepartment {
 }
 
 export interface IUser {
-  id: string;
-  first_name: string;
-  last_name: string;
+  id: number;
+  matno: string;
+  firstname: string;
+  surname: string;
+  admission_level: number;
+  admission_session: number;
+  option_chosen: string;
+  guardian_id: number;
   email: string;
-  phone?: string;
-  role: UserRole;
-  matriculation_number?: string;
-  token?: string;
-  department?: IDepartment;
+  state: string;
+  lga: string;
+  gender: Gender;
+  mobile: string;
+  student_type: StudentType;
+  disabled: Disabled;
+  profile_image_path: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IEnrollment {
@@ -68,6 +85,11 @@ export enum UserRole {
   "Student" = "student",
   "Teacher" = "teacher",
   "Admin" = "admin",
+}
+
+export enum LoginType {
+  FirstTimeUser = "first",
+  UpdatedUser = "updated user",
 }
 
 export interface ILinkData {}
@@ -101,3 +123,18 @@ type s = {
   uri: string;
   mimeType?: string;
 };
+
+export type ApiFunction<ResultType, ArgType> = (
+  arg?: ArgType
+) => Promise<AxiosResponse<ResultType>>;
+
+export interface UseMutateOptions<ResultType, ArgType> {
+  onSuccessFunction?: (data: ResultType) => void;
+  onErrorFunction?: (error: Error) => void;
+  onLoadingFunction?: () => void;
+  onMutateFunction?: (payload: ArgType) => void;
+  successMessage?: string;
+  loadingMessage?: string;
+  errorMessage?: string;
+  showToast?: boolean;
+}
