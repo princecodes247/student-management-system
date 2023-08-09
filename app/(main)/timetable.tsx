@@ -14,6 +14,7 @@ export default function Timetable() {
       <View className="flex-row justify-between gap-2">
         <View className="flex-1">
           <Picker
+            value={"100l"}
             placeholder="Choose Level"
             items={[
               { label: "100 level", value: "100l" },
@@ -24,6 +25,7 @@ export default function Timetable() {
         </View>
         <View className="flex-1">
           <Picker
+            value={"1"}
             placeholder="Select Semester"
             items={[
               { label: "1st semester", value: "1" },

@@ -152,6 +152,17 @@ export default function AppLayout() {
           href: null,
         }}
       />
+      <Tabs.Screen
+        // Name of the route to hide.
+        name="school-fees-successful"
+        options={{
+          headerTitle: "School Fees",
+          // headerShown: false,
+
+          // This tab will no longer show up in the tab bar.
+          href: null,
+        }}
+      />
     </Tabs>
   );
 }

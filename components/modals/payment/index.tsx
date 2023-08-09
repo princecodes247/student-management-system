@@ -8,12 +8,16 @@ import { Input } from "../../Input";
 import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 import { BottomSheetModal } from "../../BottomSheet";
 import KeyboardAvoidingView from "../../KeyboardAvoidingView";
+import * as WebBrowser from "expo-web-browser";
+import { WebView } from "react-native-webview";
+import * as Linking from "expo-linking";
 
 export interface PaymentModalProps {
   classNames?: string;
   firstRef: React.RefObject<BottomSheet>;
   amount?: number;
   onSuccess?: () => void;
+  url?: string;
 }
 
 const PaymentModal = ({
@@ -21,6 +25,7 @@ const PaymentModal = ({
   firstRef,
   amount = 0,
   onSuccess,
+  url,
 }: PaymentModalProps) => {
   const bottomSheetRef = React.useRef<BottomSheet>(null);
   const bottomSheetRef2 = React.useRef<BottomSheet>(null);
@@ -38,21 +43,47 @@ const PaymentModal = ({
     if (bottomSheetRef3.current) bottomSheetRef3.current.close();
     if (onSuccess) onSuccess();
   };
+
+  const [result, setResult] = React.useState(null);
+
+  const _handlePressButtonAsync = async () => {
+    let result = await WebBrowser.openBrowserAsync("https://expo.dev");
+    setResult(result);
+  };
+
+  React.useEffect(() => {
+    // if (result) {
+    //   console.log(result);
+    // } else {
+    // _handlePressButtonAsync();
+    // }
+    console.log({ url });
+    return () => {
+      // cleanup
+    };
+  }, [url]);
   return (
     <>
       <BottomSheetModal innerRef={firstRef}>
         <View className="flex-1 p-6">
-          <Text className="text-xl font-semibold">Select Payment method</Text>
+          {/* <View className="flex gap-2 my-4"> */}
+          {url?.length > 0 && (
+            <WebView
+              className="p-1"
+              // originWhitelist={["*"]}
+              // source={{ html: "<h1><center>Hello world</center></h1>" }}
+              source={{ uri: url ?? "" }}
+            />
+          )}
+          {/* </View> */}
 
-          <View className="flex gap-2 my-4"></View>
-
-          <Button
+          {/* <Button
             classNames="w-full"
             onClick={handleOpenBottomSheet2}
             variant="default"
           >
             Continue
-          </Button>
+          </Button> */}
         </View>
       </BottomSheetModal>
       {/* Second Payment modal */}

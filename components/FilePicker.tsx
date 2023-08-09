@@ -29,6 +29,7 @@ const FilePicker = ({
     const doc = await DocumentPicker.getDocumentAsync({
       type: "application/pdf",
     });
+    console.log({ doc });
     if (doc.type === "success") {
       onChange?.(doc);
       setPickerValue(doc);

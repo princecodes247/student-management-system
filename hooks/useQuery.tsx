@@ -49,6 +49,7 @@ export const useQuery = <ResultType, ArgType>(
         .then((res) => {
           console.log({ resyy: res });
           setData(res);
+          setIsError(false);
           setIsLoading(false);
           onSuccessFunction(res);
         })

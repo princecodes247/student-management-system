@@ -47,7 +47,15 @@ export default function Courses() {
 
   const registerCoursesMutation = useMutate(registerCourses, {
     onSuccessFunction: (data) => {
-      console.log({ data });
+      console.log({ data23: data });
+      alert("Courses registered successfully");
+      router.push("/home");
+    },
+    onMutateFunction: (data) => {
+      console.log({ data12: data });
+    },
+    onErrorFunction: (error) => {
+      console.log({ error12: error });
     },
   });
   return (
@@ -87,9 +95,11 @@ export default function Courses() {
         </View>
         <View>
           <Button
+            loading={registerCoursesMutation.isLoading}
             onClick={() =>
               registerCoursesMutation.mutate({
                 level: "100",
+                session: "2023",
                 courses: ["MTH 101", "MTH 102"],
                 matno: user?.matno,
               })

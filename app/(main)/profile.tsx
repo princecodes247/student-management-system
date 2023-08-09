@@ -4,9 +4,11 @@ import { Text, View, ScrollView, SafeAreaView } from "react-native";
 import Button from "../../components/Button";
 import { AuthContext } from "../../layouts/AuthProvider";
 import AuthorizedRoute from "../../layouts/AuthorizedRoute";
+import { useRouter } from "expo-router";
 
 export default function Profile() {
   const { logout } = useContext(AuthContext);
+  const router = useRouter();
   return (
     <AuthorizedRoute>
       <View className="h-full p-6 bg-white">
@@ -18,7 +20,13 @@ export default function Profile() {
         >
           My Courses
         </Button>
-        <Button variant="destructive" onClick={logout}>
+        <Button
+          variant="destructive"
+          onClick={() => {
+            router.replace("/");
+            logout();
+          }}
+        >
           Sign Out
         </Button>
       </View>

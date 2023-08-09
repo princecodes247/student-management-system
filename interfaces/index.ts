@@ -11,6 +11,11 @@ export enum Semester {
   second = "Second",
 }
 
+export enum StudentFeesStatus {
+  NotPaidFees = 0,
+  PaidFees = 1,
+}
+
 type NumberAsString<T> = {
   [P in keyof T]: T[P] extends number ? string : T[P];
 };
@@ -113,6 +118,40 @@ export enum LoginType {
 }
 
 export interface ILinkData {}
+
+export interface IBaseProfile {
+  surname: string;
+  firstname: string;
+  matno: string;
+}
+
+export interface IProfilePassword {
+  password: string;
+  confirm_password: string;
+}
+
+export interface IProfileGuardian {
+  guardian_title: string;
+  guardian_firstname: string;
+  guardian_surname: string;
+  guardian_email: string;
+  guardian_mobile: string;
+  guardian_alt_phone: string;
+}
+
+export interface IProfile
+  extends IBaseProfile,
+    IProfilePassword,
+    IProfileGuardian {
+  profilePhoto: string;
+  email: string;
+  phone: string;
+  othernames: string;
+  gender: Gender;
+  state: string;
+  lga: string;
+  disabled: Disabled;
+}
 
 export interface IUpdateProfileData {
   phone?: string;

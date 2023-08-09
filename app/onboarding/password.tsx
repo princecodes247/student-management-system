@@ -9,6 +9,7 @@ import {
   IFileData,
   IProfile,
   IProfileGuardian,
+  IProfilePassword,
   IUpdateProfileData,
 } from "../../interfaces";
 import { updateProfile } from "../../services/AuthService";
@@ -19,9 +20,9 @@ import { useMutate } from "../../hooks/useMutate";
 export default function Clearance() {
   const [profileDetails, updateProfileDetails] = React.useReducer<
     (
-      state: IProfileGuardian,
-      action: { name: keyof IProfileGuardian; payload: string }
-    ) => IProfileGuardian
+      state: IProfilePassword,
+      action: { name: keyof IProfilePassword; payload: string }
+    ) => IProfilePassword
   >(
     (state, action) => {
       return {
@@ -30,12 +31,8 @@ export default function Clearance() {
       };
     },
     {
-      guardian_title: "",
-      guardian_firstname: "",
-      guardian_lastname: "",
-      guardian_email: "",
-      guardian_phone: "",
-      guardian_altphone: "",
+      password: "",
+      confirm_password: "",
     }
   );
   const [passport, setPassport] = React.useState<IFileData>(null);
@@ -57,91 +54,31 @@ export default function Clearance() {
         </View>
         <View className="">
           <View className="mb-6">
-            <Text className="text-base text-gray-600">Guardian Title</Text>
+            <Text className="text-base text-gray-600">Password</Text>
             <Input
-              placeholder="Guardian Title"
+              placeholder="Password"
               onChange={(value) => {
                 updateProfileDetails({
-                  name: "guardian_title",
+                  name: "password",
                   payload: value,
                 });
               }}
-              value={profileDetails.guardian_title}
+              value={profileDetails.password}
               classNames="mt-2"
             />
           </View>
 
           <View className="mb-6">
-            <Text className="text-base text-gray-600">First Name</Text>
+            <Text className="text-base text-gray-600">Confirm Password</Text>
             <Input
-              placeholder="First Name"
+              placeholder="Confirm Password"
               onChange={(value) => {
                 updateProfileDetails({
-                  name: "guardian_firstname",
+                  name: "confirm_password",
                   payload: value,
                 });
               }}
-              value={profileDetails.guardian_firstname}
-              classNames="mt-2"
-            />
-          </View>
-
-          <View className="mb-6">
-            <Text className="text-base text-gray-600">Last Name</Text>
-            <Input
-              placeholder="Last Name"
-              onChange={(value) => {
-                updateProfileDetails({
-                  name: "guardian_lastname",
-                  payload: value,
-                });
-              }}
-              value={profileDetails.guardian_lastname}
-              classNames="mt-2"
-            />
-          </View>
-
-          <View className="mb-6">
-            <Text className="text-base text-gray-600">Mobile Number</Text>
-            <Input
-              placeholder="Mobile Number"
-              onChange={(value) => {
-                updateProfileDetails({
-                  name: "guardian_phone",
-                  payload: value,
-                });
-              }}
-              value={profileDetails.guardian_phone}
-              classNames="mt-2"
-            />
-          </View>
-
-          <View className="mb-6">
-            <Text className="text-base text-gray-600">Alternate Number</Text>
-            <Input
-              placeholder="Alternate Number"
-              onChange={(value) => {
-                updateProfileDetails({
-                  name: "guardian_altphone",
-                  payload: value,
-                });
-              }}
-              value={profileDetails.guardian_altphone}
-              classNames="mt-2"
-            />
-          </View>
-
-          <View className="mb-6">
-            <Text className="text-base text-gray-600">Guardian Email</Text>
-            <Input
-              placeholder="Guardian Email"
-              onChange={(value) => {
-                updateProfileDetails({
-                  name: "guardian_email",
-                  payload: value,
-                });
-              }}
-              value={profileDetails.guardian_email}
+              value={profileDetails.confirm_password}
               classNames="mt-2"
             />
           </View>
