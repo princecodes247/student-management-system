@@ -15,19 +15,17 @@ export default function Login() {
   const { login } = useContext(AuthContext);
   const [matriculationNumber, setMatriculationNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [isLoading, setIsLoading] = React.useState(false);
+
   const loginMutation = useMutate(signIn, {
     onErrorFunction: (error) => {
       console.log("I did it", error.stack);
-      setIsLoading(false);
     },
     onMutateFunction: (data) => {
       console.log("I did it", data);
-      setIsLoading(true);
     },
     onSuccessFunction: async (data) => {
       await login(data.user, data.token);
-      setIsLoading(false);
+
       console.log("I did it", data);
       router.push("/home");
     },

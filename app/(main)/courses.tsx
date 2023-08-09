@@ -53,19 +53,12 @@ export default function Courses() {
   return (
     <ScrollView className="bg-white">
       <View className="flex-1 h-full p-6 ">
-        <View className="flex-1">
-          <View className="my-3">
-            <Text className="text-base text-gray-500">
-              Your courses for the {level} level semester
-            </Text>
-          </View>
-        </View>
-
         <View className="flex-1 pt-8 pb-8">
-          <Text className="mt-8 mb-4 text-xl font-semibold">Courses</Text>
-          {!courses.isLoading && courses?.data?.length > 0 ? (
+          {courses.isLoading ? (
+            <Text>Loading...</Text>
+          ) : !courses.isLoading && courses?.data?.length > 0 ? (
             <View>
-              <Text>First Semester</Text>
+              <Text className="mb-4 text-base">First Semester</Text>
 
               {React.Children.toArray(
                 courses.data.map((item) => {
@@ -76,7 +69,7 @@ export default function Courses() {
                   );
                 })
               )}
-              <Text>Second Semester</Text>
+              <Text className="mb-4 text-base">Second Semester</Text>
               {React.Children.toArray(
                 courses.data.map(
                   (item) =>

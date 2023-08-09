@@ -5,7 +5,6 @@ import Button from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Link, useRouter } from "expo-router";
 import KeyboardAvoidingView from "../../components/KeyboardAvoidingView";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { useMutate } from "../../hooks/useMutate";
 import { signIn } from "../../services/AuthService";
 import PersistentKeyStore from "../../lib/PersistentKeyStore";
@@ -16,23 +15,19 @@ export default function GetStarted() {
   const { login } = useContext(AuthContext);
   const [matriculationNumber, setMatriculationNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [isLoading, setIsLoading] = React.useState(false);
-  const loginMutation = signIn({
-    onError: (error) => {
-      console.log("I did error", error);
-      setIsLoading(false);
-    },
-    onMutate: (data) => {
-      setIsLoading(true);
-    },
-    onSuccess: async (data) => {
-      await login(data);
-      setIsLoading(false);
-      console.log("I did it", data);
-      router.push("/onboarding/congratulations");
 
-      // await PersistentKeyStore.save("token", data?.token);
-      // await PersistentKeyStore.save("user", data);
+  const loginMutation = useMutate(signIn, {
+    onErrorFunction: (error) => {
+      console.log("I did it", error.stack);
+    },
+    onMutateFunction: (data) => {
+      console.log("I did it", data);
+    },
+    onSuccessFunction: async (data) => {
+      await login(data.user, data.token);
+
+      console.log("I did it", data);
+      router.push("/home");
     },
   });
 
@@ -87,11 +82,11 @@ export default function GetStarted() {
               // href="/onboarding/congratulations"
               onClick={() => {
                 loginMutation.mutate({
-                  matriculationNumber,
+                  matno: matriculationNumber,
                   password,
                 });
               }}
-              loading={isLoading}
+              loading={loginMutation.isLoading}
               classNames="w-full"
               variant="default"
             >

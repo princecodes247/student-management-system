@@ -24,8 +24,10 @@ export default function CourseEnrollment() {
   const [courses, setCourses] = React.useState<ICourse[]>([]);
   const [selectedCourses, setSelectedCourses] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [level, setLevel] = React.useState<string>(null);
+  const [level, setLevel] = React.useState<string>("100 level"); // null);
   const { user } = useContext(AuthContext);
+
+  // const level = useQuery(
 
   return (
     <ScrollView className="h-full bg-white">
@@ -36,7 +38,7 @@ export default function CourseEnrollment() {
               Choose the session courses you want to register
             </Text>
           </View>
-          <View className="flex-col justify-between gap-2 my-4">
+          {/* <View className="flex-col justify-between gap-2 my-4">
             <View className="">
               <Picker
                 onChange={(value) => setLevel(value)}
@@ -49,8 +51,20 @@ export default function CourseEnrollment() {
                 ]}
               />
             </View>
-          </View>
+          </View> */}
           <View className="my-3 mt-8 ">
+            <Input
+              value={"2023"}
+              classNames="mb-2"
+              variant="disabled"
+              disabled
+            />
+            <Input
+              value={"100"}
+              classNames="mb-2"
+              variant="disabled"
+              disabled
+            />
             <Input
               value={user.matno}
               classNames="mb-2"
