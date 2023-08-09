@@ -24,7 +24,9 @@ export default function AuthProvider({
   const getUser = async () => await PersistentKeyStore.getValueFor("user");
   const logout = async () => {
     await PersistentKeyStore.deleteValueFor("user");
+    await PersistentKeyStore.deleteValueFor("token");
     setUser(null);
+    setToken(null);
   };
   const login = async (userData: IUser, token: string) => {
     setUser(userData);

@@ -29,10 +29,47 @@ const buttonVariants = cva(
         lg: "h-11 rounded px-8",
         icon: "h-10 w-10",
       },
+      disabled: {
+        true: "bg-gray-200 text-gray-500 border-gray-300 grayscale-100",
+        false: "",
+      },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
+      disabled: false,
+    },
+  }
+);
+
+const buttonTextVariants: typeof buttonVariants = cva(
+  "font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: `text-primary-foreground text-center hover:text-primary/90`,
+        destructive: "text-center hover:text-destructive/90",
+        outline: "text-primary text-center hover:text-accent",
+        secondary:
+          "text-secondary-foreground text-center hover:text-secondary/80",
+        ghost: "text-accent hover:text-accent-foreground text-center",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "text-base",
+        sm: "text-sm",
+        lg: "text-lg",
+        icon: "",
+      },
+      disabled: {
+        true: "text-gray-400 grayscale-100",
+        false: "",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+      disabled: false,
     },
   }
 );
@@ -44,6 +81,7 @@ export interface ButtonProps<U>
   href?: U extends string ? U : undefined;
   replace?: U extends string ? boolean : never;
   onClick?: U extends string ? never : () => void;
+  isDisabled?: boolean;
   loading?: boolean;
   //   asChild?: boolean
 }
@@ -57,21 +95,30 @@ export default function Button<T>({
   replace,
   onClick,
   loading,
+  disabled,
 }: ButtonProps<T>) {
   return (
     <ButtonLink replace={replace} href={href}>
       <TouchableOpacity
         onPress={onClick}
         style={styles.container}
-        className={cn(buttonVariants({ variant, size, className: classNames }))}
-      >
-        {loading ? (
-          <View className="flex items-center justify-center">
-            <Text className="text-primary-foreground">Loading...</Text>
-          </View>
-        ) : (
-          <>{children}</>
+        disabled={disabled}
+        className={cn(
+          buttonVariants({ variant, size, disabled, className: classNames })
         )}
+      >
+        <Text
+          className={cn(
+            buttonTextVariants({
+              variant,
+              size,
+              disabled,
+              className: classNames,
+            })
+          )}
+        >
+          {loading ? "Loading..." : children}
+        </Text>
       </TouchableOpacity>
     </ButtonLink>
   );

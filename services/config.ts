@@ -43,6 +43,7 @@ const uninterceptedApi = axios.create({
 const authHeaders = async (extraConfig?: {
   [key: string]: string | undefined;
 }) => {
+  console.log("authHeaders", await PersistentKeyStore.getValueFor("token"));
   return {
     ...{
       "Content-Type": "application/json",

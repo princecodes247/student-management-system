@@ -36,7 +36,7 @@ export default function ForgotPassword() {
             classNames="w-full"
             variant="default"
           >
-            <Text className="font-semibold text-primary-foreground">Login</Text>
+            Login
           </Button>
         </View>
       </KeyboardAvoidingView>

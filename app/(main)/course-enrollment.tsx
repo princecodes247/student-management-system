@@ -25,31 +25,7 @@ export default function CourseEnrollment() {
   const [selectedCourses, setSelectedCourses] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [level, setLevel] = React.useState<string>(null);
-  const [semester, setSemester] = React.useState<string>(null);
-  // const courseMutation = registerCourses({
-  //   onError: (error) => {
-  //     console.log("I did it", error);
-  //     setIsLoading(false);
-  //   },
-  //   onMutate: (data) => {
-  //     setIsLoading(true);
-  //   },
-  //   onSuccess: async (data) => {
-  //     setIsLoading(false);
-  //     console.log("I did it", data);
-  //   },
-  // });
   const { user } = useContext(AuthContext);
-  useEffect(() => {
-    if (semester && level) {
-      setIsLoading(true);
-      getCourses().then((data) => {
-        console.log({ data: data.data });
-        setCourses(data.data);
-        setIsLoading(false);
-      });
-    }
-  }, [semester]);
 
   return (
     <ScrollView className="h-full bg-white">
@@ -96,9 +72,9 @@ export default function CourseEnrollment() {
             href={`/courses?level=${level}`}
             variant="outline"
             loading={isLoading}
-            disabled={!semester || !level}
+            disabled={!level}
           >
-            <Text className="text-base font-semibold text-primary">Next</Text>
+            Register {level}
           </Button>
         </View>
 

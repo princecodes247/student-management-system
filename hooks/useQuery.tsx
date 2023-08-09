@@ -43,6 +43,7 @@ export const useQuery = <ResultType, ArgType>(
   useFocusEffect(
     useCallback(() => {
       console.log({ omohhhhhs: "res.data" });
+      setIsLoading(true);
       if (isDisabled) return;
       api()
         .then((res) => {
