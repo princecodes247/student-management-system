@@ -49,19 +49,21 @@ export default function Home() {
             <Button
               size="sm"
               classNames="border-white"
+              textClassNames="text-white"
               variant="outline"
               href="/timetable"
             >
-              <Text className="text-white">Set Reminder</Text>
+              Set Reminder
             </Button>
 
             <Button
               size="sm"
               classNames="ml-2 border-white"
+              textClassNames="text-white"
               variant="outline"
               href="/timetable"
             >
-              <Text className="text-white">View Details</Text>
+              View Details
             </Button>
           </View>
         </View>

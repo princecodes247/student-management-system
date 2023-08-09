@@ -48,7 +48,7 @@ export default function SingleChat() {
             variant="outline"
             href="to"
           >
-            <Text className="text-white">Set Reminder</Text>
+            Set Reminder
           </Button>
           <Button
             size="sm"
@@ -56,7 +56,7 @@ export default function SingleChat() {
             variant="outline"
             href="to"
           >
-            <Text className="text-white">Set Reminder</Text>
+            Set Reminder
           </Button>
         </View>
       </View>

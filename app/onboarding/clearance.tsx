@@ -167,7 +167,7 @@ export default function Clearance() {
               variant="default"
               loading={loading}
             >
-              <Text className="text-primary-foreground">Continue</Text>
+              Continue
             </Button>
           </View>
           <View className="">

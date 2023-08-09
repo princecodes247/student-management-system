@@ -20,7 +20,7 @@ export default function OnboardingCongratulations() {
           classNames="w-full"
           variant="default"
         >
-          <Text className="text-primary-foreground">Continue</Text>
+          Continue
         </Button>
       </View>
       <View className="">

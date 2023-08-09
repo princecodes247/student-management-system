@@ -42,7 +42,7 @@ export default function Timetable() {
       </View>
       <View className="mt-8">
         <Button variant="outline" classNames="border-2">
-          <Text className="font-semibold text-primary">Save Timetable</Text>
+          Save Timetable
         </Button>
       </View>
     </View>

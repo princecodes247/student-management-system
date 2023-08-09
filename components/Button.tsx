@@ -19,7 +19,7 @@ const buttonVariants = cva(
         outline:
           "border-2 border-primary bg-transparent hover:bg-accent hover:text-accent-foreground",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "bg-secondary bg-gray-200 text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
@@ -48,7 +48,7 @@ const buttonTextVariants: typeof buttonVariants = cva(
     variants: {
       variant: {
         default: `text-primary-foreground text-center hover:text-primary/90`,
-        destructive: "text-center hover:text-destructive/90",
+        destructive: "text-center text-red-900 hover:text-red-400/90",
         outline: "text-primary text-center hover:text-accent",
         secondary:
           "text-secondary-foreground text-center hover:text-secondary/80",
@@ -78,6 +78,7 @@ export interface ButtonProps<U>
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   classNames?: string;
+  textClassNames?: string;
   href?: U extends string ? U : undefined;
   replace?: U extends string ? boolean : never;
   onClick?: U extends string ? never : () => void;
@@ -91,6 +92,7 @@ export default function Button<T>({
   variant = "default",
   size,
   classNames = "",
+  textClassNames = "",
   href,
   replace,
   onClick,
@@ -113,7 +115,7 @@ export default function Button<T>({
               variant,
               size,
               disabled,
-              className: classNames,
+              className: textClassNames,
             })
           )}
         >

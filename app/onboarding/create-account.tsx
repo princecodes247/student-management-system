@@ -195,7 +195,7 @@ export default function CreateAccount() {
             classNames="w-full"
             variant="default"
           >
-            <Text className="text-primary-foreground">Continue</Text>
+            Continue
           </Button>
         </View>
         <View className="">

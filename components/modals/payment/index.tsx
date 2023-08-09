@@ -51,7 +51,7 @@ const PaymentModal = ({
             onClick={handleOpenBottomSheet2}
             variant="default"
           >
-            <Text className="text-primary-foreground">Continue</Text>
+            Continue
           </Button>
         </View>
       </BottomSheetModal>
@@ -83,7 +83,7 @@ const PaymentModal = ({
               onClick={handleOpenBottomSheet3}
               variant="default"
             >
-              <Text className="text-primary-foreground">Pay #{amount}</Text>
+              Pay #{amount}
             </Button>
           </KeyboardAvoidingView>
         </View>
@@ -103,7 +103,7 @@ const PaymentModal = ({
             onClick={handleFinalClose}
             variant="default"
           >
-            <Text className="text-primary-foreground">Print Result</Text>
+            Print Result
           </Button>
         </View>
       </BottomSheetModal>

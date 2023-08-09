@@ -92,9 +92,7 @@ export default function Login() {
             }}
             loading={loginMutation.isLoading}
           >
-            <Text className="font-semibold text-primary-foreground">
-              Login{loginMutation.error?.message}
-            </Text>
+            Login
           </Button>
         </View>
       </KeyboardAvoidingView>

@@ -95,7 +95,7 @@ export default function GetStarted() {
               classNames="w-full"
               variant="default"
             >
-              <Text className="text-primary-foreground">Verify Admission</Text>
+              Verify Admission
             </Button>
             <Text>{loginMutation.isLoading ? "TTTT" : "FFFF"}</Text>
           </View>

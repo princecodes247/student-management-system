@@ -61,7 +61,7 @@ const CheckResult = ({ classNames, navigation }: CheckResultProps) => {
         onClick={handleOpenPaymentModal}
         variant="default"
       >
-        <Text className="text-primary-foreground">Pay #350</Text>
+        Pay #350
       </Button>
 
       <PaymentModal

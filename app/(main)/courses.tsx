@@ -102,7 +102,7 @@ export default function Courses() {
               })
             }
           >
-            <Text className="text-base text-white">Register Courses</Text>
+            Register Courses
           </Button>
         </View>
       </View>

@@ -77,7 +77,7 @@ export default function SchoolFees() {
               })
             }
           >
-            <Text className="text-base text-white">Pay Fees</Text>
+            Pay Fees
           </Button>
         </View>
       </View>
