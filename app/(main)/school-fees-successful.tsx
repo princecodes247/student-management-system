@@ -2,14 +2,30 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, ScrollView, SafeAreaView } from "react-native";
 import Button from "../../components/Button";
-import { Input } from "../../components/Input";
-import { Link } from "expo-router";
-import KeyboardAvoidingView from "../../components/KeyboardAvoidingView";
-import { Alert, AlertTitle } from "../../components/Alert";
-import { Picker } from "../../components/Picker";
 import { useQuery } from "../../hooks/useQuery";
-import { getFeesDetails } from "../../services/SchoolFeesService";
+import {
+  getFeesDetails,
+  getFeesReport,
+} from "../../services/SchoolFeesService";
 import { useRouter, useSearchParams } from "expo-router";
+import { useMutate } from "../../hooks/useMutate";
+
+import * as FileSystem from "expo-file-system";
+import * as Sharing from "expo-sharing";
+
+async function savePDFToLocal(blob) {
+  try {
+    const uri = FileSystem.documentDirectory + "downloaded.pdf";
+    console.log({ uri, blob });
+    await FileSystem.writeAsStringAsync(uri, blob, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+    await Sharing.shareAsync(uri);
+    return uri;
+  } catch (error) {
+    console.error("Error saving PDF to local storage:", error);
+  }
+}
 
 export default function SchoolFeesSuccessful() {
   const params = useSearchParams();
@@ -21,6 +37,10 @@ export default function SchoolFeesSuccessful() {
     {
       onSuccessFunction: (data) => {
         console.log({ data: data.matno });
+        // getFeesReportMutation.mutate({
+        //   level: 100,
+        //   session: 2023,
+        // });
       },
       onErrorFunction: (error) => {
         console.log({ error: error });
@@ -28,6 +48,18 @@ export default function SchoolFeesSuccessful() {
       isDisabled: !params?.ref,
     }
   );
+
+  const getFeesReportMutation = useMutate(getFeesReport, {
+    onErrorFunction: (error) => {
+      console.log({ error: error });
+    },
+    onSuccessFunction: async (data) => {
+      // console.log({ data: data });
+      console.log("downloading", data);
+      const savedUri = await savePDFToLocal(data);
+      console.log({ savedUri });
+    },
+  });
   return (
     <View className="h-full p-6 bg-white">
       <View className="justify-between flex-1 py-8">
@@ -55,7 +87,17 @@ export default function SchoolFeesSuccessful() {
               <Text>{feesDetails?.data?.academicSession ?? ""}</Text>
             </View>
           </View>
-          <Button variant="default" classNames="mb-2">
+          <Button
+            loading={getFeesReportMutation.isLoading}
+            onClick={() => {
+              getFeesReportMutation.mutate({
+                level: 100,
+                session: 2023,
+              });
+            }}
+            variant="default"
+            classNames="mb-2"
+          >
             Download Reciept
           </Button>
           <Button variant="outline" classNames="border-2">

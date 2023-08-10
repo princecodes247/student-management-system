@@ -12,3 +12,10 @@ The project was scaffolded with
 
 Just run
 `pnpm install`
+
+todo
+
+- [*] Report generation
+- [*] school fees and course validation
+- [] Course registration successfully
+- [] Course registration guard

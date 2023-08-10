@@ -32,6 +32,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "useNextNotificationsApi": true,
       "package": "com.princecodes247.studentmanagementsystem"
     },
     "web": {

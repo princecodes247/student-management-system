@@ -63,3 +63,21 @@ export const getFeesDetails = async (ref: string) => {
   });
   return instance;
 };
+
+export const getFeesReport = async (payload: {
+  level: number;
+  session: number;
+}) => {
+  const instance = await api.post(
+    servicePrefix + `student/enrolment/report`,
+    payload,
+    {
+      headers: {
+        ...(await authHeaders()),
+        // Content Type for pdf blob
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return instance;
+};

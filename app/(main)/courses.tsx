@@ -13,7 +13,7 @@ import {
   registerCourses,
 } from "../../services/CourseService";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
-import { ICourse, Semester } from "../../interfaces";
+import { ICourse, ICourseMap, Semester } from "../../interfaces";
 import { useRouter } from "expo-router";
 import { useQuery } from "../../hooks/useQuery";
 import { CourseCard } from "../../components/CourseCard";
@@ -25,8 +25,31 @@ export default function Courses() {
   // const [courses, setCourses] = React.useState<ICourse[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [level, setLevel] = React.useState<string>("100");
-
   const { user } = useContext(AuthContext);
+
+  const [coursesMap, updateCoursesMap] = React.useReducer(
+    (
+      state: ICourseMap,
+      newValue: {
+        type: "ADD" | "REMOVE";
+        value: string;
+      }
+    ) => {
+      if (newValue.type === "ADD") {
+        return {
+          ...state,
+          [newValue.value]: {
+            selected: true,
+          },
+        };
+      } else {
+        const { [newValue.value]: _, ...rest } = state;
+        return rest;
+      }
+    },
+    {}
+  );
+
   const courses = useQuery(
     async () => {
       console.log("why here");
@@ -72,7 +95,15 @@ export default function Courses() {
                 courses.data.map((item) => {
                   return (
                     item.semester.includes(Semester.first) && (
-                      <CourseCard course={item} />
+                      <CourseCard
+                        updateCourse={(selected: boolean) => {
+                          updateCoursesMap({
+                            type: selected ? "ADD" : "REMOVE",
+                            value: item.code,
+                          });
+                        }}
+                        course={item}
+                      />
                     )
                   );
                 })
@@ -82,7 +113,15 @@ export default function Courses() {
                 courses.data.map(
                   (item) =>
                     item.semester.includes(Semester.second) && (
-                      <CourseCard course={item} />
+                      <CourseCard
+                        updateCourse={(selected: boolean) => {
+                          updateCoursesMap({
+                            type: selected ? "ADD" : "REMOVE",
+                            value: item.code,
+                          });
+                        }}
+                        course={item}
+                      />
                     )
                 )
               )}
@@ -100,7 +139,7 @@ export default function Courses() {
               registerCoursesMutation.mutate({
                 level: "100",
                 session: "2023",
-                courses: ["MTH 101", "MTH 102"],
+                courses: Object.keys(coursesMap),
                 matno: user?.matno,
               })
             }

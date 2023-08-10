@@ -17,6 +17,7 @@ import { PaymentModal } from "../../components/modals/payment";
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet";
 import * as Linking from "expo-linking";
 import { webUrl } from "../../constants";
+import { IFeesMap } from "../../interfaces";
 
 export default function SchoolFees() {
   const { user, token } = useContext(AuthContext);
@@ -29,19 +30,45 @@ export default function SchoolFees() {
     async () => {
       console.log("why here");
       const res = await getFees(formatMatNo(user.matno), 100);
-      return [...res.data.fees];
+      return res.data.fees;
     },
     {
       onSuccessFunction: (data) => {
-        console.log({ data });
+        // console.log({ data });
+        setTotalAmount(
+          data.reduce((prev, curr) => {
+            console.log({ curr });
+            return prev + parseFloat(curr?.amount);
+          }, 0)
+        );
       },
       // isDisabled: !token,
     }
   );
 
+  const [amount, setAmount] = React.useState<number>(0);
+  const [totalAmount, setTotalAmount] = React.useState<number>(0);
+  const [feesMap, updateFeesMap] = React.useReducer(
+    (state: IFeesMap, newValue: IFeesMap) => {
+      const newState = {
+        ...state,
+        ...newValue,
+      };
+
+      setAmount(
+        Object.values(newState).reduce((prev, curr) => {
+          if (!curr.selected) return prev;
+          return prev + parseFloat(curr?.amount);
+        }, 0)
+      );
+      return newState;
+    },
+    {}
+  );
+
   const payFeesMutation = useMutate(payFees, {
     onSuccessFunction: (data) => {
-      console.log({ data });
+      // console.log({ data });
       handleOpenPaymentModal();
       setUrl(data.url);
     },
@@ -69,9 +96,18 @@ export default function SchoolFees() {
               <View>
                 {React.Children.toArray(
                   fees.data.map((item) => (
-                    <FeeCard feeData={item} key={item.id} />
+                    <FeeCard
+                      feeData={item}
+                      onChange={(selected) => {
+                        updateFeesMap({ [item.id]: { ...item, selected } });
+                      }}
+                      key={item.id}
+                    />
                   ))
                 )}
+                <Text>
+                  {amount} / {totalAmount}
+                </Text>
               </View>
             ) : (
               <View className="py-6">
@@ -81,12 +117,13 @@ export default function SchoolFees() {
           </View>
           <View>
             <Button
+              disabled={payFeesMutation.isLoading || amount === 0}
               loading={payFeesMutation.isLoading}
               onClick={() =>
                 payFeesMutation.mutate({
-                  totalAmount: "1000",
+                  totalAmount: amount.toString(),
                   level: "100",
-                  feeIds: [2, 3],
+                  feeIds: Object.keys(feesMap).map((key) => parseInt(key)),
                   payurl: `${webUrl}/redirect?link=${Linking.createURL(
                     "/school-fees-successful"
                   )}`,

@@ -100,10 +100,24 @@ export interface ICourse {
   semester: Semester;
 }
 
+export interface ICourseMap {
+  [id: ICourse["code"]]: {
+    selected: boolean;
+  };
+}
+
 export interface IFee {
   id: number;
   fee: string;
-  amount: NumberAsString<number>;
+  // amount: NumberAsString<number>;
+  amount: string;
+}
+
+export interface IFeesMap {
+  [id: IFee["id"]]: {
+    amount: string;
+    selected: boolean;
+  };
 }
 
 export enum UserRole {
