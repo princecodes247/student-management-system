@@ -13,7 +13,6 @@ import { useMutate } from "../../hooks/useMutate";
 import { MainInfo } from "../../components/update-profile/MainInfo";
 import { GuardianInfo } from "../../components/update-profile/GuardianInfo";
 import { PasswordInfo } from "../../components/update-profile/PasswordInfo";
-import { IndicatorViewPager } from "@shankarmorwal/rn-viewpager";
 import { PageIndicator } from "../../components/update-profile/PageIndicator";
 import { AuthContext } from "../../layouts/AuthProvider";
 
