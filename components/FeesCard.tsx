@@ -6,11 +6,20 @@ import { IFee } from "../interfaces";
 import Checkbox from "expo-checkbox";
 import clsx from "clsx";
 
-const FeeCard = ({ feeData }: { feeData: IFee }) => {
+const FeeCard = ({
+  feeData,
+  onChange,
+}: {
+  feeData: IFee;
+  onChange: (selected: boolean) => void;
+}) => {
   const [isSelected, setIsSelected] = React.useState(false);
   return (
     <Pressable
-      onPress={() => setIsSelected(!isSelected)}
+      onPress={() => {
+        onChange(!isSelected);
+        setIsSelected(!isSelected);
+      }}
       className={clsx(
         "p-8 py-6 mb-2 border flex-row",
         isSelected

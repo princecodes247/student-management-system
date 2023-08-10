@@ -3,14 +3,23 @@ import * as React from "react";
 import { Text, View, Pressable } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
-import { ICourse } from "../interfaces";
+import { ICourse, ICourseMap } from "../interfaces";
 import clsx from "clsx";
 
-const CourseCard = ({ course }: { course: ICourse }) => {
+const CourseCard = ({
+  course,
+  updateCourse,
+}: {
+  course: ICourse;
+  updateCourse: (selected: boolean) => void;
+}) => {
   const [isSelected, setIsSelected] = React.useState(false);
   return (
     <Pressable
-      onPress={() => setIsSelected(!isSelected)}
+      onPress={() => {
+        updateCourse(!isSelected);
+        setIsSelected(!isSelected);
+      }}
       className={clsx(
         "p-8 pl-3 py-6 mb-2 border items-center flex-row",
         isSelected

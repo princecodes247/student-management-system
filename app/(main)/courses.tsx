@@ -13,7 +13,7 @@ import {
   registerCourses,
 } from "../../services/CourseService";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
-import { ICourse, Semester } from "../../interfaces";
+import { ICourse, ICourseMap, Semester } from "../../interfaces";
 import { useRouter } from "expo-router";
 import { useQuery } from "../../hooks/useQuery";
 import { CourseCard } from "../../components/CourseCard";
@@ -25,8 +25,27 @@ export default function Courses() {
   // const [courses, setCourses] = React.useState<ICourse[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [level, setLevel] = React.useState<string>("100");
-
   const { user } = useContext(AuthContext);
+  const [units, setUnits] = React.useState<number>(0);
+  const [coursesMap, updateCoursesMap] = React.useReducer(
+    (state: ICourseMap, newValue: ICourseMap) => {
+      const newState = {
+        ...state,
+        ...newValue,
+      };
+
+      setUnits(
+        Object.values(newState).reduce((prev, curr) => {
+          if (!curr.selected) return prev;
+          return prev + curr?.units;
+        }, 0)
+      );
+
+      return newState;
+    },
+    {}
+  );
+
   const courses = useQuery(
     async () => {
       console.log("why here");
@@ -72,7 +91,14 @@ export default function Courses() {
                 courses.data.map((item) => {
                   return (
                     item.semester.includes(Semester.first) && (
-                      <CourseCard course={item} />
+                      <CourseCard
+                        updateCourse={(selected) => {
+                          updateCoursesMap({
+                            [item.code]: { ...item, selected },
+                          });
+                        }}
+                        course={item}
+                      />
                     )
                   );
                 })
@@ -82,10 +108,20 @@ export default function Courses() {
                 courses.data.map(
                   (item) =>
                     item.semester.includes(Semester.second) && (
-                      <CourseCard course={item} />
+                      <CourseCard
+                        updateCourse={(selected) => {
+                          updateCoursesMap({
+                            [item.code]: { ...item, selected },
+                          });
+                        }}
+                        course={item}
+                      />
                     )
                 )
               )}
+              <Text>
+                Total Selected Units: <Text className="font-bold">{units}</Text>
+              </Text>
             </View>
           ) : (
             <View className="py-6">
@@ -95,12 +131,13 @@ export default function Courses() {
         </View>
         <View>
           <Button
+            disabled={registerCoursesMutation.isLoading || units === 0}
             loading={registerCoursesMutation.isLoading}
             onClick={() =>
               registerCoursesMutation.mutate({
                 level: "100",
                 session: "2023",
-                courses: ["MTH 101", "MTH 102"],
+                courses: Object.keys(coursesMap),
                 matno: user?.matno,
               })
             }

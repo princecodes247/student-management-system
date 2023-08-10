@@ -12,7 +12,7 @@ const alertVariants = cva(
         default: "bg-background text-foreground border-primary/50",
         warning: "bg-yellow-100/30 text-foreground border-yellow-500/50",
         destructive:
-          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
+          "border-red-600 bg-red-50 text-destructive dark:border-destructive [&>svg]:text-destructive",
       },
     },
     defaultVariants: {
@@ -20,6 +20,19 @@ const alertVariants = cva(
     },
   }
 );
+
+const alertIconVariants = cva("", {
+  variants: {
+    variant: {
+      default: "text-primary/50",
+      warning: "text-yellow-500",
+      destructive: "text-red-500",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
 export interface AlertProps extends VariantProps<typeof alertVariants> {
   classNames?: string;
@@ -52,9 +65,9 @@ const Alert = ({
       className={cn(alertVariants({ variant }), classNames)}
       // {...props}
     >
-      <Text className="text-yellow-500">{icon}</Text>
+      <Text className={cn(alertIconVariants({ variant }))}>{icon}</Text>
       <View className="flex-1 ml-2">{children}</View>
-      <Text className="text-yellow-500">
+      <Text className={cn(alertIconVariants({ variant }))}>
         <MaterialIcons name="chevron-right" size={24} />
       </Text>
     </View>
