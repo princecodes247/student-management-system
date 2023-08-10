@@ -16,7 +16,10 @@ const CourseCard = ({
   const [isSelected, setIsSelected] = React.useState(false);
   return (
     <Pressable
-      onPress={() => setIsSelected(!isSelected)}
+      onPress={() => {
+        updateCourse(!isSelected);
+        setIsSelected(!isSelected);
+      }}
       className={clsx(
         "p-8 pl-3 py-6 mb-2 border items-center flex-row",
         isSelected

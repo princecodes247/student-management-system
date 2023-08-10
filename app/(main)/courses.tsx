@@ -26,26 +26,22 @@ export default function Courses() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [level, setLevel] = React.useState<string>("100");
   const { user } = useContext(AuthContext);
-
+  const [units, setUnits] = React.useState<number>(0);
   const [coursesMap, updateCoursesMap] = React.useReducer(
-    (
-      state: ICourseMap,
-      newValue: {
-        type: "ADD" | "REMOVE";
-        value: string;
-      }
-    ) => {
-      if (newValue.type === "ADD") {
-        return {
-          ...state,
-          [newValue.value]: {
-            selected: true,
-          },
-        };
-      } else {
-        const { [newValue.value]: _, ...rest } = state;
-        return rest;
-      }
+    (state: ICourseMap, newValue: ICourseMap) => {
+      const newState = {
+        ...state,
+        ...newValue,
+      };
+
+      setUnits(
+        Object.values(newState).reduce((prev, curr) => {
+          if (!curr.selected) return prev;
+          return prev + curr?.units;
+        }, 0)
+      );
+
+      return newState;
     },
     {}
   );
@@ -96,10 +92,9 @@ export default function Courses() {
                   return (
                     item.semester.includes(Semester.first) && (
                       <CourseCard
-                        updateCourse={(selected: boolean) => {
+                        updateCourse={(selected) => {
                           updateCoursesMap({
-                            type: selected ? "ADD" : "REMOVE",
-                            value: item.code,
+                            [item.code]: { ...item, selected },
                           });
                         }}
                         course={item}
@@ -114,10 +109,9 @@ export default function Courses() {
                   (item) =>
                     item.semester.includes(Semester.second) && (
                       <CourseCard
-                        updateCourse={(selected: boolean) => {
+                        updateCourse={(selected) => {
                           updateCoursesMap({
-                            type: selected ? "ADD" : "REMOVE",
-                            value: item.code,
+                            [item.code]: { ...item, selected },
                           });
                         }}
                         course={item}
@@ -125,6 +119,9 @@ export default function Courses() {
                     )
                 )
               )}
+              <Text>
+                Total Selected Units: <Text className="font-bold">{units}</Text>
+              </Text>
             </View>
           ) : (
             <View className="py-6">
@@ -134,6 +131,7 @@ export default function Courses() {
         </View>
         <View>
           <Button
+            disabled={registerCoursesMutation.isLoading || units === 0}
             loading={registerCoursesMutation.isLoading}
             onClick={() =>
               registerCoursesMutation.mutate({

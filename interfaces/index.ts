@@ -102,6 +102,7 @@ export interface ICourse {
 
 export interface ICourseMap {
   [id: ICourse["code"]]: {
+    units: ICourse["units"];
     selected: boolean;
   };
 }
