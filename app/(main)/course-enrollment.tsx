@@ -1,16 +1,15 @@
 import React, { useContext, useEffect } from "react";
-import { cn } from "../../lib/utils";
 import { View, Text } from "react-native";
 import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 import { Input } from "../../components/Input";
-import { Picker } from "../../components/Picker";
 import Button from "../../components/Button";
 import { PaymentModal } from "../../components/modals/payment";
 import { AuthContext } from "../../layouts/AuthProvider";
-import { getCourses, registerCourses } from "../../services/CourseService";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { ICourse } from "../../interfaces";
 import { useRouter } from "expo-router";
+import { Alert, AlertTitle } from "../../components/Alert";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function CourseEnrollment() {
   const router = useRouter();
@@ -76,6 +75,17 @@ export default function CourseEnrollment() {
               variant="disabled"
               disabled
             />
+          </View>
+          <View>
+            <Alert
+              icon={<MaterialIcons name="warning" size={24} />}
+              variant="destructive"
+            >
+              <AlertTitle
+                className="text-red-500"
+                content="You cannot register your courses because you have not paid your current fees"
+              />
+            </Alert>
           </View>
         </View>
 
