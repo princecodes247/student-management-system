@@ -98,11 +98,11 @@ export default function AppLayout() {
       />
       <Tabs.Screen
         // Name of the route to hide.
-        name="profile"
+        name="settings/index"
         options={{
-          headerTitle: "Profile",
+          headerTitle: "Settings",
           // headerShown: false,
-          tabBarLabel: "Profile",
+          tabBarLabel: "Settings",
           tabBarIcon: ({
             size,
             color,
@@ -110,7 +110,20 @@ export default function AppLayout() {
             focused: boolean;
             color: string;
             size: number;
-          }) => <MaterialIcons name="person" size={size} color={color} />,
+          }) => <MaterialIcons name="settings" size={size} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        // Name of the route to hide.
+        name="settings/profile"
+        options={{
+          headerTitle: "Profile",
+          // headerShown: false,
+          tabBarLabel: "Profile",
+          // header: getHeader,
+
+          // This tab will no longer show up in the tab bar.
+          href: null,
         }}
       />
       <Tabs.Screen
