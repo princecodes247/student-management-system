@@ -18,6 +18,8 @@ import { useRouter } from "expo-router";
 import { useQuery } from "../../hooks/useQuery";
 import { CourseCard } from "../../components/CourseCard";
 import { useMutate } from "../../hooks/useMutate";
+import { AlertBox } from "../../lib/alert";
+import { AxiosError, isAxiosError } from "axios";
 
 export default function Courses() {
   const router = useRouter();
@@ -67,14 +69,22 @@ export default function Courses() {
   const registerCoursesMutation = useMutate(registerCourses, {
     onSuccessFunction: (data) => {
       console.log({ data23: data });
-      alert("Courses registered successfully");
+      AlertBox.show("Courses registered successfully", "", []);
+
       router.push("/home");
     },
     onMutateFunction: (data) => {
       console.log({ data12: data });
     },
-    onErrorFunction: (error) => {
-      console.log({ error12: error });
+    onErrorFunction: (error: Error | AxiosError) => {
+      if (isAxiosError(error)) {
+        // Access to config, request, and response
+        AlertBox.show(
+          "Error",
+          error?.response?.data?.message ?? "An error occurred",
+          []
+        );
+      }
     },
   });
   return (

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, Pressable } from "react-native";
 import Button from "../../components/Button";
@@ -11,9 +11,11 @@ import { MaterialIcons } from "@expo/vector-icons";
 import AuthorizedRoute from "../../layouts/AuthorizedRoute";
 import { UserRole } from "../../interfaces";
 import { AuthContext } from "../../layouts/AuthProvider";
+import { AlertBox } from "../../lib/alert";
 
 export default function Home() {
   const { user } = useContext(AuthContext);
+
   return (
     <AuthorizedRoute allowedRoles={[UserRole.Student]}>
       <View className="h-full p-6 bg-white pt-14">
