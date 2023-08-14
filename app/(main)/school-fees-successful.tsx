@@ -12,26 +12,14 @@ import { useMutate } from "../../hooks/useMutate";
 
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
-
-async function savePDFToLocal(blob) {
-  try {
-    const uri = FileSystem.documentDirectory + "downloaded.pdf";
-    console.log({ uri, blob });
-    await FileSystem.writeAsStringAsync(uri, blob, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
-    await Sharing.shareAsync(uri);
-    return uri;
-  } catch (error) {
-    console.error("Error saving PDF to local storage:", error);
-  }
-}
+import * as MediaLibrary from "expo-media-library";
 
 export default function SchoolFeesSuccessful() {
   const params = useSearchParams();
+  const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
   const feesDetails = useQuery(
     async () => {
-      const res = await getFeesDetails(params?.ref);
+      const res = await getFeesDetails(params?.ref as string);
       return res.data.data;
     },
     {
@@ -49,21 +37,46 @@ export default function SchoolFeesSuccessful() {
     }
   );
 
+  const savePDFToLocal = async (blob) => {
+    try {
+      await requestPermission();
+      if (permissionResponse.status !== "granted") {
+        console.log({ permissionResponse });
+        console.error("Permission not granted to write to external storage");
+        return;
+      }
+      const uri = FileSystem.documentDirectory + "downloaded1232.pdf";
+      console.log({ uri });
+      await FileSystem.writeAsStringAsync(uri, blob, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+      console.log("passed");
+      await Sharing.shareAsync(uri);
+      return uri;
+    } catch (error) {
+      console.log("Error saving PDF to local storage:", error);
+    }
+  };
+
   const getFeesReportMutation = useMutate(getFeesReport, {
     onErrorFunction: (error) => {
       console.log({ error: error });
     },
-    onSuccessFunction: async (data) => {
+    onSuccessFunction: async ({ data }) => {
       // console.log({ data: data });
-      console.log("downloading", data);
-      const savedUri = await savePDFToLocal(data);
-      console.log({ savedUri });
+      // console.log({ data });
+      try {
+        await savePDFToLocal(data);
+        // console.log({ savedUri });
+      } catch (error) {
+        console.log({ error });
+      }
     },
   });
   return (
     <View className="h-full p-6 bg-white">
       <View className="justify-between flex-1 py-8">
-        <Text className="text-5xl text-primary">
+        <Text className="text-4xl text-primary">
           School Fees Payment Successful
         </Text>
       </View>
@@ -80,7 +93,7 @@ export default function SchoolFeesSuccessful() {
           <View className="flex-row p-2 mb-8 bg-gray-100 border border-gray-200 rounded-xl">
             <View className="p-2 bg-blue-200 rounded aspect-square"></View>
             <View className="flex-1 p-2 ml-2 rounded-xl">
-              <Text className="text-base">
+              <Text className="">
                 {feesDetails?.data?.matno ?? ""}{" "}
                 {feesDetails?.data?.level ?? ""} level Fees
               </Text>
@@ -91,8 +104,7 @@ export default function SchoolFeesSuccessful() {
             loading={getFeesReportMutation.isLoading}
             onClick={() => {
               getFeesReportMutation.mutate({
-                level: 100,
-                session: 2023,
+                ref: params?.ref as string,
               });
             }}
             variant="default"
@@ -100,7 +112,7 @@ export default function SchoolFeesSuccessful() {
           >
             Download Reciept
           </Button>
-          <Button variant="outline" classNames="border-2">
+          <Button href={"/home"} variant="outline" classNames="border-2">
             Go Home
           </Button>
         </View>

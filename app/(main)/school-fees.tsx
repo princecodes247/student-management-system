@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, ScrollView, SafeAreaView } from "react-native";
 import Button from "../../components/Button";
@@ -18,6 +18,8 @@ import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSh
 import * as Linking from "expo-linking";
 import { webUrl } from "../../constants";
 import { IFeesMap } from "../../interfaces";
+import { AxiosError, isAxiosError } from "axios";
+import { AlertBox } from "../../lib/alert";
 
 export default function SchoolFees() {
   const { user, token } = useContext(AuthContext);
@@ -25,6 +27,9 @@ export default function SchoolFees() {
   const paymentModalRef = React.useRef<BottomSheet>(null);
   const handleOpenPaymentModal = () => {
     if (paymentModalRef.current) paymentModalRef.current.expand();
+  };
+  const handleClosePaymentModal = () => {
+    if (paymentModalRef.current) paymentModalRef.current.close();
   };
   const fees = useQuery(
     async () => {
@@ -72,7 +77,21 @@ export default function SchoolFees() {
       handleOpenPaymentModal();
       setUrl(data.url);
     },
+    onErrorFunction: (error: Error | AxiosError) => {
+      if (isAxiosError(error)) {
+        // Access to config, request, and response
+        AlertBox.show(
+          "Error",
+          error?.response?.data?.message ?? "An error occurred",
+          []
+        );
+      }
+    },
   });
+
+  useEffect(() => {
+    handleClosePaymentModal();
+  }, []);
 
   return (
     <>
