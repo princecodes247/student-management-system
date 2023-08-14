@@ -47,9 +47,7 @@ export default function Login() {
       <KeyboardAvoidingView>
         <View className="flex-1">
           <View className="mb-2">
-            <Text className="text-base text-gray-600">
-              Matriculation Number
-            </Text>
+            <Text className="text-base text-gray-600">Username</Text>
             <Input
               onChange={(value) => {
                 setMatriculationNumber(value);

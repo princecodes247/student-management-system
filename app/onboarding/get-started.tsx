@@ -54,9 +54,7 @@ export default function GetStarted() {
         <ScrollView className="flex-1 h-[100%]">
           <View className="flex-[3]">
             <View className="mb-2">
-              <Text className="text-base text-gray-600">
-                Matriculation Number
-              </Text>
+              <Text className="text-base text-gray-600">Username</Text>
               <Input
                 onChange={(value) => {
                   setMatriculationNumber(value);
