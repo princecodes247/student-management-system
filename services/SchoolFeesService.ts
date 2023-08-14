@@ -64,21 +64,21 @@ export const getFeesDetails = async (ref: string) => {
   return instance;
 };
 
-export const getFeesReport = async (payload: {
-  level: number;
-  session: number;
-}) => {
-  const instance = await api.post(
-    servicePrefix + `student/enrolment/report`,
-    payload,
+export const getFeesReport = async ({ ref }: { ref: string }) => {
+  console.log({ ref });
+  const instance = await api.get(
+    servicePrefix + `invoice/${ref}`,
+
     {
       headers: {
         ...(await authHeaders()),
         // Content Type for pdf blob
         "Content-Type": "application/json",
       },
+      responseType: "blob",
     }
   );
+
   return instance;
 };
 

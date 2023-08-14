@@ -64,3 +64,21 @@ export const registerCourses = async (payload: {
   });
   return instance;
 };
+
+export const getEnrollmentReport = async (payload: {
+  level: number;
+  session: number;
+}) => {
+  const instance = await api.post(
+    servicePrefix + `student/enrolment/report`,
+    payload,
+    {
+      headers: {
+        ...(await authHeaders()),
+        // Content Type for pdf blob
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return instance;
+};
