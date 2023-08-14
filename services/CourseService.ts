@@ -39,22 +39,6 @@ export const getEnrolledCourses = async ({
   return instance;
 };
 
-// {
-//   courses = [
-//     "MTH 105",
-//     "CHM 101",
-//     "PHY 105",
-//     "GST 100",
-//     "FCE 101",
-//     "GST 101",
-//     "GST 102",
-//     "MTH 105",
-//     "CHM 101",
-//   ],
-//   level = "100",
-//   matno = "UG/23/0001",
-//   session = "2023",
-// }
 export const registerCourses = async (payload: {
   courses: string[];
   level?: string;

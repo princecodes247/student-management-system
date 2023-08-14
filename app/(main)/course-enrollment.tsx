@@ -7,9 +7,11 @@ import { PaymentModal } from "../../components/modals/payment";
 import { AuthContext } from "../../layouts/AuthProvider";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { ICourse } from "../../interfaces";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { Alert, AlertTitle } from "../../components/Alert";
 import { MaterialIcons } from "@expo/vector-icons";
+import { getFeesAccess } from "../../services/SchoolFeesService";
+import { useQuery } from "../../hooks/useQuery";
 
 export default function CourseEnrollment() {
   const router = useRouter();
@@ -20,18 +22,36 @@ export default function CourseEnrollment() {
   const handleOnSuccessfulPayment = () => {
     router.push("/courses");
   };
+
+  const feesAccess = useQuery(
+    async () => {
+      const res = await getFeesAccess();
+      return res.data.data;
+    },
+    {
+      onSuccessFunction: (data) => {
+        console.log({ data });
+      },
+
+      onErrorFunction: (error) => {
+        console.log({ error: error });
+      },
+      // isDisabled: !token,
+    }
+  );
+
   const [courses, setCourses] = React.useState<ICourse[]>([]);
   const [selectedCourses, setSelectedCourses] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [level, setLevel] = React.useState<string>("100 level"); // null);
   const { user } = useContext(AuthContext);
 
   // const level = useQuery(
 
   return (
-    <ScrollView className="h-full bg-white">
-      <View className="flex-col justify-between flex-1 h-[80vh] p-6">
-        <View className="flex-1">
+    <ScrollView className="bg-white">
+      <View className="flex-col h-[80vh] justify-between flex-1 p-6">
+        <View className="">
           <View className="my-3">
             <Text className="">
               Choose the session courses you want to register
@@ -76,27 +96,37 @@ export default function CourseEnrollment() {
               disabled
             />
           </View>
-          <View>
-            <Alert
-              icon={<MaterialIcons name="warning" size={24} />}
-              variant="destructive"
-            >
-              <AlertTitle
-                className="text-red-500"
-                content="You cannot register your courses because you have not paid your current fees"
-              />
-            </Alert>
-          </View>
+          {feesAccess.data === 0 && (
+            <View className="">
+              <Alert
+                icon={<MaterialIcons name="warning" size={24} />}
+                variant="destructive"
+              >
+                <AlertTitle
+                  className="text-red-500"
+                  content="You cannot register your courses because you have not paid your current fees"
+                />
+              </Alert>
+              <Button
+                classNames="items-start py-4"
+                href={"/school-fees"}
+                textClassNames="text-primary underline text-left"
+                variant="link"
+              >
+                Pay School Fees
+              </Button>
+            </View>
+          )}
         </View>
 
-        <View className="flex-[3] h-full justify-end">
+        <View className="justify-end flex-1 justify-self-end ">
           <Button
             classNames="w-full"
             // onClick={handleOpenPaymentModal}
             href={`/courses?level=${level}`}
             variant="outline"
-            loading={isLoading}
-            disabled={!level}
+            loading={feesAccess.isLoading}
+            disabled={!level || feesAccess.isLoading || feesAccess.data === 0}
           >
             Register {level}
           </Button>

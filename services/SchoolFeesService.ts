@@ -81,3 +81,13 @@ export const getFeesReport = async (payload: {
   );
   return instance;
 };
+
+export const getFeesAccess = async () => {
+  const instance = await api.get<{
+    status: number;
+    data: 0 | 1;
+  }>(servicePrefix + `student/auth/fee/access`, {
+    headers: await authHeaders(),
+  });
+  return instance;
+};

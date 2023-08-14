@@ -48,7 +48,7 @@ const buttonTextVariants: typeof buttonVariants = cva(
     variants: {
       variant: {
         default: `text-primary-foreground text-center hover:text-primary/90`,
-        destructive: "text-center text-red-900 hover:text-red-400/90",
+        destructive: "text-center text-red-100 hover:text-red-400/90",
         outline: "text-primary text-center hover:text-accent",
         secondary:
           "text-secondary-foreground text-center hover:text-secondary/80",
@@ -100,11 +100,16 @@ export default function Button<T>({
   disabled,
 }: ButtonProps<T>) {
   return (
-    <ButtonLink replace={replace} href={href}>
+    <ButtonLink
+      replace={replace}
+      href={href}
+      loading={loading}
+      disabled={disabled || loading}
+    >
       <TouchableOpacity
         onPress={onClick}
         style={styles.container}
-        disabled={disabled}
+        disabled={disabled || loading}
         className={cn(
           buttonVariants({ variant, size, disabled, className: classNames })
         )}
@@ -130,13 +135,17 @@ const ButtonLink = ({
   children,
   href,
   replace,
+  loading,
+  disabled,
 }: {
   children: ReactNode;
   href: string;
   replace?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
 }) => {
   return href ? (
-    <Link replace={replace} href={href} asChild>
+    <Link replace={replace} disabled={disabled} href={href} asChild>
       {children}
     </Link>
   ) : (

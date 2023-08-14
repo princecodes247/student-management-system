@@ -15,7 +15,7 @@ export default function Profile() {
         <Button
           variant="secondary"
           classNames=" justify-start items-start pl-6 mb-4"
-          href={"/courses"}
+          href={"/course-enrollment"}
           replace
         >
           My Courses
