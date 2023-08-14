@@ -206,9 +206,9 @@ export type ApiFunction<ResultType, ArgType> = (
   arg?: ArgType
 ) => Promise<AxiosResponse<ResultType>>;
 
-export interface UseMutateOptions<ResultType, ArgType> {
+export interface UseMutateOptions<ResultType, ArgType, ErrorType> {
   onSuccessFunction?: (data: ResultType) => void;
-  onErrorFunction?: (error: Error) => void;
+  onErrorFunction?: (error: ErrorType) => void;
   onLoadingFunction?: () => void;
   onMutateFunction?: (payload: ArgType) => void;
   successMessage?: string;
@@ -218,7 +218,7 @@ export interface UseMutateOptions<ResultType, ArgType> {
   defaultData?: ResultType | null;
 }
 
-export interface UseQueryOptions<ResultType, ArgType>
-  extends UseMutateOptions<ResultType, ArgType> {
+export interface UseQueryOptions<ResultType, ArgType, ErrorType>
+  extends UseMutateOptions<ResultType, ArgType, ErrorType> {
   isDisabled?: boolean;
 }

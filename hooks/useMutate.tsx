@@ -1,19 +1,19 @@
 import { useRef, useState } from "react";
-import { AxiosResponse } from "axios";
+import { AxiosResponse, AxiosError } from "axios";
 import { ApiFunction, UseMutateOptions } from "../interfaces";
 
-export function useMutate<ResultType, ArgType>(
+export function useMutate<ResultType, ArgType, ErrorType>(
   api: ApiFunction<ResultType, ArgType>,
   {
     onSuccessFunction = (data: ResultType) => {},
-    onErrorFunction = (error: Error) => {},
+    onErrorFunction = (error: ErrorType) => {},
     onLoadingFunction = () => {},
     onMutateFunction = (payload: ArgType) => {},
     successMessage = "Successfully updated",
     loadingMessage = "Updating...",
     errorMessage = "Failed to update",
     showToast = true,
-  }: UseMutateOptions<ResultType, ArgType>
+  }: UseMutateOptions<ResultType, ArgType, ErrorType>
 ) {
   const toastId = useRef<string | undefined>(undefined);
   // return useMutation(api, {
@@ -34,7 +34,7 @@ export function useMutate<ResultType, ArgType>(
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<ErrorType | null>(null);
   const [data, setData] = useState<ResultType | null>(null);
 
   const mutate = async (arg: ArgType) => {
