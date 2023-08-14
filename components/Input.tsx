@@ -29,6 +29,7 @@ export interface InputProps extends VariantProps<typeof inputVariants> {
   value?: string;
   disabled?: boolean;
   onChange?: (text: string) => void;
+  type?: "text" | "password";
 }
 
 const Input = ({
@@ -36,6 +37,7 @@ const Input = ({
   placeholder = "",
   disabled = false,
   value,
+  type = "text",
   onChange,
   variant = "default",
 }: InputProps) => {
@@ -46,6 +48,7 @@ const Input = ({
       placeholder={placeholder}
       onChangeText={onChange}
       value={value}
+      secureTextEntry={type === "password"}
       editable={!disabled}
       selectTextOnFocus={!disabled}
       // style={{ height: 40, backgroundColor: "#000", padding: 10 }}

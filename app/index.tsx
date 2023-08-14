@@ -64,6 +64,7 @@ export default function Login() {
                 setPassword(value);
               }}
               value={password}
+              type="password"
               placeholder="Password"
               classNames="mt-2"
             />

@@ -71,6 +71,7 @@ export default function GetStarted() {
                   setPassword(value);
                 }}
                 value={password}
+                type="password"
                 placeholder="Password"
                 classNames="mt-2"
               />
