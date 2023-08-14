@@ -40,6 +40,55 @@ const uninterceptedApi = axios.create({
 //   }
 // );
 
+function convertBlobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const base64Data = reader.result.split(",")[1];
+      resolve(base64Data);
+    };
+
+    reader.onerror = () => {
+      reject(new Error("Error reading blob data"));
+    };
+
+    reader.readAsDataURL(blob);
+  });
+}
+
+// Add a response interceptor
+api.interceptors.response.use(
+  async (response) => {
+    const contentType = response.headers["content-type"];
+
+    if (contentType === "application/json") {
+      // No need to modify JSON responses
+      return response;
+    } else if (
+      contentType === "application/octet-stream" ||
+      contentType === "application/pdf"
+    ) {
+      try {
+        const base64Data = await convertBlobToBase64(response.data);
+        const jsonData = { data: base64Data };
+
+        return {
+          ...response,
+          data: jsonData,
+        };
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    } else {
+      // For other content types, return response as is
+      return response;
+    }
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 const authHeaders = async (extraConfig?: {
   [key: string]: string | undefined;
 }) => {
