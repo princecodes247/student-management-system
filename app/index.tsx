@@ -31,20 +31,15 @@ export default function Login() {
     },
   });
   return (
-    <View
-      style={{
-        flex: 1,
-        height: "100%",
-      }}
-      className="flex justify-between flex-1 h-full gap-4 p-8 pl-12 "
-    >
-      <View className="flex-1 pt-24">
-        <Text className="text-4xl">Login</Text>
-        <Text className="mt-4 text-gray-600">
-          Welcome back to your student management Application
-        </Text>
-      </View>
-      <KeyboardAvoidingView>
+    <KeyboardAvoidingView>
+      <View className="flex justify-between flex-1 gap-4 p-8 pl-12 border ">
+        <View className="flex-1 pt-24">
+          <Text className="text-4xl">Login</Text>
+          <Text className="mt-4 text-gray-600">
+            Welcome back to your student management Application
+          </Text>
+        </View>
+
         <View className="flex-1">
           <View className="mb-2">
             <Text className="text-base text-gray-600">Username</Text>
@@ -92,16 +87,17 @@ export default function Login() {
             Login
           </Button>
         </View>
-      </KeyboardAvoidingView>
-      <View className="">
-        <Link replace asChild href="/">
-          <Text className="text-center">
-            Don’t have an account yet?{" "}
-            <Text className="text-primary">Create one </Text>
-          </Text>
-        </Link>
+
+        <View className="">
+          <Link replace asChild href="/">
+            <Text className="text-center">
+              Don’t have an account yet?{" "}
+              <Text className="text-primary">Create one </Text>
+            </Text>
+          </Link>
+        </View>
+        <StatusBar style="auto" />
       </View>
-      <StatusBar style="auto" />
-    </View>
+    </KeyboardAvoidingView>
   );
 }

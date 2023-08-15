@@ -6,7 +6,9 @@ import {
   KeyboardAvoidingView as KAV,
   Platform,
   StyleSheet,
+  // ScrollView,
 } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 const KeyboardAvoidingView = ({ children, flex = 1, offset = 0 }) => {
   const [keyboardOffset, setKeyboardOffset] = useState(0);
@@ -59,7 +61,9 @@ const KeyboardAvoidingView = ({ children, flex = 1, offset = 0 }) => {
       behavior={Platform.OS === "ios" ? "padding" : undefined}
       keyboardVerticalOffset={keyboardOffset}
     >
-      {children}
+      <ScrollView className="flex-col h-full">
+        <View className="min-h-[100vh]">{children}</View>
+      </ScrollView>
     </KAV>
   );
 };
