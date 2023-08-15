@@ -9,16 +9,25 @@ import { signIn } from "../services/AuthService";
 import PersistentKeyStore from "../lib/PersistentKeyStore";
 import { AuthContext } from "../layouts/AuthProvider";
 import { useMutate } from "../hooks/useMutate";
+import { AxiosError, isAxiosError } from "axios";
+import { AlertBox } from "../lib/alert";
 
 export default function Login() {
   const router = useRouter();
-  const { login } = useContext(AuthContext);
+  const { user, login } = useContext(AuthContext);
   const [matriculationNumber, setMatriculationNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   const loginMutation = useMutate(signIn, {
-    onErrorFunction: (error) => {
-      console.log("I did it", error.stack);
+    onErrorFunction: (error: Error | AxiosError) => {
+      if (isAxiosError(error)) {
+        // Access to config, request, and response
+        AlertBox.show(
+          "Error",
+          error?.response?.data?.error ?? "An error occurred",
+          []
+        );
+      }
     },
     onMutateFunction: (data) => {
       console.log("I did it", data);
@@ -30,9 +39,14 @@ export default function Login() {
       router.push("/home");
     },
   });
+  useEffect(() => {
+    if (user) {
+      router.push("/home");
+    }
+  }, [user]);
   return (
     <KeyboardAvoidingView>
-      <View className="flex justify-between flex-1 gap-4 p-8 pl-12 border ">
+      <View className="flex justify-between flex-1 gap-4 p-8 pl-12 ">
         <View className="flex-1 pt-24">
           <Text className="text-4xl">Login</Text>
           <Text className="mt-4 text-gray-600">
