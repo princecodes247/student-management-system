@@ -15,13 +15,13 @@ export default function Settings() {
         <View className="">
           <Text className="mb-4 text-sm">Profile</Text>
           <Link href={"/settings/profile"} replace asChild>
-            <Pressable className="flex-row w-full p-4 bg-gray-500 rounded">
+            <Pressable className="flex-row w-full p-4 bg-gray-200 rounded-xl">
               <View className="pr-4">
-                <View className="p-6 border rounded-full"></View>
+                <View className="p-6 bg-gray-300 rounded-full"></View>
               </View>
               <View>
-                <Text className="text-lg">{user.firstname}</Text>
-                <Text className="text-gray-900">{user.matno}</Text>
+                <Text className="text-lg">{user?.firstname ?? ""}</Text>
+                <Text className="text-gray-900">{user?.matno ?? ""}</Text>
               </View>
             </Pressable>
           </Link>
