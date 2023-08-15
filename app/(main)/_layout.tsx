@@ -2,6 +2,7 @@ import { Tabs } from "expo-router/tabs";
 import { getHeaderTitle } from "@react-navigation/elements";
 import { Header } from "../../components/Header";
 import { MaterialIcons, Ionicons, Feather } from "@expo/vector-icons";
+import { Platform } from "react-native";
 
 export default function AppLayout() {
   const getHeader = ({ navigation, route, options }) => {
@@ -10,7 +11,14 @@ export default function AppLayout() {
     return <Header title={title} style={options.headerStyle} />;
   };
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarStyle: {
+          height: Platform.OS === "android" ? 60 : 80,
+          paddingBottom: Platform.OS === "android" ? 15 : 25,
+        },
+      }}
+    >
       <Tabs.Screen
         // Name of the route to hide.
         name="home"
