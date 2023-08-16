@@ -69,7 +69,7 @@ const PaymentModal = ({
           {/* <View className="flex gap-2 my-4"> */}
           {url?.length > 0 && (
             <WebView
-              className="p-1"
+              className="h-full p-1 overflow-scroll"
               // originWhitelist={["*"]}
               // source={{ html: "<h1><center>Hello world</center></h1>" }}
               source={{ uri: url ?? "" }}

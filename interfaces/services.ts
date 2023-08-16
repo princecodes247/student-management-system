@@ -46,3 +46,28 @@ export interface LoginResponse {
   token_type: "bearer";
   expires_in: number;
 }
+
+export interface IReceipt {
+  fullName: string;
+  matno: string;
+  academicSession: number;
+  level: number;
+  fees: {
+    id: number;
+    fee: string;
+    amount: string;
+  }[];
+  phoneNumber: string;
+  transaction_id: number;
+  transaction_ref: string;
+  transactionTime: string;
+  paymentChannel: "card";
+  currency: "NGN";
+  cardNumber: string;
+  bank: string;
+}
+
+export interface IReceiptResponse {
+  status: HttpStatusCode;
+  data: IReceipt;
+}

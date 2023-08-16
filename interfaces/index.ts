@@ -71,6 +71,7 @@ export interface IUser {
   gender: Gender;
   mobile: string;
   student_type: StudentType;
+  loginType: LoginType;
   disabled: Disabled;
   profile_image_path: string;
   created_at: string;

@@ -1,4 +1,5 @@
 import { ICourse, IFee, Semester } from "../interfaces";
+import { IReceiptResponse } from "../interfaces/services";
 import api, { authHeaders, uninterceptedApi } from "./config";
 
 const servicePrefix = "/";
@@ -37,30 +38,12 @@ export const payFees = async (payload: {
 };
 
 export const getFeesDetails = async (ref: string) => {
-  const instance = await api.get<{
-    status: number;
-    data: {
-      fullName: string;
-      matno: string;
-      academicSession: number;
-      level: number;
-      fees: {
-        id: number;
-        fee: string;
-        amount: string;
-      }[];
-      phoneNumber: string;
-      transaction_id: number;
-      transaction_ref: string;
-      transactionTime: string;
-      paymentChannel: "card";
-      currency: "NGN";
-      cardNumber: string;
-      bank: string;
-    };
-  }>(servicePrefix + `payment/details/${ref}`, {
-    headers: await authHeaders(),
-  });
+  const instance = await api.get<IReceiptResponse>(
+    servicePrefix + `payment/details/${ref}`,
+    {
+      headers: await authHeaders(),
+    }
+  );
   return instance;
 };
 

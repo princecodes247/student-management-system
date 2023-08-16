@@ -14,7 +14,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
       router.replace(`/${path}?ref=${queryParams.reference}`);
       return;
     }
-    router.replace("/home");
+    // router.replace("/home");
     // router.replace("/onboarding/clearance");
     // router.replace("/onboarding/create-account");
   }, [url]);

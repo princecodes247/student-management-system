@@ -17,14 +17,12 @@ export default function GetStarted() {
   const [password, setPassword] = React.useState("");
 
   const loginMutation = useMutate(signIn, {
-    onErrorFunction: (error) => {
-      console.log("I did it", error.stack);
-    },
+    onErrorFunction: (error) => {},
     onMutateFunction: (data) => {
       console.log("I did it", data);
     },
     onSuccessFunction: async (data) => {
-      await login(data.user, data.token);
+      await login(data.user, data.token, data.login_type);
 
       console.log("I did it", data);
       router.push("/home");

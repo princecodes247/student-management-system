@@ -40,6 +40,7 @@ export default function SchoolFees() {
     {
       onSuccessFunction: (data) => {
         // console.log({ data });
+        setAmount(0);
         setTotalAmount(
           data.reduce((prev, curr) => {
             console.log({ curr });
@@ -74,6 +75,7 @@ export default function SchoolFees() {
   const payFeesMutation = useMutate(payFees, {
     onSuccessFunction: (data) => {
       // console.log({ data });
+
       handleOpenPaymentModal();
       setUrl(data.url);
     },

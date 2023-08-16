@@ -13,9 +13,12 @@ import { useMutate } from "../../hooks/useMutate";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 import * as MediaLibrary from "expo-media-library";
+import { IReceipt } from "../../interfaces/services";
+import formatMatNo from "../../lib/formatMatNo";
 
 export default function SchoolFeesSuccessful() {
   const params = useSearchParams();
+  const [receipt, setReceipt] = React.useState<IReceipt>(null);
   const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
   const feesDetails = useQuery(
     async () => {
@@ -25,6 +28,7 @@ export default function SchoolFeesSuccessful() {
     {
       onSuccessFunction: (data) => {
         console.log({ data: data.matno });
+        setReceipt(data);
         // getFeesReportMutation.mutate({
         //   level: 100,
         //   session: 2023,
@@ -45,7 +49,9 @@ export default function SchoolFeesSuccessful() {
         console.error("Permission not granted to write to external storage");
         return;
       }
-      const uri = FileSystem.documentDirectory + "downloaded1232.pdf";
+      const uri =
+        FileSystem.documentDirectory +
+        `${formatMatNo(receipt.matno)}-${receipt.level}-receipt.pdf`;
       console.log({ uri });
       await FileSystem.writeAsStringAsync(uri, blob, {
         encoding: FileSystem.EncodingType.Base64,

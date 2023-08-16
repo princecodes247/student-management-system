@@ -15,8 +15,11 @@ Just run
 
 todo
 
-- [*] Report generation
-- [] Fix Empty file generation (Report generation)
-- [*] school fees and course validation
-- [] Course registration successfully
-- [] Course registration guard
+- [*] Change receipt name
+- [*] SCHOOL FEES total clearing
+- [*] Onboarding screens not showing
+- [*] Scroll on dashboard
+- [] Blank payment screen
+- [] Result and lectures closing on some devices
+- [*] Update login placeholder
+- [*] Add scrollview to payment modal

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { Text, View, Pressable } from "react-native";
+import { Text, View, Pressable, ScrollView } from "react-native";
 import Button from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Link } from "expo-router";
@@ -12,13 +12,14 @@ import AuthorizedRoute from "../../layouts/AuthorizedRoute";
 import { UserRole } from "../../interfaces";
 import { AuthContext } from "../../layouts/AuthProvider";
 import { AlertBox } from "../../lib/alert";
+import { actionsList } from "../../constants";
 
 export default function Home() {
   const { user } = useContext(AuthContext);
 
   return (
     <AuthorizedRoute allowedRoles={[UserRole.Student]}>
-      <View className="h-full p-6 bg-white pt-14">
+      <ScrollView className="h-full p-6 bg-[#f5f5f5] pt-14">
         <View className="flex-row justify-between">
           <Link href={"/profile"} asChild>
             <Pressable className="flex-row flex-1 gap-2">
@@ -83,30 +84,18 @@ export default function Home() {
           <Text>Quick Actions</Text>
           <View className="mt-4">
             {React.Children.toArray(
-              [
-                {
-                  title: "Lectures and Timetables",
-                  link: "/timetable",
-                },
-                {
-                  title: "Check Result",
-                  link: "/results",
-                },
-                {
-                  title: "Course Registration",
-                  link: "/course-enrollment",
-                },
-                {
-                  title: "Pay Fees",
-                  link: "/school-fees",
-                },
-              ].map((action) => (
-                <ActionLink title={action.title} link={action.link} />
+              actionsList.map((action) => (
+                <ActionLink
+                  title={action.title}
+                  description={action.description}
+                  link={action.link}
+                  icon={action.icon}
+                />
               ))
             )}
           </View>
         </View>
-      </View>
+      </ScrollView>
     </AuthorizedRoute>
   );
 }

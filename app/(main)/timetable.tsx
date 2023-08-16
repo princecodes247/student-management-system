@@ -13,7 +13,7 @@ export default function Timetable() {
     <View className="h-full p-6 bg-white">
       <View className="flex-row justify-between gap-2">
         <View className="flex-1">
-          <Picker
+          {/* <Picker
             value={"100l"}
             placeholder="Choose Level"
             items={[
@@ -21,17 +21,17 @@ export default function Timetable() {
               { label: "200 level", value: "200l" },
               { label: "300 level", value: "300l" },
             ]}
-          />
+          /> */}
         </View>
         <View className="flex-1">
-          <Picker
+          {/* <Picker
             value={"1"}
             placeholder="Select Semester"
             items={[
               { label: "1st semester", value: "1" },
               { label: "2nd semester", value: "2" },
             ]}
-          />
+          /> */}
         </View>
       </View>
       <View className="flex-1 mt-6">

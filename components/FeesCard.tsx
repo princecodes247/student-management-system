@@ -31,7 +31,10 @@ const FeeCard = ({
       <Checkbox
         className="mr-4"
         value={isSelected}
-        onValueChange={setIsSelected}
+        onValueChange={() => {
+          onChange(!isSelected);
+          setIsSelected(!isSelected);
+        }}
       />
       <View className="flex-col">
         <Text>{feeData.fee}</Text>
