@@ -12,6 +12,7 @@
     "build:android": "eas build --platform android"
   },
   "dependencies": {
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "@babel/preset-env": "^7.1.6",
     "@expo-google-fonts/inter": "^0.2.3",
     "@expo/vector-icons": "^13.0.0",

@@ -10,6 +10,8 @@ module.exports = function (api) {
     plugins: [
       // NOTE: this is required to pass the right environment
       // NOTE: this is only necessary if you are using reanimated for animations
+      "@babel/plugin-proposal-export-namespace-from",
+      "react-native-reanimated/plugin",
       [
         "module:react-native-dotenv",
         {
@@ -23,7 +25,6 @@ module.exports = function (api) {
           verbose: false,
         },
       ],
-      "react-native-reanimated/plugin",
       "nativewind/babel",
       "expo-router/babel",
     ],

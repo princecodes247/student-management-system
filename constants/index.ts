@@ -12,19 +12,19 @@ export const actionsList: {
 }[] = [
   {
     title: "Pay Fees",
-    icon: "schoolFees",
+    icon: "schoolFeesAction",
     description: "Pay your school fees and levies.",
     link: "/school-fees",
   },
   {
-    title: "Course Registration",
-    icon: "courseEnrollment",
+    title: "Course Enrollment",
+    icon: "courseEnrollmentAction",
     description: "Register your courses for the semester",
     link: "/course-enrollment",
   },
   {
     title: "Check Result",
-    icon: "academicResults",
+    icon: "academicResultsAction",
     description: "Check results and save them",
     link: "/results",
   },
@@ -32,7 +32,7 @@ export const actionsList: {
   {
     title: "Lectures and Timetables",
     link: "/timetable",
-    icon: "lecturesTimetables",
+    icon: "lecturesTimetablesAction",
     description: "Stay updated with your lectures",
   },
 ];

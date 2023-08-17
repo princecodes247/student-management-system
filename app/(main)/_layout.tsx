@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router/tabs";
 import { getHeaderTitle } from "@react-navigation/elements";
 import { Header } from "../../components/Header";
-import { MaterialIcons, Ionicons, Feather } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { Platform } from "react-native";
 
 export default function AppLayout() {
