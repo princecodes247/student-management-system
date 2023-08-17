@@ -49,6 +49,7 @@ export default function Base() {
         contentFit="contain"
         // transition={1000}
       />
+      <Button>OMOH</Button>
     </View>
   );
 }
