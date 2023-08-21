@@ -38,6 +38,7 @@ const CheckResult = ({ classNames, navigation }: CheckResultProps) => {
               { label: "200 level", value: "200l" },
               { label: "300 level", value: "300l" },
             ]}
+            value={"100l"}
           />
         </View>
         <View className="flex-1">
@@ -47,6 +48,7 @@ const CheckResult = ({ classNames, navigation }: CheckResultProps) => {
               { label: "1st semester", value: "1" },
               { label: "2nd semester", value: "2" },
             ]}
+            value={"1"}
           />
         </View>
       </View>
