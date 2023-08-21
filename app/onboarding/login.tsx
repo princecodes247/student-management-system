@@ -49,7 +49,7 @@ export default function Login() {
   }, [user]);
   return (
     <KeyboardAvoidingView>
-      <View className="flex justify-between flex-1 gap-4 p-8 pl-12 ">
+      <View className="flex justify-between flex-1 gap-4 p-8 ">
         <View className="flex-1 pt-24">
           <Text className="text-4xl">Login</Text>
           <Text className="mt-4 text-gray-600">

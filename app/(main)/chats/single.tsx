@@ -11,26 +11,7 @@ import { Picker } from "../../../components/Picker";
 export default function SingleChat() {
   return (
     <View className="h-full p-6 bg-white">
-      <View className="flex-row justify-between gap-2">
-        <View className="flex-1">
-          <Picker
-            items={[
-              { label: "Football", value: "football" },
-              { label: "Baseball", value: "baseball" },
-              { label: "Hockey", value: "hockey" },
-            ]}
-          />
-        </View>
-        <View className="flex-1">
-          <Picker
-            items={[
-              { label: "Football", value: "football" },
-              { label: "Baseball", value: "baseball" },
-              { label: "Hockey", value: "hockey" },
-            ]}
-          />
-        </View>
-      </View>
+      <View className="flex-row justify-between gap-2"></View>
       <View className="w-full p-6 mt-8 rounded-xl bg-primary">
         <View className="flex-row gap-2">
           <Text className="text-sm text-primary-foreground">

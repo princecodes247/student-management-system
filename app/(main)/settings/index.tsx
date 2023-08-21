@@ -56,7 +56,7 @@ export default function Settings() {
           <Button
             variant="destructive"
             onClick={() => {
-              router.replace("/");
+              router.replace("/onboarding/login");
               logout();
             }}
           >

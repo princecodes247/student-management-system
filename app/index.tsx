@@ -23,12 +23,12 @@ export default function Base() {
     useCallback(() => {
       getUser()
         .then((user) => {
-          console.log({ userLog: user.loginType });
+          console.log({ userLog: user?.loginType });
           // router.push("/onboarding/congratulations");
           // return;
-          if (user && user.loginType === LoginType.FirstTimeUser) {
+          if (user && user?.loginType === LoginType.FirstTimeUser) {
             router.push("/onboarding/create-account");
-          } else if (user && user.loginType === LoginType.UpdatedUser) {
+          } else if (user && user?.loginType === LoginType.UpdatedUser) {
             router.push("/home");
           } else {
             router.push("/onboarding/login");
@@ -49,7 +49,7 @@ export default function Base() {
         contentFit="contain"
         // transition={1000}
       />
-      <Button>OMOH</Button>
+      {/* <Button>OMOH</Button> */}
     </View>
   );
 }

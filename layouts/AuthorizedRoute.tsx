@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "./AuthProvider";
 import { View } from "react-native";
 import { useRouter } from "expo-router";
-import { UserRole } from "../interfaces";
+import { LoginType, UserRole } from "../interfaces";
 import PersistentKeyStore from "../lib/PersistentKeyStore";
 
 interface AuthorizedRouteProps {
@@ -22,7 +22,12 @@ const AuthorizedRoute: React.FC<AuthorizedRouteProps> = ({
       // alert(user.id);
       console.log({ tryData: data });
       // User is not logged in or doesn't have the required role
-      router.replace("/");
+      router.replace("/login");
+      return null;
+    }
+
+    if (data.loginType === LoginType.FirstTimeUser) {
+      router.replace("/onboarding/create-account");
       return null;
     }
   });
