@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { cn } from "../../../lib/utils";
-import { View, Text } from "react-native";
+import { View, ScrollView, Dimensions, Text } from "react-native";
 import Button from "../../Button";
 import { Picker } from "../../Picker";
 import { Input } from "../../Input";
@@ -65,11 +65,14 @@ const PaymentModal = ({
   return (
     <>
       <BottomSheetModal innerRef={firstRef}>
-        <View className="flex-1 p-6">
+        <ScrollView className="flex-1 p-6">
           {/* <View className="flex gap-2 my-4"> */}
           {url?.length > 0 && (
             <WebView
               className="h-full p-1 overflow-scroll"
+              // style={{
+              //   height: Dimensions.get("window").height - 200,
+              // }}
               // originWhitelist={["*"]}
               // source={{ html: "<h1><center>Hello world</center></h1>" }}
               source={{ uri: url ?? "" }}
@@ -84,7 +87,7 @@ const PaymentModal = ({
           >
             Continue
           </Button> */}
-        </View>
+        </ScrollView>
       </BottomSheetModal>
       {/* Second Payment modal */}
       <BottomSheetModal innerRef={bottomSheetRef2}>
