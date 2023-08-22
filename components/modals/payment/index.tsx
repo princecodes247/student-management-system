@@ -65,10 +65,18 @@ const PaymentModal = ({
   return (
     <>
       <BottomSheetModal innerRef={firstRef}>
-        <ScrollView className="flex-1 p-6">
+        <ScrollView
+          style={{
+            width: "100%",
+          }}
+          contentContainerStyle={{
+            flex: 1,
+          }}
+        >
           {/* <View className="flex gap-2 my-4"> */}
           {url?.length > 0 && (
             <WebView
+              nestedScrollEnabled
               className="h-full p-1 overflow-scroll"
               // style={{
               //   height: Dimensions.get("window").height - 200,
