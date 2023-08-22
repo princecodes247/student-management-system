@@ -15,6 +15,8 @@ import { AxiosError, isAxiosError } from "axios";
 import { AlertBox } from "../../lib/alert";
 import { MaterialIcons } from "@expo/vector-icons";
 import { InAppRoutes } from "../../constants";
+import { useQuery } from "../../hooks/useQuery";
+import { getTitles } from "../../services/ProfileService";
 
 export default function CreateAccount() {
   const { logout } = useContext(AuthContext);
@@ -76,6 +78,7 @@ export default function CreateAccount() {
       }
     },
   });
+
   return (
     <ScrollView className="">
       <View className="flex justify-start flex-1 gap-4 p-8 ">
@@ -160,6 +163,7 @@ export default function CreateAccount() {
         </View>
         <View className="">
           <Button
+            variant="ghost"
             onClick={() => {
               router.replace(InAppRoutes.login);
               logout();

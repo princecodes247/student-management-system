@@ -13,3 +13,36 @@ export const uploadDocs = () => {
   });
   return instance;
 };
+// {{HOST}}/lgas/7
+// {{HOST}}/states
+// {{HOST}}/titles
+
+export const getStates = async () => {
+  const instance = await api.get<{
+    status: number;
+    data: { id: number; state: string }[];
+  }>(`/states`, {
+    headers: await authHeaders(),
+  });
+  return instance;
+};
+
+export const getLGAs = async (stateNo: string) => {
+  const instance = await api.get<{
+    status: number;
+    lga: { lga: string }[];
+  }>(`/lgas/${stateNo}`, {
+    headers: await authHeaders(),
+  });
+  return instance;
+};
+
+export const getTitles = async () => {
+  const instance = await api.get<{
+    status: number;
+    titles: { title: string }[];
+  }>(`/titles`, {
+    headers: await authHeaders(),
+  });
+  return instance;
+};

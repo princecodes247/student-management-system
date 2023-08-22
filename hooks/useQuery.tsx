@@ -6,6 +6,7 @@ import { useFocusEffect } from "expo-router";
 export const useQuery = <ResultType, ArgType>(
   api: QueryApiFunction<ResultType, ArgType>,
   {
+    queryKey = [],
     onSuccessFunction = (data: ResultType) => {},
     onErrorFunction = (error: Error) => {},
     successMessage = "Successfully updated",
@@ -61,7 +62,7 @@ export const useQuery = <ResultType, ArgType>(
           setIsError(true);
           onErrorFunction(err);
         });
-    }, [isDisabled])
+    }, [isDisabled, ...queryKey])
   );
 
   return {

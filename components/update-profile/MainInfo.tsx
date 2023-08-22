@@ -9,6 +9,8 @@ import { IFileData, IProfile } from "../../interfaces";
 import { FilePicker } from "../FilePicker";
 import { convertFileToBase64 } from "../../lib/utils";
 import { uploadFile } from "../../lib/FileStorage";
+import { useQuery } from "../../hooks/useQuery";
+import { getLGAs, getStates, getTitles } from "../../services/ProfileService";
 
 export interface MainInfoProps {
   className?: string;
@@ -32,6 +34,72 @@ const MainInfo = ({
       console.log({ passport });
     }
   }, [passport]);
+
+  React.useEffect(() => {
+    if (passport && passport.type === "success") {
+      console.log({ passport });
+    }
+  }, [profileDetails.state]);
+
+  const [lgas, setLGAs] = React.useState<
+    {
+      value: string;
+      label: string;
+    }[]
+  >([]);
+  const lgasQuery = useQuery(
+    async () => {
+      console.log("why here");
+      const res = await getLGAs(profileDetails?.state ?? "1");
+      return res.data;
+    },
+    {
+      queryKey: [profileDetails.state],
+      onSuccessFunction: (data) => {
+        console.log({ data: data.lga });
+        setLGAs(
+          data.lga.map((lga) => ({
+            value: lga.lga.toString(),
+            label: lga.lga,
+          }))
+        );
+      },
+
+      onErrorFunction: (error) => {
+        console.log({ error: error });
+      },
+      // isDisabled: !token,
+    }
+  );
+  const [states, setStates] = React.useState<
+    {
+      value: string;
+      label: string;
+    }[]
+  >([]);
+  const statesQuery = useQuery(
+    async () => {
+      console.log("why here");
+      const res = await getStates();
+      return res.data;
+    },
+    {
+      onSuccessFunction: (data) => {
+        console.log({ data: data.data });
+        setStates(
+          data.data.map((state) => ({
+            value: state.id.toString(),
+            label: state.state,
+          }))
+        );
+      },
+
+      onErrorFunction: (error) => {
+        console.log({ error: error });
+      },
+      // isDisabled: !token,
+    }
+  );
 
   return (
     <>
@@ -88,7 +156,7 @@ const MainInfo = ({
               // if
               uploadFile(value)
                 .then((res) => {
-                  console.log({ res: res });
+                  // console.log({ res: res });
                   updateProfileDetails({
                     name: "profilePhoto",
                     payload: res.data,
@@ -141,7 +209,7 @@ const MainInfo = ({
                 payload: value,
               });
             }}
-            items={[{ label: "Nigeria", value: "Nigeria" }]}
+            items={states}
           />
         </View>
         <View className="mt-4">
@@ -155,7 +223,7 @@ const MainInfo = ({
               });
             }}
             placeholder="LGA"
-            items={[{ label: "Nigeria", value: "Nigeria" }]}
+            items={lgas}
           />
         </View>
         <View className="mt-4">

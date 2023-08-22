@@ -77,6 +77,7 @@ export default function GetStarted() {
 
             <Button
               // href="/onboarding/congratulations"
+
               onClick={() => {
                 loginMutation.mutate({
                   matno: matriculationNumber,

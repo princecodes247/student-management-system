@@ -52,7 +52,8 @@ const buttonTextVariants: typeof buttonVariants = cva(
         outline: "text-primary text-center hover:text-accent",
         secondary:
           "text-secondary-foreground text-center hover:text-secondary/80",
-        ghost: "text-accent hover:text-accent-foreground text-center",
+        ghost:
+          "text-accent bg-transparent hover:text-accent-foreground text-center",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

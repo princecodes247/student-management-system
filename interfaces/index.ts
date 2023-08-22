@@ -222,4 +222,5 @@ export interface UseMutateOptions<ResultType, ArgType, ErrorType> {
 export interface UseQueryOptions<ResultType, ArgType, ErrorType>
   extends UseMutateOptions<ResultType, ArgType, ErrorType> {
   isDisabled?: boolean;
+  queryKey?: any[];
 }

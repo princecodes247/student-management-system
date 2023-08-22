@@ -6,6 +6,8 @@ import { Picker } from "../Picker";
 import { Input } from "../Input";
 import { IFileData, IProfile } from "../../interfaces";
 import { FilePicker } from "../FilePicker";
+import { useQuery } from "../../hooks/useQuery";
+import { getTitles } from "../../services/ProfileService";
 
 export interface GuardianInfoProps {
   className?: string;
@@ -25,6 +27,36 @@ const GuardianInfo = ({
 }: GuardianInfoProps) => {
   const [passport, setPassport] = React.useState<IFileData>(null);
 
+  const [titles, setTitles] = React.useState<
+    {
+      label: string;
+      value: string;
+    }[]
+  >([]);
+  const titlesQuery = useQuery(
+    async () => {
+      console.log("why here");
+      const res = await getTitles();
+      return res.data;
+    },
+    {
+      onSuccessFunction: (data) => {
+        console.log({ data: data.titles });
+        setTitles(
+          data.titles.map((title) => ({
+            label: title.title,
+            value: title.title,
+          }))
+        );
+      },
+
+      onErrorFunction: (error) => {
+        console.log({ error: error });
+      },
+      // isDisabled: !token,
+    }
+  );
+
   return (
     <>
       <View className="flex-1 pt-24 pb-12">
@@ -40,16 +72,16 @@ const GuardianInfo = ({
       <View className="">
         <View className="mb-6">
           <Text className="text-base text-gray-600">Guardian Title</Text>
-          <Input
-            placeholder="Guardian Title"
+          <Picker
+            value={profileDetails.guardian_title}
             onChange={(value) => {
               updateProfileDetails({
                 name: "guardian_title",
                 payload: value,
               });
             }}
-            value={profileDetails.guardian_title}
-            classNames="mt-2"
+            placeholder="Guardian Title"
+            items={titles}
           />
         </View>
 

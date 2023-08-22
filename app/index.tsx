@@ -14,6 +14,7 @@ import { AlertBox } from "../lib/alert";
 import { Image } from "expo-image";
 import { createNavigationContainerRef } from "@react-navigation/native";
 import { LoginType } from "../interfaces";
+import { InAppRoutes } from "../constants";
 
 export default function Base() {
   const router = useRouter();
@@ -28,15 +29,18 @@ export default function Base() {
           // return;
           if (user && user?.loginType === LoginType.FirstTimeUser) {
             router.push("/onboarding/create-account");
+            return;
           } else if (user && user?.loginType === LoginType.UpdatedUser) {
             router.push("/home");
-          } else {
-            router.push("/onboarding/login");
+            return;
           }
+
+          router.push(InAppRoutes.login);
         })
         .catch((error) => {
           console.log(error);
           // router.push("/onboarding/login");
+          router.push(InAppRoutes.login);
         });
     }, [])
   );
