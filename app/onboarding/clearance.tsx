@@ -1,4 +1,4 @@
-import React, { ReducerWithoutAction } from "react";
+import React, { useContext, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { ScrollView, Text, View } from "react-native";
 import Button from "../../components/Button";
@@ -15,8 +15,11 @@ import { updateProfile } from "../../services/AuthService";
 import { FilePicker } from "../../components/FilePicker";
 import { uploadFile } from "../../lib/FileStorage";
 import { useMutate } from "../../hooks/useMutate";
+import { AuthContext } from "../../layouts/AuthProvider";
+import { InAppRoutes } from "../../constants";
 
 export default function Clearance() {
+  const { logout } = useContext(AuthContext);
   const [profileDetails, updateProfileDetails] = React.useReducer<
     (
       state: IProfileGuardian,
@@ -32,10 +35,10 @@ export default function Clearance() {
     {
       guardian_title: "",
       guardian_firstname: "",
-      guardian_lastname: "",
+      guardian_surname: "",
       guardian_email: "",
-      guardian_phone: "",
-      guardian_altphone: "",
+      guardian_mobile: "",
+      guardian_alt_phone: "",
     }
   );
   const [passport, setPassport] = React.useState<IFileData>(null);
@@ -92,11 +95,11 @@ export default function Clearance() {
               placeholder="Last Name"
               onChange={(value) => {
                 updateProfileDetails({
-                  name: "guardian_lastname",
+                  name: "guardian_surname",
                   payload: value,
                 });
               }}
-              value={profileDetails.guardian_lastname}
+              value={profileDetails.guardian_surname}
               classNames="mt-2"
             />
           </View>
@@ -107,11 +110,11 @@ export default function Clearance() {
               placeholder="Mobile Number"
               onChange={(value) => {
                 updateProfileDetails({
-                  name: "guardian_phone",
+                  name: "guardian_mobile",
                   payload: value,
                 });
               }}
-              value={profileDetails.guardian_phone}
+              value={profileDetails.guardian_mobile}
               classNames="mt-2"
             />
           </View>
@@ -122,11 +125,11 @@ export default function Clearance() {
               placeholder="Alternate Number"
               onChange={(value) => {
                 updateProfileDetails({
-                  name: "guardian_altphone",
+                  name: "guardian_alt_phone",
                   payload: value,
                 });
               }}
-              value={profileDetails.guardian_altphone}
+              value={profileDetails.guardian_alt_phone}
               classNames="mt-2"
             />
           </View>
@@ -161,12 +164,14 @@ export default function Clearance() {
           </Button>
         </View>
         <View className="">
-          <Link asChild href="/login">
-            <Text className="text-center">
-              Already have an account?{" "}
-              <Text className="text-primary">Login </Text>
-            </Text>
-          </Link>
+          <Button
+            onClick={() => {
+              router.replace(InAppRoutes.login);
+              logout();
+            }}
+          >
+            <Text className="text-center text-red-600">Logout</Text>
+          </Button>
         </View>
       </View>
       <StatusBar style="auto" />

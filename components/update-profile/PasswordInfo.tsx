@@ -6,6 +6,7 @@ import { Picker } from "../Picker";
 import { Input } from "../Input";
 import { IFileData, IProfile } from "../../interfaces";
 import { FilePicker } from "../FilePicker";
+import Button from "../Button";
 
 export interface PasswordInfoProps {
   className?: string;
@@ -14,19 +15,26 @@ export interface PasswordInfoProps {
     name: keyof IProfile;
     payload: string;
   }) => void;
+  button: React.ReactNode;
 }
 
 const PasswordInfo = ({
   className,
   profileDetails,
   updateProfileDetails,
+  button,
 }: PasswordInfoProps) => {
   const [passport, setPassport] = React.useState<IFileData>(null);
 
   return (
     <>
       <View className="flex-1 pt-24 pb-12">
-        <Text className="text-2xl text-primary">Complete your Profile</Text>
+        <View className="flex flex-row items-center">
+          {button}
+          <Text className="ml-2 text-2xl text-primary">
+            Complete your Profile
+          </Text>
+        </View>
         <Text className="mt-4 text-base text-gray-400">
           Setup your passwords
         </Text>

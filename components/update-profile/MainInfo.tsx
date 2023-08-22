@@ -7,6 +7,8 @@ import { Picker } from "../Picker";
 import { Input } from "../Input";
 import { IFileData, IProfile } from "../../interfaces";
 import { FilePicker } from "../FilePicker";
+import { convertFileToBase64 } from "../../lib/utils";
+import { uploadFile } from "../../lib/FileStorage";
 
 export interface MainInfoProps {
   className?: string;
@@ -26,18 +28,17 @@ const MainInfo = ({
   const { user } = useContext(AuthContext);
 
   React.useEffect(() => {
-    if (passport) {
-      updateProfileDetails({
-        name: "profilePhoto",
-        payload: passport.url,
-      });
+    if (passport && passport.type === "success") {
+      console.log({ passport });
     }
   }, [passport]);
 
   return (
     <>
       <View className="flex-1 pt-24 pb-12">
-        <Text className="text-2xl text-primary">Let's get you setup</Text>
+        <View className="flex flex-row items-center">
+          <Text className="text-2xl text-primary">Let's get you setup</Text>
+        </View>
         <Text className="mt-4 text-base text-gray-400">
           Now that you're a verified student of NDU, you need to set up your
           college profile{" "}
@@ -77,12 +78,25 @@ const MainInfo = ({
         <View>
           <Text className="mb-2 text-base text-gray-400">Passport</Text>
           <FilePicker
+            type="image/*"
             value={passport}
             onChange={async (value) => {
-              if (value.type === "cancel") {
+              if (!value || value.type === "cancel") {
                 setPassport(null);
                 return;
               }
+              // if
+              uploadFile(value)
+                .then((res) => {
+                  console.log({ res: res });
+                  updateProfileDetails({
+                    name: "profilePhoto",
+                    payload: res.data,
+                  });
+                })
+                .catch((err) => {
+                  console.log({ err });
+                });
               setPassport(value);
             }}
           />

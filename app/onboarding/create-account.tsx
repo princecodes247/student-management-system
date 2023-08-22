@@ -1,4 +1,4 @@
-import React, { ReducerWithoutAction, useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { ScrollView, Text, View } from "react-native";
 import Button from "../../components/Button";
@@ -11,8 +11,13 @@ import { GuardianInfo } from "../../components/update-profile/GuardianInfo";
 import { PasswordInfo } from "../../components/update-profile/PasswordInfo";
 import { PageIndicator } from "../../components/update-profile/PageIndicator";
 import { AuthContext } from "../../layouts/AuthProvider";
+import { AxiosError, isAxiosError } from "axios";
+import { AlertBox } from "../../lib/alert";
+import { MaterialIcons } from "@expo/vector-icons";
+import { InAppRoutes } from "../../constants";
 
 export default function CreateAccount() {
+  const { logout } = useContext(AuthContext);
   const [profileDetails, updateProfileDetails] = React.useReducer<
     (
       state: IProfile,
@@ -59,8 +64,16 @@ export default function CreateAccount() {
     onMutateFunction(payload) {
       console.log({ payload });
     },
-    onErrorFunction: (error) => {
-      console.log({ error: error });
+    onErrorFunction: (error: Error | AxiosError) => {
+      if (isAxiosError(error)) {
+        // Access to config, request, and response
+        console.log(error?.response?.data);
+        AlertBox.show(
+          "Error",
+          error?.response?.data?.error ?? "An error occurred",
+          []
+        );
+      }
     },
   });
   return (
@@ -83,6 +96,22 @@ export default function CreateAccount() {
         {/* <View key="2"> */}
         {currentSlide === 1 && (
           <GuardianInfo
+            button={
+              <Button
+                onClick={() => {
+                  setCurrentSlide(currentSlide - 1);
+                }}
+                variant="ghost"
+                textClassNames=""
+              >
+                <MaterialIcons
+                  className="text-primary"
+                  name="arrow-back"
+                  size={24}
+                  color="currentColor"
+                />
+              </Button>
+            }
             profileDetails={profileDetails}
             updateProfileDetails={updateProfileDetails}
           />
@@ -91,6 +120,22 @@ export default function CreateAccount() {
         {/* <View key="3"> z*/}
         {currentSlide === 2 && (
           <PasswordInfo
+            button={
+              <Button
+                onClick={() => {
+                  setCurrentSlide(currentSlide - 1);
+                }}
+                variant="ghost"
+                textClassNames=""
+              >
+                <MaterialIcons
+                  className="text-primary"
+                  name="arrow-back"
+                  size={24}
+                  color="currentColor"
+                />
+              </Button>
+            }
             profileDetails={profileDetails}
             updateProfileDetails={updateProfileDetails}
           />
@@ -113,14 +158,16 @@ export default function CreateAccount() {
             {currentSlide === 2 ? "Submit" : "Next"}
           </Button>
         </View>
-        {/* <View className="">
-          <Link asChild href="/login">
-            <Text className="text-center">
-              Already have an account?{" "}
-              <Text className="text-primary">Login </Text>
-            </Text>
-          </Link>
-        </View> */}
+        <View className="">
+          <Button
+            onClick={() => {
+              router.replace(InAppRoutes.login);
+              logout();
+            }}
+          >
+            <Text className="text-center text-red-600">Logout</Text>
+          </Button>
+        </View>
       </View>
       <StatusBar style="auto" />
     </ScrollView>

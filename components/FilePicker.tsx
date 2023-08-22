@@ -7,6 +7,7 @@ import * as DocumentPicker from "expo-document-picker";
 export interface FilePickerProps {
   className?: string;
   placeholder?: string;
+  type?: string;
   value?: DocumentPicker.DocumentResult | null;
   onChange?: (value: DocumentPicker.DocumentResult | null) => void;
   items?: {
@@ -20,6 +21,7 @@ const FilePicker = ({
   placeholder = "Choose an option",
   items = [],
   value,
+  type,
   onChange,
   ...props
 }: FilePickerProps) => {
@@ -27,7 +29,8 @@ const FilePicker = ({
     React.useState<DocumentPicker.DocumentResult | null>(null);
   const handleOpenPicker = async () => {
     const doc = await DocumentPicker.getDocumentAsync({
-      type: "application/pdf",
+      type: type ?? "application/pdf",
+      copyToCacheDirectory: true,
     });
     console.log({ doc });
     if (doc.type === "success") {

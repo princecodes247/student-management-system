@@ -1,7 +1,8 @@
 import { UPLOADFLY_API_KEY } from "@env";
 
 export async function uploadFile(file) {
-  const uploadEndpoint = "https://api.uploadfly.cloud/upload";
+  const uploadEndpoint =
+    "https://tame-teal-cormorant-tux.cyclic.app/convert-to-base64";
   try {
     // Create a new FormData object
     const formData = new FormData();
@@ -14,7 +15,7 @@ export async function uploadFile(file) {
       method: "POST",
       headers: {
         "Content-Type": "multipart/form-data",
-        authorization: `Bearer ${UPLOADFLY_API_KEY}`,
+        // authorization: `Bearer ${UPLOADFLY_API_KEY}`,
       },
       body: formData,
     });
@@ -23,5 +24,6 @@ export async function uploadFile(file) {
     // Handle response
   } catch (error) {
     // Handle error
+    console.log(error);
   }
 }

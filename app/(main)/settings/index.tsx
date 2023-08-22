@@ -5,6 +5,7 @@ import Button from "../../../components/Button";
 import { AuthContext } from "../../../layouts/AuthProvider";
 import AuthorizedRoute from "../../../layouts/AuthorizedRoute";
 import { Link, useRouter } from "expo-router";
+import { InAppRoutes } from "../../../constants";
 
 export default function Settings() {
   const { user, logout } = useContext(AuthContext);
@@ -56,7 +57,7 @@ export default function Settings() {
           <Button
             variant="destructive"
             onClick={() => {
-              router.replace("/onboarding/login");
+              router.replace(InAppRoutes.login);
               logout();
             }}
           >

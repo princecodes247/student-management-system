@@ -2,6 +2,7 @@ import { apiUrl } from "../constants";
 import axios from "axios";
 import HttpClient from "../lib/http";
 import PersistentKeyStore from "../lib/PersistentKeyStore";
+import { convertBlobToBase64 } from "../lib/utils";
 
 const api = axios.create({
   baseURL: apiUrl.toString(),
@@ -39,23 +40,6 @@ const uninterceptedApi = axios.create({
 //     return Promise.reject(error);
 //   }
 // );
-
-function convertBlobToBase64(blob) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const base64Data = reader.result.split(",")[1];
-      resolve(base64Data);
-    };
-
-    reader.onerror = () => {
-      reject(new Error("Error reading blob data"));
-    };
-
-    reader.readAsDataURL(blob);
-  });
-}
 
 // Add a response interceptor
 api.interceptors.response.use(

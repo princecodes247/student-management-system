@@ -25,10 +25,7 @@ export default function OnboardingCongratulations() {
       </View>
       <View className="">
         <Link asChild href="/login">
-          <Text className="text-center">
-            Already have an account?{" "}
-            <Text className="text-primary">Login </Text>
-          </Text>
+          <Text className="text-center text-red-600">Logout</Text>
         </Link>
       </View>
       <StatusBar style="auto" />
