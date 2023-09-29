@@ -3,9 +3,9 @@
   "version": "2.0.0",
   "main": "./index.js",
   "scripts": {
-    "start": "npx expo start",
+    "start": "expo start",
     "android": "expo start --android",
-    "tunnel": "npx expo start --tunnel",
+    "tunnel": "expo start --tunnel",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build": "eas build --platform all",

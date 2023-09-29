@@ -34,18 +34,15 @@ export default function Timetable() {
         </View>
       </View>
       <View className="flex-1 mt-6">
-        {/* <View className="w-full p-6 h-[180px] mt-8 bg-gray-100 border rounded"></View>
+        <View className="w-full p-6 h-[180px] mt-8 bg-gray-100 border rounded"></View>
 
         <Text className="mt-6 text-gray-600">
           Note that this timetable is subject to change and it is best that you
           keep contact with your course rep
-        </Text> */}
-        <Text className="mt-6 text-lg text-center text-gray-600">
-          No lectures currently...
         </Text>
       </View>
       <View className="mt-8">
-        <Button disabled variant="outline" classNames="border-2">
+        <Button variant="outline" classNames="border-2">
           Save Timetable
         </Button>
       </View>

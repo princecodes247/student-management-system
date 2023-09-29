@@ -31,7 +31,7 @@ const CheckResult = ({ classNames, navigation }: CheckResultProps) => {
       </View>
       <View className="flex-row justify-between gap-2 my-4">
         <View className="flex-1">
-          <Picker
+          {/* <Picker
             placeholder="Choose Level"
             items={[
               { label: "100 level", value: "100l" },
@@ -39,17 +39,17 @@ const CheckResult = ({ classNames, navigation }: CheckResultProps) => {
               { label: "300 level", value: "300l" },
             ]}
             value={"100l"}
-          />
+          /> */}
         </View>
         <View className="flex-1">
-          <Picker
+          {/* <Picker
             placeholder="Select Semester"
             items={[
               { label: "1st semester", value: "1" },
               { label: "2nd semester", value: "2" },
             ]}
             value={"1"}
-          />
+          /> */}
         </View>
       </View>
 
