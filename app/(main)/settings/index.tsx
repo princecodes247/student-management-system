@@ -32,7 +32,7 @@ export default function Settings() {
           <Button
             variant="secondary"
             classNames=" justify-start items-start pl-6 mb-4"
-            href={"/course-enrollment"}
+            href={"settings"}
             replace
           >
             Suspension of studies
@@ -40,7 +40,7 @@ export default function Settings() {
           <Button
             variant="secondary"
             classNames=" justify-start items-start pl-6 mb-4"
-            href={"/course-enrollment"}
+            href={"settings"}
             replace
           >
             Request Extra units
@@ -48,7 +48,7 @@ export default function Settings() {
           <Button
             variant="secondary"
             classNames=" justify-start items-start pl-6 mb-4"
-            href={"/course-enrollment"}
+            href={"settings"}
             replace
           >
             Change Password

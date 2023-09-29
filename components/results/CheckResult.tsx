@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 
 import { cn } from "../../lib/utils";
 import { View, Text } from "react-native";
@@ -9,6 +9,9 @@ import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 import { BottomSheetModal } from "../BottomSheet";
 import KeyboardAvoidingView from "../KeyboardAvoidingView";
 import { PaymentModal } from "../modals/payment";
+import AuthorizedRoute from "../../layouts/AuthorizedRoute";
+import { AuthContext } from "../../layouts/AuthProvider";
+import { UserRole } from "../../interfaces";
 
 export interface CheckResultProps {
   classNames?: string;
@@ -23,11 +26,11 @@ const CheckResult = ({ classNames, navigation }: CheckResultProps) => {
   const handleOnSuccessfulPayment = () => {
     navigation.jumpTo("Saved Results");
   };
-
+  const { user } = useContext(AuthContext);
   return (
     <View className="flex-1 p-6 bg-white">
       <View className="my-3">
-        <Input value="UG/17/0000" variant="disabled" disabled />
+        <Input value={user?.matno ?? ""} variant="disabled" disabled />
       </View>
       <View className="flex-row justify-between gap-2 my-4">
         <View className="flex-1">
