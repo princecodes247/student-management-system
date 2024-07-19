@@ -72,7 +72,7 @@ export default function SchoolFeesSuccessful() {
       // console.log({ data: data });
       // console.log({ data });
       try {
-        await savePDFToLocal(data);
+        return await savePDFToLocal(data);
         // console.log({ savedUri });
       } catch (error) {
         console.log({ error });

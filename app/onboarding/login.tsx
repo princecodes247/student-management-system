@@ -37,7 +37,7 @@ export default function Login() {
       await login(data.user, data.token, data.login_type);
 
       console.log("I did it", data);
-      router.push("/home");
+      return router.push("/home");
     },
   });
   useEffect(() => {

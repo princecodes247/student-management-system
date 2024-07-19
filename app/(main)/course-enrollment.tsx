@@ -91,7 +91,7 @@ export default function CourseEnrollment() {
               disabled
             />
             <Input
-              value={"Electrical/Electronics" ?? ""}
+              value={"Electrical/Electronics"}
               variant="disabled"
               disabled
             />
@@ -134,7 +134,7 @@ export default function CourseEnrollment() {
 
         <PaymentModal
           firstRef={paymentModalRef}
-          onSuccess={() => {}}
+          onSuccess={() => { }}
           amount={100}
         />
       </View>
